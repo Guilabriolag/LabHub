@@ -12,7 +12,12 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; font-family: 'Inter', sans-serif; }
+    html, body { 
+      width: 100%; height: 100%; 
+      background: #000; 
+      overflow: hidden; 
+      font-family: 'Inter', sans-serif; 
+    }
 
     canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; }
 
@@ -25,80 +30,88 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 1200px; /* Profundidade do 3D */
+      perspective: 1000px; /* Reduzido levemente para mobile */
     }
 
     .carousel {
-      width: 280px;
-      height: 380px;
+      width: 220px; /* Reduzido para mobile */
+      height: 300px; /* Reduzido para mobile */
       position: absolute;
       transform-style: preserve-3d;
-      animation: rotateCarousel 25s infinite linear; /* O loop do carrossel */
+      animation: rotateCarousel 25s infinite linear;
     }
 
     .carousel-item {
       position: absolute;
-      width: 280px;
-      height: 380px;
-      left: 10px;
-      top: 10px;
-      background: rgba(255, 255, 255, 0.03);
+      width: 220px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 30px;
+      border-radius: 25px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       color: white;
       text-align: center;
-      padding: 20px;
+      padding: 15px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: all 0.5s ease;
       backface-visibility: hidden;
     }
 
-    /* --- Posicionamento dos Itens no Círculo 3D --- */
-    /* Calculado para 5 labs (LabSocial, LabPay, LabMenu, LabGame, LabVendas) */
-    .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(400px); }
-    .carousel-item:nth-child(2) { transform: rotateY(72deg) translateZ(400px); }
-    .carousel-item:nth-child(3) { transform: rotateY(144deg) translateZ(400px); }
-    .carousel-item:nth-child(4) { transform: rotateY(216deg) translateZ(400px); }
-    .carousel-item:nth-child(5) { transform: rotateY(288deg) translateZ(400px); }
+    /* --- Posicionamento Mobile (Raio menor: 280px em vez de 400px) --- */
+    .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(280px); }
+    .carousel-item:nth-child(2) { transform: rotateY(72deg) translateZ(280px); }
+    .carousel-item:nth-child(3) { transform: rotateY(144deg) translateZ(280px); }
+    .carousel-item:nth-child(4) { transform: rotateY(216deg) translateZ(280px); }
+    .carousel-item:nth-child(5) { transform: rotateY(288deg) translateZ(280px); }
+
+    /* --- Ajustes para Desktop (Telas maiores que 768px) --- */
+    @media (min-width: 768px) {
+      .scene { perspective: 1500px; }
+      .carousel { width: 280px; height: 380px; }
+      .carousel-item { width: 280px; height: 380px; padding: 20px; }
+      .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(450px); }
+      .carousel-item:nth-child(2) { transform: rotateY(72deg) translateZ(450px); }
+      .carousel-item:nth-child(3) { transform: rotateY(144deg) translateZ(450px); }
+      .carousel-item:nth-child(4) { transform: rotateY(216deg) translateZ(450px); }
+      .carousel-item:nth-child(5) { transform: rotateY(288deg) translateZ(450px); }
+      .core-brand h1 { font-size: 6rem; }
+    }
 
     @keyframes rotateCarousel {
       from { transform: rotateY(0deg); }
       to { transform: rotateY(360deg); }
     }
 
-    /* --- Conteúdo das Células --- */
     .logo-lab {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1.8rem;
+      font-size: 1.4rem;
       font-style: italic;
       color: var(--azul-lab);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .status { font-size: 10px; letter-spacing: 3px; color: #00FF00; margin-bottom: 20px; }
-    .desc { font-size: 12px; opacity: 0.6; line-height: 1.5; }
+    .status { font-size: 9px; letter-spacing: 2px; color: #00FF00; margin-bottom: 15px; font-weight: bold; }
+    .desc { font-size: 11px; opacity: 0.7; line-height: 1.4; font-weight: 300; }
 
-    /* Centro do Hub - Logo Estática */
     .core-brand {
       position: absolute;
-      z-index: 100;
+      z-index: 5; /* Atrás do carrossel mas acima do canvas */
       text-align: center;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
       pointer-events: none;
     }
     .core-brand h1 {
       font-family: 'Montserrat', sans-serif;
-      font-size: 4rem;
+      font-size: 3rem;
       font-style: italic;
       letter-spacing: -4px;
-      background: linear-gradient(180deg, #fff, #444);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0.2;
+      color: rgba(255,255,255,0.05);
     }
   </style>
 </head>
@@ -114,61 +127,69 @@
     <div class="carousel">
       <div class="carousel-item">
         <div class="logo-lab">LABSOCIAL</div>
-        <div class="status">SINC_OK</div>
-        <p class="desc">Engine de tráfego e engajamento social em escala.</p>
+        <div class="status">SINC_ACTIVE</div>
+        <p class="desc">Tráfego orgânico e social em escala global.</p>
       </div>
       <div class="carousel-item">
         <div class="logo-lab">LABPAY</div>
-        <div class="status">SINC_OK</div>
-        <p class="desc">Gateway inteligente para transações FIAT e Crypto.</p>
+        <div class="status">SINC_ACTIVE</div>
+        <p class="desc">Ecossistema de pagamentos High-Frequency.</p>
       </div>
       <div class="carousel-item">
         <div class="logo-lab">LABMENU</div>
-        <div class="status">SINC_OK</div>
-        <p class="desc">Infraestrutura dinâmica para delivery e gastronomia.</p>
+        <div class="status">SINC_ACTIVE</div>
+        <p class="desc">Cardápio inteligente com sincronização via Core.</p>
       </div>
       <div class="carousel-item">
         <div class="logo-lab">LABGAME</div>
-        <div class="status">SINC_OK</div>
-        <p class="desc">Gamificação e retenção via economia de tokens.</p>
+        <div class="status">SINC_ACTIVE</div>
+        <p class="desc">Incentivos gamificados e economia tokenizada.</p>
       </div>
       <div class="carousel-item">
         <div class="logo-lab">LABHUB</div>
-        <div class="status">SINC_OK</div>
-        <p class="desc">Interface unificada para gestão de ecossistema.</p>
+        <div class="status">SINC_ACTIVE</div>
+        <p class="desc">Controle mestre de todas as células ativas.</p>
       </div>
     </div>
   </div>
 
   <script>
-    /* --- O CÓDIGO DO SEU FUNDO NEURAL --- */
     const canvas = document.getElementById('hubCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
 
     let nodes = [];
-    for (let i = 0; i < 60; i++) {
+    // Ajuste de quantidade de nós para não pesar no celular
+    const nodeCount = window.innerWidth < 768 ? 40 : 70;
+
+    for (let i = 0; i < nodeCount; i++) {
       nodes.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 1.5,
-        vy: (Math.random() - 0.5) * 1.5,
-        radius: Math.random() * 3 + 2,
+        vx: (Math.random() - 0.5) * 1,
+        vy: (Math.random() - 0.5) * 1,
+        radius: Math.random() * 2 + 1,
         pulse: Math.random() * 2 * Math.PI,
-        pulseSpeed: Math.random() * 0.05 + 0.01
+        pulseSpeed: 0.02
       });
     }
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const dx = nodes[i].x - nodes[j].x;
           const dy = nodes[i].y - nodes[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 150) {
-            ctx.strokeStyle = `rgba(0, 119, 182, ${1 - dist/150})`;
+            ctx.strokeStyle = `rgba(0, 119, 182, ${0.4 - dist/150})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -177,10 +198,11 @@
           }
         }
       }
+
       for (let node of nodes) {
         node.pulse += node.pulseSpeed;
         ctx.beginPath();
-        ctx.arc(node.x, node.y, node.radius + Math.sin(node.pulse), 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, node.radius + Math.sin(node.pulse) * 0.5, 0, Math.PI * 2);
         ctx.fillStyle = '#0077B6';
         ctx.fill();
         node.x += node.vx; node.y += node.vy;
@@ -190,7 +212,6 @@
       requestAnimationFrame(draw);
     }
     draw();
-    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
   </script>
 </body>
 </html>
