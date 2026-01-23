@@ -1,33 +1,136 @@
-/* lab_dir/dna-style.css */
+/* LABRIOLAG DNA SYSTEM v1.0 
+   Design Language: Deep Ocean Glassmorphism
+*/
+
 :root {
+    /* Paleta Principal */
     --azul-lab: #0077B6;
     --azul-glow: #00B4D8;
-    --glass: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.1);
-    --bg-dark: #000000;
+    --bg-deep: #03045e;
+    --bg-darker: #020205;
+    
+    /* Vidro (Glassmorphism) */
+    --glass: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --blur: blur(12px);
+    
+    /* Tipografia */
+    --font-main: 'Inter', sans-serif;
+    --font-title: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: #fff;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
+    background-color: var(--bg-darker);
+    color: #ffffff;
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
-/* Classe utilitária para efeito de vidro em qualquer lugar */
+/* Fundo Animado com Gradiente */
+.lab-bg {
+    background: radial-gradient(circle at top right, var(--bg-deep), var(--bg-darker));
+    background-attachment: fixed;
+}
+
+/* Efeito de Vidro (Card Principal) */
 .lab-glass {
     background: var(--glass);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
-    border-radius: 20px;
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-/* Tipografia Labriolag */
+/* Títulos com Brilho */
 .lab-title {
-    font-family: 'Montserrat', sans-serif;
+    font-family: var(--font-title);
     font-weight: 900;
     font-style: italic;
+    letter-spacing: -1px;
     text-transform: uppercase;
-    letter-spacing: -2px;
+    background: linear-gradient(to bottom, #fff 30%, var(--azul-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px rgba(0, 180, 216, 0.3));
+}
+
+/* Inputs e Seletores Estilizados */
+.lab-input, select, textarea {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--glass-border);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.lab-input:focus {
+    border-color: var(--azul-glow);
+    box-shadow: 0 0 10px var(--azul-glow);
+}
+
+/* Botões DNA */
+.lab-btn {
+    background: var(--azul-lab);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.lab-btn:hover {
+    background: var(--azul-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4);
+}
+
+/* Animação de Pulso (Para o Splash) */
+@keyframes pulse-dna {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; filter: brightness(1.2); }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.pulse {
+    animation: pulse-dna 2s infinite ease-in-out;
+}
+
+/* Ajustes para IFRAME (Módulos) */
+body.in-iframe {
+    background: transparent !important;
+}
+
+.in-iframe .container {
+    padding: 15px; /* Menos margem quando dentro do painel */
+}
+
+/* Scrollbar Estilizada */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--azul-lab);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--azul-glow);
 }
