@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | MASTER OS</title>
+  <link rel="stylesheet" href="../lab_dir/dna-style.css">
+  <style>
+    body { display: flex; height: 100vh; overflow: hidden; margin: 0; background: #020205; }
+    
+    .sidebar { 
+        width: 260px; background: rgba(0,0,0,0.6); 
+        backdrop-filter: blur(20px); border-right: 1px solid rgba(255,255,255,0.1);
+        display: flex; flex-direction: column;
+    }
+
+    .nav-item { 
+        padding: 12px 20px; color: #888; text-decoration: none; 
+        font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.02);
+        transition: 0.2s; font-family: sans-serif; letter-spacing: 1px;
+    }
+    .nav-item:hover { background: rgba(0, 180, 216, 0.1); color: #00B4D8; }
+    .nav-item.active { background: #0077B6; color: white; border-left: 4px solid #00B4D8; }
+
+    .main-content { flex: 1; background: #000; position: relative; }
+    
+    /* O SEGREDO ESTÁ AQUI: O NOME DO IFRAME */
+    #stage-frame { width: 100%; height: 100%; border: none; }
+  </style>
+</head>
+<body class="lab-bg">
+
+  <aside class="sidebar">
+    <div style="padding: 30px 20px; text-align: center;">
+        <h2 class="lab-title" style="font-size: 1.1rem;">LABRIOLAG</h2>
+        <div style="font-size: 9px; opacity: 0.5; margin-top: 5px;">MASTER CONTROL UNIT</div>
+    </div>
+    
+    <nav>
+        <a href="./modules/01_auth.html" target="stage" class="nav-item">01_AUTH_CORE</a>
+        <a href="./modules/02_users.html" target="stage" class="nav-item">02_USERS</a>
+        <a href="./modules/03_clients.html" target="stage" class="nav-item">03_CLIENTS</a>
+        <a href="./modules/04_projects.html" target="stage" class="nav-item">04_PROJECTS</a>
+        <a href="./modules/06_kv_store.html" target="stage" class="nav-item">06_KV_STORE</a>
+        <a href="./modules/10_industries.html" target="stage" class="nav-item">10_INDUSTRIES</a>
+        <a href="./modules/12_revenue.html" target="stage" class="nav-item">12_REVENUE_SIM</a>
+        <a href="./modules/13_logs.html" target="stage" class="nav-item">13_LOGS</a>
+        <a href="./modules/17_dev_tools.html" target="stage" class="nav-item">17_DEV_TOOLS</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <iframe name="stage" id="stage-frame" src="./modules/17_dev_tools.html"></iframe>
+  </main>
+
+  <script>
+    const links = document.querySelectorAll('.nav-item');
+    links.forEach(link => {
+        link.addEventListener('click', function() {
+            links.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+  </script>
+</body>
+</html>
