@@ -3,80 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LABRIOLAG | MASTER</title>
+    <title>Master Console</title>
     <link rel="stylesheet" href="lab_dir/dna-style.css">
 </head>
-<body class="lab-bg" style="background: radial-gradient(circle at top, #0a1628 0%, #000 100%);">
+<body>
 
     <div class="app-container">
-        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <header style="margin-bottom: 30px; display: flex; justify-content: space-between;">
             <div>
-                <p style="font-size: 14px; opacity: 0.6; margin: 0;">Olá,</p>
-                <h2 style="margin: 0; font-size: 24px;">Guilherme <span style="color:var(--azul-glow)">●</span></h2>
+                <span style="opacity:0.5;">Olá,</span>
+                <h2 style="margin:0;">Guilherme</h2>
             </div>
-            <div style="width: 45px; height: 45px; border-radius: 50%; border: 2px solid var(--azul-glow); overflow: hidden;">
-                <img src="https://via.placeholder.com/45" alt="User">
-            </div>
+            <div style="width:40px; height:40px; background:var(--azul-glow); border-radius:50%;"></div>
         </header>
 
         <div class="module-grid">
             <a href="modules/01_auth.html" class="app-card">
                 <h3>Segurança</h3>
-                <div class="value">Ativo</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                    <span style="font-size: 9px; color: #00ff88;">#0017 GLOW</span>
-                    <span style="font-size: 9px; opacity: 0.4;">ON 100</span>
-                </div>
+                <span class="value">Ativo</span>
+                <small style="color:var(--azul-glow); font-size:9px;">#0017 GLOW</small>
             </a>
 
-            <a href="modules/12_revenue.html" class="app-card" style="box-shadow: 0 0 20px rgba(0, 119, 182, 0.2);">
-                <h3>Revenue</h3>
-                <div class="value">R$ 32.000</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                    <span style="font-size: 9px; color: var(--azul-glow);">#10.017</span>
-                    <span style="font-size: 9px; opacity: 0.4;">ON 100</span>
-                </div>
+            <a href="modules/12_revenue.html" class="app-card">
+                <h3>Financeiro</h3>
+                <span class="value">R$ 32.000</span>
+                <small style="opacity:0.4; font-size:9px;">#10.017</small>
             </a>
 
-            <a href="modules/06_kv_store.html" class="app-card">
-                <h3>Database</h3>
-                <div class="value">KV Sync</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                    <span style="font-size: 9px; color: #00ff88;">#00F8</span>
-                    <span style="font-size: 9px; opacity: 0.4;">ON 100</span>
-                </div>
-            </a>
-
-            <a href="modules/13_logs.html" class="app-card">
-                <h3>Sistema</h3>
-                <div class="value">Logs</div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-                    <span style="font-size: 9px; color: var(--azul-glow);">#33.547</span>
-                    <span style="font-size: 9px; opacity: 0.4;">ON 100</span>
-                </div>
-            </a>
-
-            <div class="app-card" style="grid-column: span 2; text-align: center; border-style: dashed;">
-                <div style="width:30px; height:30px; border:2px solid var(--azul-glow); border-top-color:transparent; border-radius:50%; margin: 10px auto; animation: spin 1s linear infinite;"></div>
-                <p style="font-size: 12px; opacity: 0.5;">Sincronizando com Cloudflare Edge...</p>
+            <div class="app-card" style="grid-column: span 2; text-align: center;">
+                <div style="border: 2px solid var(--azul-glow); border-top-color: transparent; width: 20px; height: 20px; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
+                <p style="font-size: 11px; opacity: 0.5; margin: 0;">Sincronizando dados...</p>
             </div>
         </div>
     </div>
 
     <nav class="bottom-nav">
-        <a href="dev-master.html" class="nav-link active">
-            <span style="font-size: 20px;">🏠</span><br>Início
-        </a>
-        <a href="modules/11_monetization.html" class="nav-link">
-            <span style="font-size: 20px;">📄</span><br>Faturas
-        </a>
-        <a href="modules/17_dev_tools.html" class="nav-link">
-            <span style="font-size: 20px;">⚙️</span><br>Serviços
-        </a>
+        <a href="dev-master.html" class="nav-link active"><i>🏠</i>Início</a>
+        <a href="modules/11_monetization.html" class="nav-link"><i>📄</i>Faturas</a>
+        <a href="modules/17_dev_tools.html" class="nav-link"><i>⚙️</i>Serviços</a>
     </nav>
 
-    <style>
-        @keyframes spin { to { transform: rotate(360deg); } }
-    </style>
+    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
 </body>
 </html>
