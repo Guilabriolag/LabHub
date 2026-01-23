@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | REVENUE SIMULATOR</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .container { padding: 30px; max-width: 1000px; margin: auto; }
+    .grid-sim { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    
+    .card-sim { padding: 20px; border-radius: 20px; }
+    
+    .result-box { 
+        grid-column: span 2; padding: 40px; text-align: center; 
+        background: linear-gradient(135deg, rgba(0,119,182,0.2), rgba(0,180,216,0.1));
+        border: 2px solid var(--azul-glow);
+    }
+
+    input[type=range] { width: 100%; margin: 15px 0; accent-color: var(--azul-glow); }
+    
+    .lab-label { display: flex; justify-content: space-between; font-size: 14px; color: var(--azul-glow); font-weight: bold; }
+    .val-display { color: white; }
+    
+    .total-val { font-family: 'Montserrat', sans-serif; font-size: 4rem; color: #00ff88; margin: 10px 0; }
+  </style>
+</head>
+<body class="lab-bg">
+
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">12_REVENUE_SIMULATOR</h1>
+    </header>
+
+    <div class="grid-sim">
+        <div class="card-sim lab-glass result-box">
+            <span style="letter-spacing: 5px; opacity: 0.6;">PROJEÇÃO MENSAL ESTIMADA</span>
+            <div class="total-val" id="total-display">R$ 0,00</div>
+            <p style="opacity: 0.4; font-size: 12px;">Baseado na soma de todos os Labs ativos</p>
+        </div>
+
+        <div class="card-sim lab-glass">
+            <div class="lab-label">
+                <span>LAB_SOCIAL</span>
+                <span class="val-display" id="social-val">0 Clientes</span>
+            </div>
+            <input type="range" id="social-qty" min="0" max="1000" value="0">
+            <div style="font-size: 10px; opacity: 0.5;">Ticket Médio: R$ 49,90/mês</div>
+        </div>
+
+        <div class="card-sim lab-glass">
+            <div class="lab-label">
+                <span>LAB_PAY</span>
+                <span class="val-display" id="pay-val">R$ 0 Vol.</span>
+            </div>
+            <input type="range" id="pay-qty" min="0" max="100000" value="0" step="1000">
+            <div style="font-size: 10px; opacity: 0.5;">Take Rate: 1.5% sobre volume</div>
+        </div>
+
+        <div class="card-sim lab-glass">
+            <div class="lab-label">
+                <span>LAB_MENU</span>
+                <span class="val-display" id="menu-val">0 Licenças</span>
+            </div>
+            <input type="range" id="menu-qty" min="0" max="200" value="0">
+            <div style="font-size: 10px; opacity: 0.5;">Ticket Médio: R$ 129,00/mês</div>
+        </div>
+
+        <div class="card-sim lab-glass" style="grid-column: span 2; text-align: center; border-style: dashed;">
+            <span style="opacity: 0.6;">POTENCIAL ANUAL (LTV):</span>
+            <h2 id="annual-display" style="color: var(--azul-glow); margin-top: 10px;">R$ 0,00</h2>
+        </div>
+    </div>
+  </div>
+
+  <script>
+    const sliders = ['social', 'pay', 'menu'];
+    
+    function calculate() {
+        const social = document.getElementById('social-qty').value * 49.90;
+        const pay = document.getElementById('pay-qty').value * 0.015;
+        const menu = document.getElementById('menu-qty').value * 129.00;
+        
+        const total = social + pay + menu;
+        
+        document.getElementById('social-val').innerText = `${document.getElementById('social-qty').value} Clientes`;
+        document.getElementById('pay-val').innerText = `R$ ${parseInt(document.getElementById('pay-qty').value).toLocaleString()}`;
+        document.getElementById('menu-val').innerText = `${document.getElementById('menu-qty').value} Licenças`;
+        
+        document.getElementById('total-display').innerText = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        document.getElementById('annual-display').innerText = (total * 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', calculate);
+    });
+  </script>
+</body>
+</html>
