@@ -1,53 +1,34 @@
-// lab_dir/core-components.js
-// lab_dir/core-components.js
+/**
+ * LABRIOLAG CORE COMPONENTS
+ * Biblioteca de Web Components reutilizáveis para o Ecossistema.
+ */
 
-// Configurações Padrão (Caso o "banco" esteja vazio)
-const defaultSettings = {
-    primaryColor: "#0077B6",
-    splashTime: 3000,
-    redirectTarget: "manutenc.html",
-    status: "online"
-};
-
-// Função para ler as configurações (Simulando o Cloudflare KV)
-function getLabConfig() {
-    const saved = localStorage.getItem('lab_global_config');
-    return saved ? JSON.parse(saved) : defaultSettings;
-}
-
-// Função para salvar (Usada pelo Painel Dev)
-function saveLabConfig(newConfig) {
-    localStorage.setItem('lab_global_config', JSON.stringify(newConfig));
-    console.log("🧬 Configurações Labriolag atualizadas!");
-}
-// 1. Simulação do Banco de Dados (Depois isso vem da Cloudflare)
-const mockDB = {
-    tv_slides: [
-        { h1: "LABSOCIAL", sub: "MARKETING DIGITAL", extra: "OFERTA ATIVA" },
-        { h1: "LABMENU", sub: "PIZZARIA VITORELLI", extra: "PEÇA AGORA" }
-    ],
-    config: {
-        primaryColor: "#0077B6"
-    }
-};
-
-// 2. Definição do Componente <lab-card>
-class LabCard extends HTMLElement {
+// 1. Tag <lab-tv> (O Player de Sinalização Digital)
+class LabTV extends HTMLElement {
+    constructor() { super(); }
     connectedCallback() {
-        const title = this.getAttribute('title') || 'LAB_ITEM';
-        const status = this.getAttribute('status') || 'ONLINE';
-        
-        this.innerHTML = `
-            <div class="lab-glass" style="padding: 20px; margin: 10px; min-width: 200px; text-align: center;">
-                <span style="font-size: 9px; color: #00ff00;">● ${status}</span>
-                <h3 class="lab-title" style="margin: 10px 0; font-size: 1.2rem;">${title}</h3>
-                <slot></slot>
-            </div>
-        `;
+        console.log("📺 Componente <lab-tv> detectado.");
     }
 }
+customElements.define('lab-tv', LabTV);
 
-// 3. Registro das Tags
+// 2. Tag <lab-card> (Células do Carrossel e Cards de Painel)
+class LabCard extends HTMLElement {
+    constructor() { super(); }
+    connectedCallback() {
+        console.log("📦 Componente <lab-card> detectado.");
+    }
+}
 customElements.define('lab-card', LabCard);
 
-console.log("🧬 DNA Labriolag: Componentes Carregados.");
+// 3. Tag <lab-header> (Barra de navegação unificada)
+class LabHeader extends HTMLElement {
+    constructor() { super(); }
+    connectedCallback() {
+        console.log("🔝 Componente <lab-header> detectado.");
+    }
+}
+customElements.define('lab-header', LabHeader);
+
+// Log de inicialização do DNA
+console.log("%c 🧬 DNA LABRIOLAG ATIVO ", "background: #0077B6; color: white; font-weight: bold; padding: 5px;");
