@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LAB_DIR | DEV TOOLS</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 40px; max-width: 900px; margin: auto; }
+    .tool-box { margin-bottom: 20px; padding: 20px; }
+    .btn-action { 
+        padding: 10px 20px; background: #c1121f; border: none; 
+        color: white; border-radius: 5px; cursor: pointer; 
+    }
+  </style>
+</head>
+<body class="lab-bg">
+
+  <div class="container">
+    <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none;">← Voltar ao Master</a>
+    
+    <h1 class="lab-title" style="margin-top: 20px;">17_DEV_TOOLS</h1>
+
+    <div class="tool-box lab-glass">
+        <h2 style="font-size: 1.2rem; margin-bottom: 15px;">Feature Flags</h2>
+        <label>Modo Sandbox</label>
+        <input type="checkbox">
+        <hr style="opacity:0.1; margin: 20px 0;">
+        <h2 style="font-size: 1.2rem; margin-bottom: 15px;">Debug Console</h2>
+        <div style="background: #000; padding: 15px; border-radius: 5px; font-family: monospace; color: #0f0;">
+            > System Ready... <br>
+            > Initializing LabCore_Modules...
+        </div>
+    </div>
+
+    <div class="tool-box lab-glass" style="border-color: #c1121f;">
+        <h2 style="color: #c1121f;">Zona de Perigo</h2>
+        <p style="font-size: 12px; margin-bottom: 10px;">Limpar todos os caches locais e sessões ativas.</p>
+        <button class="btn-action">FORÇAR HARD RESET</button>
+    </div>
+  </div>
+
+</body>
+</html>
