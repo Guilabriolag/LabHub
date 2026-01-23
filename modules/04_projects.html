@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | PROJECTS</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1000px; margin: auto; }
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .project-card { padding: 25px; border-radius: 20px; position: relative; }
+    .v-tag { position: absolute; top: 20px; right: 20px; font-family: monospace; font-size: 10px; opacity: 0.5; }
+    .bar-container { width: 100%; height: 4px; background: rgba(255,255,255,0.1); margin-top: 20px; border-radius: 2px; }
+    .bar-fill { height: 100%; background: var(--azul-glow); border-radius: 2px; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">04_PROJECTS</h1>
+    </header>
+
+    <div class="project-grid">
+        <div class="project-card lab-glass">
+            <span class="v-tag">v2.4.1</span>
+            <h3 class="lab-title" style="color: var(--azul-glow);">LAB_SOCIAL</h3>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 5px;">Módulo de SMM e Tráfego</p>
+            <div class="bar-container"><div class="bar-fill" style="width: 100%;"></div></div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 10px;">
+                <span>STATUS: OPERACIONAL</span>
+                <span>100% HEALTH</span>
+            </div>
+        </div>
+
+        <div class="project-card lab-glass">
+            <span class="v-tag">v1.0.8-BETA</span>
+            <h3 class="lab-title" style="color: var(--azul-glow);">LAB_PAY</h3>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 5px;">Processamento High-Frequency</p>
+            <div class="bar-container"><div class="bar-fill" style="width: 85%;"></div></div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 10px;">
+                <span>STATUS: TESTING</span>
+                <span>85% STABLE</span>
+            </div>
+        </div>
+
+        <div class="project-card lab-glass" style="opacity: 0.7;">
+            <span class="v-tag">v0.9.0</span>
+            <h3 class="lab-title">LAB_MENU</h3>
+            <p style="font-size: 12px; opacity: 0.6; margin-top: 5px;">Sincronização de Cardápios</p>
+            <div class="bar-container"><div class="bar-fill" style="width: 10%; background: #555;"></div></div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 10px;">
+                <span>STATUS: IDLE</span>
+                <span>PLANNED</span>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
