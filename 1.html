@@ -2,49 +2,91 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>LABRIOLAG | MASTER OS</title>
   <link rel="stylesheet" href="../lab_dir/dna-style.css">
   <style>
-    body { display: flex; height: 100vh; overflow: hidden; margin: 0; background: #020205; }
+    :root { --menu-height: 60px; --sidebar-width: 260px; }
     
-    .sidebar { 
-        width: 260px; background: rgba(0,0,0,0.6); 
-        backdrop-filter: blur(20px); border-right: 1px solid rgba(255,255,255,0.1);
-        display: flex; flex-direction: column;
+    body { 
+        display: flex; height: 100vh; margin: 0; background: #020205; 
+        flex-direction: row; /* Desktop padrão */
     }
+
+    /* --- SIDEBAR (DESKTOP) --- */
+    .sidebar { 
+        width: var(--sidebar-width); background: rgba(0,0,0,0.8); 
+        backdrop-filter: blur(20px); border-right: 1px solid rgba(255,255,255,0.1);
+        display: flex; flex-direction: column; z-index: 100;
+    }
+
+    .nav-container { display: flex; flex-direction: column; overflow-y: auto; flex: 1; }
 
     .nav-item { 
-        padding: 12px 20px; color: #888; text-decoration: none; 
+        padding: 15px 20px; color: #888; text-decoration: none; 
         font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.02);
         transition: 0.2s; font-family: sans-serif; letter-spacing: 1px;
+        white-space: nowrap;
     }
-    .nav-item:hover { background: rgba(0, 180, 216, 0.1); color: #00B4D8; }
-    .nav-item.active { background: #0077B6; color: white; border-left: 4px solid #00B4D8; }
 
-    .main-content { flex: 1; background: #000; position: relative; }
-    
-    /* O SEGREDO ESTÁ AQUI: O NOME DO IFRAME */
+    /* --- ÁREA DO CONTEÚDO --- */
+    .main-content { flex: 1; background: #000; position: relative; overflow: hidden; }
     #stage-frame { width: 100%; height: 100%; border: none; }
+
+    /* --- MEDIA QUERY PARA CELULARES --- */
+    @media (max-width: 768px) {
+        body { flex-direction: column; } /* Empilha verticalmente */
+
+        .sidebar { 
+            width: 100%; height: var(--menu-height); 
+            order: 2; /* Joga o menu para baixo */
+            flex-direction: row; border-right: none; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header { display: none; } /* Esconde o logo no mobile para ganhar espaço */
+
+        .nav-container { 
+            flex-direction: row; overflow-x: auto; overflow-y: hidden; 
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-item { 
+            padding: 0 20px; display: flex; align-items: center; 
+            height: 100%; border-bottom: none; border-right: 1px solid rgba(255,255,255,0.05);
+            font-size: 10px; scroll-snap-align: start;
+        }
+
+        .main-content { 
+            height: calc(100vh - var(--menu-height)); 
+            order: 1; 
+        }
+
+        /* Ajuste para não aparecer scrollbar no mobile */
+        .nav-container::-webkit-scrollbar { display: none; }
+    }
+
+    .nav-item.active { background: #0077B6; color: white; border-left: 4px solid #00B4D8; }
+    @media (max-width: 768px) {
+        .nav-item.active { border-left: none; border-bottom: 3px solid #00B4D8; }
+    }
   </style>
 </head>
 <body class="lab-bg">
 
   <aside class="sidebar">
-    <div style="padding: 30px 20px; text-align: center;">
-        <h2 class="lab-title" style="font-size: 1.1rem;">LABRIOLAG</h2>
-        <div style="font-size: 9px; opacity: 0.5; margin-top: 5px;">MASTER CONTROL UNIT</div>
+    <div class="sidebar-header" style="padding: 20px; text-align: center;">
+        <h2 class="lab-title" style="font-size: 1rem;">LABRIOLAG</h2>
     </div>
     
-    <nav>
-        <a href="./modules/01_auth.html" target="stage" class="nav-item">01_AUTH_CORE</a>
-        <a href="./modules/02_users.html" target="stage" class="nav-item">02_USERS</a>
-        <a href="./modules/03_clients.html" target="stage" class="nav-item">03_CLIENTS</a>
-        <a href="./modules/04_projects.html" target="stage" class="nav-item">04_PROJECTS</a>
-        <a href="./modules/06_kv_store.html" target="stage" class="nav-item">06_KV_STORE</a>
-        <a href="./modules/10_industries.html" target="stage" class="nav-item">10_INDUSTRIES</a>
-        <a href="./modules/12_revenue.html" target="stage" class="nav-item">12_REVENUE_SIM</a>
-        <a href="./modules/13_logs.html" target="stage" class="nav-item">13_LOGS</a>
-        <a href="./modules/17_dev_tools.html" target="stage" class="nav-item">17_DEV_TOOLS</a>
+    <nav class="nav-container">
+        <a href="./modules/01_auth.html" target="stage" class="nav-item">AUTH</a>
+        <a href="./modules/02_users.html" target="stage" class="nav-item">USERS</a>
+        <a href="./modules/03_clients.html" target="stage" class="nav-item">CLIENTS</a>
+        <a href="./modules/06_kv_store.html" target="stage" class="nav-item">KV_STORE</a>
+        <a href="./modules/10_industries.html" target="stage" class="nav-item">INDUSTRIES</a>
+        <a href="./modules/12_revenue.html" target="stage" class="nav-item">REVENUE</a>
+        <a href="./modules/13_logs.html" target="stage" class="nav-item">LOGS</a>
+        <a href="./modules/17_dev_tools.html" target="stage" class="nav-item">DEV</a>
     </nav>
   </aside>
 
@@ -60,6 +102,9 @@
             this.classList.add('active');
         });
     });
+
+    // Auto-selecionar o primeiro item
+    document.querySelector('.nav-item').classList.add('active');
   </script>
 </body>
 </html>
