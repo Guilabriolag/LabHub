@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | CORE HUB</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1100px; margin: auto; }
+    .hub-status { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .service-card { padding: 20px; border-radius: 15px; display: flex; align-items: center; justify-content: space-between; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 10px; }
+    .dot-online { background: #00ff88; box-shadow: 0 0 10px #00ff88; }
+    .latency { font-family: monospace; font-size: 11px; opacity: 0.5; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">05_CORE_HUB</h1>
+    </header>
+
+    <div class="hub-status">
+        <div class="service-card lab-glass">
+            <div>
+                <span class="dot dot-online"></span>
+                <span style="font-weight: bold;">Edge Worker Central</span>
+                <div class="latency">Region: South America (GRU)</div>
+            </div>
+            <div class="latency">12ms</div>
+        </div>
+
+        <div class="service-card lab-glass">
+            <div>
+                <span class="dot dot-online"></span>
+                <span style="font-weight: bold;">API Gateway</span>
+                <div class="latency">Protocol: HTTPS/3</div>
+            </div>
+            <div class="latency">24ms</div>
+        </div>
+
+        <div class="service-card lab-glass">
+            <div>
+                <span class="dot dot-online"></span>
+                <span style="font-weight: bold;">Auth Engine</span>
+                <div class="latency">JWT Validator</div>
+            </div>
+            <div class="latency">8ms</div>
+        </div>
+
+        <div class="service-card lab-glass" style="border-color: #ff9900;">
+            <div>
+                <span class="dot" style="background:#ff9900;"></span>
+                <span style="font-weight: bold;">LabPay Bridge</span>
+                <div class="latency">External API Sync</div>
+            </div>
+            <div class="latency" style="color:#ff9900;">342ms</div>
+        </div>
+    </div>
+
+    <div class="lab-glass" style="margin-top: 20px; padding: 25px; text-align: center;">
+        <h3 class="lab-title" style="font-size: 1rem; color: var(--azul-glow);">COMUNICAÇÃO ENTRE SERVIÇOS</h3>
+        <p style="font-size: 12px; opacity: 0.6;">A malha de serviços (Service Mesh) está operando dentro dos parâmetros de segurança.</p>
+    </div>
+  </div>
+</body>
+</html>
