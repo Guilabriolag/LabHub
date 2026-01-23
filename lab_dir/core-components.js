@@ -1,5 +1,25 @@
 // lab_dir/core-components.js
+// lab_dir/core-components.js
 
+// Configurações Padrão (Caso o "banco" esteja vazio)
+const defaultSettings = {
+    primaryColor: "#0077B6",
+    splashTime: 3000,
+    redirectTarget: "manutenc.html",
+    status: "online"
+};
+
+// Função para ler as configurações (Simulando o Cloudflare KV)
+function getLabConfig() {
+    const saved = localStorage.getItem('lab_global_config');
+    return saved ? JSON.parse(saved) : defaultSettings;
+}
+
+// Função para salvar (Usada pelo Painel Dev)
+function saveLabConfig(newConfig) {
+    localStorage.setItem('lab_global_config', JSON.stringify(newConfig));
+    console.log("🧬 Configurações Labriolag atualizadas!");
+}
 // 1. Simulação do Banco de Dados (Depois isso vem da Cloudflare)
 const mockDB = {
     tv_slides: [
