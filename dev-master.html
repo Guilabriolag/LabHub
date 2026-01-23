@@ -2,70 +2,91 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Console</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Master Console | LABRIOLAG</title>
     <link rel="stylesheet" href="lab_dir/dna-style.css">
     <style>
-        /* Estilo para o modo 'App' com Iframe */
-        body, html { height: 100%; overflow: hidden; background: #000; }
-        
-        .app-view {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        /* Área central que vai carregar os HTMLs */
+        /* Ajustes específicos para a transição de telas */
         #main-stage {
-            flex: 1;
-            border: none;
+            display: none; /* Começa escondido */
             width: 100%;
+            height: calc(100vh - 155px); /* Desconta header e nav */
+            border: none;
             background: transparent;
         }
-
-        /* Esconde a grade principal quando um módulo abrir */
-        .grid-overlay {
+        
+        .header-app {
             padding: 20px;
-            overflow-y: auto;
-            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 75px;
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
+        
+        /* Efeito de brilho no título quando ativo */
+        .active-title {
+            color: var(--azul-glow) !important;
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+        }
     </style>
 </head>
 <body>
 
     <div class="app-view">
-        <header style="padding: 20px; background: rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center;">
-            <h2 id="page-title" style="margin:0; font-size: 18px;">Olá, <span style="color:var(--azul-glow)">Guilherme</span></h2>
-            <button onclick="goHome()" id="back-btn" class="hidden" style="background:none; border:1px solid var(--azul-glow); color:var(--azul-glow); border-radius:5px; padding: 5px 10px;">Voltar</button>
+        <header class="header-app">
+            <div>
+                <h2 id="page-title" style="margin:0; font-size: 22px;">Olá, Guilherme</h2>
+                <p id="sub-title" style="font-size: 11px; opacity: 0.5; margin: 0;">Bem-vindo ao Master Control</p>
+            </div>
+            <button onclick="goHome()" id="back-btn" class="hidden" 
+                    style="background:rgba(255,255,255,0.1); border:1px solid var(--azul-glow); color:var(--azul-glow); border-radius:12px; padding: 8px 15px; font-weight: bold;">
+                Voltar
+            </button>
         </header>
 
-        <iframe name="stage" id="main-stage" class="hidden"></iframe>
+        <iframe name="stage" id="main-stage"></iframe>
 
-        <div id="module-grid-container" class="grid-overlay">
+        <div id="module-grid-container" class="app-container">
             <div class="module-grid">
-                <a href="modules/01_auth.html" target="stage" onclick="openModule('Segurança')" class="app-card">
+                
+                <a href="modules/01_auth.html" target="stage" onclick="openModule('Segurança', '01_AUTH_CORE')" class="app-card">
                     <h3>Segurança</h3>
                     <span class="value">Ativo</span>
+                    <small style="color:var(--azul-glow); font-size:9px;">#0017 GLOW</small>
                 </a>
 
-                <a href="modules/12_revenue.html" target="stage" onclick="openModule('Financeiro')" class="app-card">
+                <a href="modules/12_revenue.html" target="stage" onclick="openModule('Financeiro', '12_REVENUE_SIM')" class="app-card">
                     <h3>Financeiro</h3>
                     <span class="value">R$ 32.000</span>
+                    <small style="opacity:0.4; font-size:9px;">#10.017</small>
                 </a>
 
-                <a href="modules/17_dev_tools.html" target="stage" onclick="openModule('Serviços')" class="app-card">
-                    <h3>Configurações</h3>
-                    <span class="value">DevTools</span>
+                <a href="modules/17_dev_tools.html" target="stage" onclick="openModule('Configurações', '17_DEV_TOOLS')" class="app-card">
+                    <h3>DevTools</h3>
+                    <span class="value">Acesso Root</span>
+                    <small style="opacity:0.4; font-size:9px;">DEBUG_MODE</small>
                 </a>
+
+                <div class="app-card" style="grid-column: span 2; text-align: center; border-style: dashed; opacity: 0.7;">
+                    <div class="loader" style="margin: 0 auto 10px;"></div>
+                    <p style="font-size: 11px; margin: 0;">Sincronizado com LAB_EDGE</p>
+                </div>
+
             </div>
         </div>
 
         <nav class="bottom-nav">
-            <a href="javascript:void(0)" onclick="goHome()" class="nav-link active"><i>🏠</i>Início</a>
-            <a href="modules/11_monetization.html" target="stage" onclick="openModule('Faturas')" class="nav-link"><i>📄</i>Faturas</a>
-            <a href="modules/17_dev_tools.html" target="stage" onclick="openModule('Serviços')" class="nav-link"><i>⚙️</i>Serviços</a>
+            <a href="javascript:void(0)" onclick="goHome()" class="nav-link active" id="nav-home">
+                <i>🏠</i>Início
+            </a>
+            <a href="modules/11_monetization.html" target="stage" onclick="openModule('Faturas', '11_BILLING')" class="nav-link">
+                <i>📄</i>Faturas
+            </a>
+            <a href="modules/17_dev_tools.html" target="stage" onclick="openModule('Serviços', '17_SERVICES')" class="nav-link">
+                <i>⚙️</i>Serviços
+            </a>
         </nav>
     </div>
 
@@ -73,21 +94,33 @@
         const stage = document.getElementById('main-stage');
         const grid = document.getElementById('module-grid-container');
         const title = document.getElementById('page-title');
+        const subTitle = document.getElementById('sub-title');
         const backBtn = document.getElementById('back-btn');
 
-        function openModule(name) {
-            grid.classList.add('hidden'); // Esconde os cards
-            stage.classList.remove('hidden'); // Mostra o iframe
-            backBtn.classList.remove('hidden'); // Mostra botão voltar
-            title.innerText = name; // Muda o título do topo
+        function openModule(mainName, techName) {
+            grid.classList.add('hidden'); 
+            stage.style.display = 'block'; 
+            backBtn.classList.remove('hidden'); 
+            
+            title.innerText = mainName;
+            title.classList.add('active-title');
+            subTitle.innerText = techName;
+
+            // Remove 'active' de todos e coloca no clicado (se for da nav)
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
         }
 
         function goHome() {
             grid.classList.remove('hidden');
-            stage.classList.add('hidden');
+            stage.style.display = 'none';
             backBtn.classList.add('hidden');
-            title.innerHTML = 'Olá, <span style="color:var(--azul-glow)">Guilherme</span>';
-            stage.src = "about:blank"; // Limpa o iframe
+            
+            title.innerText = 'Olá, Guilherme';
+            title.classList.remove('active-title');
+            subTitle.innerText = 'Bem-vindo ao Master Control';
+            
+            stage.src = "about:blank"; 
+            document.getElementById('nav-home').classList.add('active');
         }
     </script>
 </body>
