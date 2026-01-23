@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | SECURITY CORE</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1000px; margin: auto; }
+    .sec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .sec-card { padding: 25px; border-top: 2px solid #ff0055; }
+    .sec-status { display: flex; align-items: center; gap: 10px; font-size: 11px; margin-top: 15px; }
+    .shield-icon { font-size: 24px; margin-bottom: 10px; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">16_SECURITY</h1>
+    </header>
+
+    <div class="sec-grid">
+        <div class="sec-card lab-glass">
+            <div class="shield-icon">🛡️</div>
+            <h3 style="color: #ff0055;">WAF & Firewall</h3>
+            <p style="font-size: 12px; opacity: 0.6;">Proteção contra DDoS e SQL Injection via Cloudflare Edge.</p>
+            <div class="sec-status"><span style="color:#00ff88;">● ATIVO</span> <span>Regras: 24 ativas</span></div>
+        </div>
+
+        <div class="sec-card lab-glass" style="border-top-color: var(--azul-glow);">
+            <div class="shield-icon">🔐</div>
+            <h3 style="color: var(--azul-glow);">Criptografia</h3>
+            <p style="font-size: 12px; opacity: 0.6;">Dados em repouso e em trânsito (AES-256 / TLS 1.3).</p>
+            <div class="sec-status"><span style="color:#00ff88;">● ATIVO</span> <span>Cert: SSL Pro</span></div>
+        </div>
+
+        <div class="sec-card lab-glass" style="border-top-color: #ff9900;">
+            <div class="shield-icon">🔑</div>
+            <h3 style="color: #ff9900;">Secret Vault</h3>
+            <p style="font-size: 12px; opacity: 0.6;">Gerenciamento de chaves privadas e variáveis de ambiente.</p>
+            <div class="sec-status"><span>STATUS: LOCKED</span> <button style="font-size:9px; background:none; border:1px solid #ff9900; color:#ff9900; cursor:pointer; padding:2px 5px;">UNLOCK</button></div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
