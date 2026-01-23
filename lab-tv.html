@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LAB_TV | TRANSMISSION</title>
+  <link rel="stylesheet" href="../lab_dir/dna-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Inter:wght@400;900&display=swap" rel="stylesheet">
+  <style>
+    body, html { width: 100%; height: 100%; background: #000; overflow: hidden; }
+    #bg-layer { position: absolute; width: 100%; height: 100%; z-index: 1; transition: 1s; }
+    
+    /* Temas configuráveis */
+    .theme-food #bg-layer { background: radial-gradient(circle, #3d0202, #000); }
+    .theme-sport #bg-layer { background: radial-gradient(circle, #001d2e, #000); }
+
+    .slide { position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: 1.5s; text-align: center; z-index: 10; }
+    .slide.active { opacity: 1; }
+    .headline { font-family: 'Montserrat', sans-serif; font-size: 10vw; font-style: italic; color: white; text-transform: uppercase; }
+    .price-tag { background: var(--azul-lab); color: white; padding: 10px 50px; border-radius: 100px; font-size: 5vw; font-weight: 900; margin-top: 20px; box-shadow: 0 0 40px rgba(0, 119, 182, 0.5); }
+  </style>
+</head>
+<body class="theme-food">
+  <div id="bg-layer"></div>
+  <div id="screen"></div>
+
+  <script>
+    // Simulação do que o Painel Dev Master vai enviar para o KV
+    const slidesData = [
+      { h1: "OFERTA LAB", sub: "LabSocial Active", extra: "R$ 14,90" },
+      { h1: "LAB PAY", sub: "PIX SEM TAXA", extra: "PROMO" }
+    ];
+
+    const screen = document.getElementById('screen');
+    let idx = 0;
+
+    function render() {
+      slidesData.forEach((s, i) => {
+        const d = document.createElement('div');
+        d.className = `slide ${i===0?'active':''}`;
+        d.innerHTML = `<div style="color:var(--azul-glow); letter-spacing:10px;">${s.sub}</div><div class="headline">${s.h1}</div><div class="price-tag">${s.extra}</div>`;
+        screen.appendChild(d);
+      });
+      setInterval(() => {
+        const ss = document.querySelectorAll('.slide');
+        ss[idx].classList.remove('active');
+        idx = (idx + 1) % ss.length;
+        ss[idx].classList.add('active');
+      }, 6000);
+    }
+    render();
+  </script>
+</body>
+</html>
