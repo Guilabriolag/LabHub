@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | SYSTEM LOGS</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1100px; margin: auto; }
+    .log-container { background: #000; border-radius: 10px; padding: 20px; font-family: 'Courier New', monospace; height: 500px; overflow-y: scroll; border: 1px solid var(--border); }
+    .log-line { font-size: 12px; margin-bottom: 8px; display: flex; gap: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
+    .time { color: #666; min-width: 140px; }
+    .type-info { color: #0077B6; font-weight: bold; }
+    .type-error { color: #ff0055; font-weight: bold; }
+    .type-warn { color: #ff9900; font-weight: bold; }
+    .msg { color: #ccc; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+            <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">13_SYSTEM_LOGS</h1>
+        </div>
+        <div>
+            <button class="lab-glass" style="padding: 5px 15px; color: #ff0055; font-size: 11px; border-color: #400;">LIMPAR LOGS</button>
+        </div>
+    </header>
+
+    <div class="log-container">
+        <div class="log-line">
+            <span class="time">[2026-01-23 02:40]</span>
+            <span class="type-info">INFO</span>
+            <span class="msg">Core Engine iniciado com sucesso na Cloudflare.</span>
+        </div>
+        <div class="log-line">
+            <span class="time">[2026-01-23 02:45]</span>
+            <span class="type-warn">WARN</span>
+            <span class="msg">Tentativa de login inválida: IP 189.23.XX.XX (User: admin)</span>
+        </div>
+        <div class="log-line">
+            <span class="time">[2026-01-23 02:50]</span>
+            <span class="type-info">INFO</span>
+            <span class="msg">KV_STORE atualizado: chave 'config:hub_visual' por MASTER_001.</span>
+        </div>
+        <div class="log-line">
+            <span class="time">[2026-01-23 02:55]</span>
+            <span class="type-error">ERROR</span>
+            <span class="msg">Falha na sincronização com LabPay API: Gateway Timeout.</span>
+        </div>
+        <div class="log-line"><span class="time">[...]</span><span class="msg">Aguardando novos eventos...</span></div>
+    </div>
+  </div>
+</body>
+</html>
