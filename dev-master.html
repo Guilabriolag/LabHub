@@ -5,44 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Console</title>
     <link rel="stylesheet" href="lab_dir/dna-style.css">
+    <style>
+        /* Estilo para o modo 'App' com Iframe */
+        body, html { height: 100%; overflow: hidden; background: #000; }
+        
+        .app-view {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Área central que vai carregar os HTMLs */
+        #main-stage {
+            flex: 1;
+            border: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        /* Esconde a grade principal quando um módulo abrir */
+        .grid-overlay {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .hidden { display: none; }
+    </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <header style="margin-bottom: 30px; display: flex; justify-content: space-between;">
-            <div>
-                <span style="opacity:0.5;">Olá,</span>
-                <h2 style="margin:0;">Guilherme</h2>
-            </div>
-            <div style="width:40px; height:40px; background:var(--azul-glow); border-radius:50%;"></div>
+    <div class="app-view">
+        <header style="padding: 20px; background: rgba(0,0,0,0.5); display: flex; justify-content: space-between; align-items: center;">
+            <h2 id="page-title" style="margin:0; font-size: 18px;">Olá, <span style="color:var(--azul-glow)">Guilherme</span></h2>
+            <button onclick="goHome()" id="back-btn" class="hidden" style="background:none; border:1px solid var(--azul-glow); color:var(--azul-glow); border-radius:5px; padding: 5px 10px;">Voltar</button>
         </header>
 
-        <div class="module-grid">
-            <a href="modules/01_auth.html" class="app-card">
-                <h3>Segurança</h3>
-                <span class="value">Ativo</span>
-                <small style="color:var(--azul-glow); font-size:9px;">#0017 GLOW</small>
-            </a>
+        <iframe name="stage" id="main-stage" class="hidden"></iframe>
 
-            <a href="modules/12_revenue.html" class="app-card">
-                <h3>Financeiro</h3>
-                <span class="value">R$ 32.000</span>
-                <small style="opacity:0.4; font-size:9px;">#10.017</small>
-            </a>
+        <div id="module-grid-container" class="grid-overlay">
+            <div class="module-grid">
+                <a href="modules/01_auth.html" target="stage" onclick="openModule('Segurança')" class="app-card">
+                    <h3>Segurança</h3>
+                    <span class="value">Ativo</span>
+                </a>
 
-            <div class="app-card" style="grid-column: span 2; text-align: center;">
-                <div style="border: 2px solid var(--azul-glow); border-top-color: transparent; width: 20px; height: 20px; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 10px;"></div>
-                <p style="font-size: 11px; opacity: 0.5; margin: 0;">Sincronizando dados...</p>
+                <a href="modules/12_revenue.html" target="stage" onclick="openModule('Financeiro')" class="app-card">
+                    <h3>Financeiro</h3>
+                    <span class="value">R$ 32.000</span>
+                </a>
+
+                <a href="modules/17_dev_tools.html" target="stage" onclick="openModule('Serviços')" class="app-card">
+                    <h3>Configurações</h3>
+                    <span class="value">DevTools</span>
+                </a>
             </div>
         </div>
+
+        <nav class="bottom-nav">
+            <a href="javascript:void(0)" onclick="goHome()" class="nav-link active"><i>🏠</i>Início</a>
+            <a href="modules/11_monetization.html" target="stage" onclick="openModule('Faturas')" class="nav-link"><i>📄</i>Faturas</a>
+            <a href="modules/17_dev_tools.html" target="stage" onclick="openModule('Serviços')" class="nav-link"><i>⚙️</i>Serviços</a>
+        </nav>
     </div>
 
-    <nav class="bottom-nav">
-        <a href="dev-master.html" class="nav-link active"><i>🏠</i>Início</a>
-        <a href="modules/11_monetization.html" class="nav-link"><i>📄</i>Faturas</a>
-        <a href="modules/17_dev_tools.html" class="nav-link"><i>⚙️</i>Serviços</a>
-    </nav>
+    <script>
+        const stage = document.getElementById('main-stage');
+        const grid = document.getElementById('module-grid-container');
+        const title = document.getElementById('page-title');
+        const backBtn = document.getElementById('back-btn');
 
-    <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
+        function openModule(name) {
+            grid.classList.add('hidden'); // Esconde os cards
+            stage.classList.remove('hidden'); // Mostra o iframe
+            backBtn.classList.remove('hidden'); // Mostra botão voltar
+            title.innerText = name; // Muda o título do topo
+        }
+
+        function goHome() {
+            grid.classList.remove('hidden');
+            stage.classList.add('hidden');
+            backBtn.classList.add('hidden');
+            title.innerHTML = 'Olá, <span style="color:var(--azul-glow)">Guilherme</span>';
+            stage.src = "about:blank"; // Limpa o iframe
+        }
+    </script>
 </body>
 </html>
