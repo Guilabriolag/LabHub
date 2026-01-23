@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | DATA MODELS</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1100px; margin: auto; }
+    .model-card { padding: 20px; margin-bottom: 20px; border-left: 2px solid var(--azul-glow); }
+    .schema-list { font-family: monospace; font-size: 12px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; margin-top: 10px; color: #aaa; }
+    .field-key { color: var(--azul-glow); }
+    .field-type { color: #888; font-style: italic; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">07_DATA_MODELS</h1>
+    </header>
+
+    <div class="model-grid">
+        <div class="model-card lab-glass">
+            <h3 style="color: white;">Schema: <span style="color:var(--azul-glow)">users_core</span></h3>
+            <p style="font-size: 12px; opacity: 0.6;">Base de dados D1 para autenticação e perfis.</p>
+            <div class="schema-list">
+                { <br>
+                &nbsp;&nbsp;<span class="field-key">id:</span> <span class="field-type">UUID / PK</span>, <br>
+                &nbsp;&nbsp;<span class="field-key">email:</span> <span class="field-type">String / Unique</span>, <br>
+                &nbsp;&nbsp;<span class="field-key">role:</span> <span class="field-type">Enum(Master, Client)</span>, <br>
+                &nbsp;&nbsp;<span class="field-key">created_at:</span> <span class="field-type">Timestamp</span> <br>
+                }
+            </div>
+        </div>
+
+        <div class="model-card lab-glass">
+            <h3 style="color: white;">Schema: <span style="color:var(--azul-glow)">kv_settings</span></h3>
+            <p style="font-size: 12px; opacity: 0.6;">Configurações dinâmicas e cache global.</p>
+            <div class="schema-list">
+                { <br>
+                &nbsp;&nbsp;<span class="field-key">key:</span> <span class="field-type">Namespace:ID</span>, <br>
+                &nbsp;&nbsp;<span class="field-key">value:</span> <span class="field-type">JSON_String</span>, <br>
+                &nbsp;&nbsp;<span class="field-key">expiration:</span> <span class="field-type">TTL_Seconds</span> <br>
+                }
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
