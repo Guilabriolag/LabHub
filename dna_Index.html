@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LABRIOLAG | DNA SYSTEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Montserrat:ital,wght@1,900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lab-blue: #0077B6;
+            --lab-cyan: #00B4D8;
+            --lab-green: #00FF00;
+            --lab-black: #000000;
+            --lab-glass: rgba(255, 255, 255, 0.03);
+            --lab-border: rgba(255, 255, 255, 0.08);
+            --lab-glow: 0 0 20px rgba(0, 119, 182, 0.4);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { box-sizing: border-box; outline: none; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--lab-black);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Controlado pelo sistema de views */
+        }
+
+        /* Fundo Dinâmico Labriolag */
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #001d2e 0%, #000 100%);
+            z-index: -1;
+        }
+
+        /* --- SISTEMA DE SPLASH --- */
+        #splash {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
+        }
+
+        .splash-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            font-size: 3rem;
+            color: var(--lab-blue);
+            letter-spacing: -3px;
+            animation: pulse 2s infinite;
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 2px;
+            background: #111;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            position: absolute;
+            width: 0%;
+            height: 100%;
+            background: var(--lab-blue);
+            animation: load 2.5s forwards;
+        }
+
+        /* --- NAVEGAÇÃO / VIEWS --- */
+        .view {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+            padding: 20px;
+            height: 100vh;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .view.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- ESTÉTICA GLASSMORPHISM --- */
+        .glass-card {
+            background: var(--lab-glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--lab-border);
+            border-radius: 24px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* --- TIPOGRAFIA --- */
+        h1, h2, h3 { font-family: 'Montserrat', sans-serif; font-style: italic; text-transform: uppercase; margin: 0; }
+        .accent-blue { color: var(--lab-blue); }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--lab-blue); }
+
+        /* --- COMPONENTES LAB --- */
+        .input-lab {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--lab-border);
+            padding: 15px;
+            border-radius: 12px;
+            color: var(--lab-green);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 10px 0;
+            transition: var(--transition);
+        }
+
+        .input-lab:focus { border-color: var(--lab-blue); box-shadow: var(--lab-glow); }
+
+        .btn-lab {
+            background: var(--lab-blue);
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            width: 100%;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn-lab:hover { transform: scale(1.02); background: var(--lab-cyan); box-shadow: var(--lab-glow); }
+
+        /* --- TOAST SYSTEM --- */
+        #toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: var(--lab-blue);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-top: 10px;
+            animation: slideIn 0.5s forwards;
+        }
+
+        /* --- ANIMAÇÕES --- */
+        @keyframes pulse { 0%, 100% { opacity: 1; filter: blur(0); } 50% { opacity: 0.5; filter: blur(2px); } }
+        @keyframes load { to { width: 100%; } }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-gradient"></div>
+
+    <div id="splash">
+        <div class="splash-logo">LABRIOLAG</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+        <p style="font-size: 9px; letter-spacing: 5px; color: #444; margin-top: 10px;">DNA SEQUENCE INITIALIZING</p>
+    </div>
+
+    <div id="view-home" class="view">
+        <div class="glass-card" style="text-align: center;">
+            <h1 style="font-size: 2.5rem;">LAB<span class="accent-blue">HUB</span></h1>
+            <p class="tag" style="font-size: 10px; letter-spacing: 4px; color: #666; margin-bottom: 30px;">ECOSYSTEM CONTROL</p>
+            <button class="btn-lab" onclick="navigate('view-login')">ACESSAR PORTAL</button>
+            <p class="mono" style="margin-top: 20px; cursor: pointer;" onclick="showToast('LabCore v3.0 Online')">Verificar Status</p>
+        </div>
+    </div>
+
+    <div id="view-login" class="view">
+        <div class="glass-card">
+            <h2 style="margin-bottom: 20px;">AUTH_<span class="accent-blue">GATE</span></h2>
+            <div class="input-group">
+                <input type="text" class="input-lab" placeholder="IDENTIDADE (Email)">
+                <input type="password" class="input-lab" placeholder="CHAVE MESTRA">
+            </div>
+            <button class="btn-lab" onclick="processLogin()">DESBLOQUEAR</button>
+            <button class="btn-lab" style="background:transparent; border:1px solid #222; font-size: 10px;" onclick="navigate('view-home')">VOLTAR</button>
+        </div>
+    </div>
+
+    <div id="view-dash" class="view">
+        <div class="glass-card" style="max-width: 600px;">
+            <header style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--lab-border); padding-bottom: 15px; margin-bottom: 20px;">
+                <h3 class="accent-blue">MASTER_DASH</h3>
+                <span class="mono" style="color: var(--lab-green);">● ACTIVE</span>
+            </header>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="glass-card" style="padding: 15px; border-radius: 12px; text-align: left;">
+                    <small style="color: #666;">SALDO CORE</small>
+                    <div class="mono" style="font-size: 1.5rem; color: #fff; margin-top: 5px;">R$ 4.250,00</div>
+                </div>
+                <div class="glass-card" style="padding: 15px; border-radius: 12px; text-align: left;">
+                    <small style="color: #666;">LUCRO LÍQUIDO</small>
+                    <div class="mono" style="font-size: 1.5rem; color: var(--lab-green); margin-top: 5px;">+ R$ 840,00</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button class="btn-lab" style="font-size: 12px; padding: 10px;" onclick="showToast('Engine Social Reiniciada')">LabSocial Order</button>
+                <button class="btn-lab" style="font-size: 12px; padding: 10px; background: #222;" onclick="navigate('view-home')">LOGOUT</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script>
+        // --- MOTOR DE NAVEGAÇÃO ---
+        function navigate(viewId) {
+            // Esconde todas as views
+            document.querySelectorAll('.view').forEach(v => {
+                v.classList.remove('active');
+                setTimeout(() => v.style.display = 'none', 400);
+            });
+
+            // Mostra a view alvo
+            setTimeout(() => {
+                const target = document.getElementById(viewId);
+                target.style.display = 'flex';
+                setTimeout(() => target.classList.add('active'), 50);
+            }, 450);
+        }
+
+        // --- SISTEMA DE TOAST ---
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.innerText = msg;
+            container.appendChild(t);
+            setTimeout(() => t.remove(), 3000);
+        }
+
+        // --- LÓGICA DE LOGIN ---
+        function processLogin() {
+            showToast("Autenticando...");
+            setTimeout(() => {
+                showToast("Acesso Master Garantido");
+                navigate('view-dash');
+            }, 1500);
+        }
+
+        // --- CONTROLE DO SPLASH ---
+        window.onload = () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash');
+                splash.style.opacity = '0';
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                    navigate('view-home');
+                }, 1000);
+            }, 2500); // Tempo da animação de load
+        }
+    </script>
+</body>
+</html>
