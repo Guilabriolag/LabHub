@@ -4,64 +4,81 @@
   <meta charset="UTF-8">
   <title>LABRIOLAG | MASTER OS</title>
   <link rel="stylesheet" href="../lab_dir/dna-style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    .module-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 15px;
-      padding: 30px;
+    body { display: flex; height: 100vh; overflow: hidden; margin: 0; }
+    
+    /* Menu Lateral */
+    .sidebar { 
+        width: 250px; background: rgba(0,0,0,0.4); 
+        backdrop-filter: blur(20px); border-right: 1px solid var(--border);
+        display: flex; flex-direction: column; overflow-y: auto;
     }
-    .module-item {
-      padding: 20px;
-      text-decoration: none;
-      color: white;
-      text-align: center;
-      transition: 0.3s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255,255,255,0.05);
+
+    .sidebar-header { padding: 20px; text-align: center; border-bottom: 1px solid var(--border); }
+
+    .nav-item { 
+        padding: 15px 20px; color: #ccc; text-decoration: none; 
+        font-size: 11px; border-bottom: 1px solid rgba(255,255,255,0.02);
+        transition: 0.3s; display: flex; align-items: center; gap: 10px;
     }
-    .module-item:hover {
-      background: rgba(0, 119, 182, 0.15);
-      border-color: var(--azul-glow);
-      transform: translateY(-5px);
+    .nav-item:hover { background: rgba(0, 119, 182, 0.1); color: var(--azul-glow); }
+    .nav-item.active { background: var(--azul-lab); color: white; border-left: 4px solid var(--azul-glow); }
+
+    /* Área de Conteúdo */
+    .main-content { flex: 1; position: relative; display: flex; flex-direction: column; }
+    
+    #content-frame { 
+        width: 100%; height: 100%; border: none; 
+        background: transparent;
     }
-    .module-id { font-size: 10px; opacity: 0.4; margin-bottom: 5px; }
-    .module-name { font-weight: bold; font-size: 13px; letter-spacing: 1px; }
+
+    /* Scrollbar Customizada para a Sidebar */
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--azul-lab); }
   </style>
 </head>
 <body class="lab-bg">
 
-  <header style="padding: 50px 30px 20px;">
-    <h1 class="lab-title" style="font-size: 2rem;">Master Control Unit</h1>
-    <p style="opacity: 0.5;">Ecossistema Labriolag v1.0</p>
-  </header>
-
-  <nav class="module-grid">
-    <a href="./modules/01_auth.html" class="module-item lab-glass">
-        <span class="module-id">01</span>
-        <span class="module-name">AUTH_CORE</span>
-    </a>
-    <a href="./modules/02_users.html" class="module-item lab-glass">
-        <span class="module-id">02</span>
-        <span class="module-name">USER_MANAGEMENT</span>
-    </a>
-    <a href="./modules/06_kv_store.html" class="module-item lab-glass">
-        <span class="module-id">06</span>
-        <span class="module-name">KV_EXPLORER</span>
-    </a>
-    <a href="./modules/12_revenue.html" class="module-item lab-glass">
-        <span class="module-id">12</span>
-        <span class="module-name">REVENUE_SIM</span>
-    </a>
-    <a href="./modules/17_dev_tools.html" class="module-item lab-glass">
-        <span class="module-id">17</span>
-        <span class="module-name">DEV_TOOLS</span>
-    </a>
+  <aside class="sidebar">
+    <div class="sidebar-header">
+        <h2 class="lab-title" style="font-size: 1.2rem;">LABRIOLAG</h2>
+        <small style="opacity: 0.5; font-size: 9px;">MASTER CONTROL UNIT</small>
+    </div>
+    
+    <nav id="menu-links">
+        <a href="./modules/01_auth.html" target="stage" class="nav-item"><span>01</span> AUTH_CORE</a>
+        <a href="./modules/02_users.html" target="stage" class="nav-item"><span>02</span> USERS</a>
+        <a href="./modules/03_clients.html" target="stage" class="nav-item"><span>03</span> CLIENTS</a>
+        <a href="./modules/04_projects.html" target="stage" class="nav-item"><span>04</span> PROJECTS</a>
+        <a href="./modules/05_core-hub.html" target="stage" class="nav-item"><span>05</span> CORE_HUB</a>
+        <a href="./modules/06_kv_store.html" target="stage" class="nav-item"><span>06</span> KV_STORE</a>
+        <a href="./modules/07_data_models.html" target="stage" class="nav-item"><span>07</span> DATA_MODELS</a>
+        <a href="./modules/08_apis.html" target="stage" class="nav-item"><span>08</span> APIS_GATEWAY</a>
+        <a href="./modules/09_automations.html" target="stage" class="nav-item"><span>09</span> AUTOMATIONS</a>
+        <a href="./modules/10_industries.html" target="stage" class="nav-item"><span>10</span> INDUSTRIES</a>
+        <a href="./modules/11_monetization.html" target="stage" class="nav-item"><span>11</span> MONETIZATION</a>
+        <a href="./modules/12_revenue.html" target="stage" class="nav-item"><span>12</span> REVENUE_SIM</a>
+        <a href="./modules/13_logs.html" target="stage" class="nav-item"><span>13</span> LOGS</a>
+        <a href="./modules/14_metrics.html" target="stage" class="nav-item"><span>14</span> METRICS</a>
+        <a href="./modules/15_deploy.html" target="stage" class="nav-item"><span>15</span> DEPLOY</a>
+        <a href="./modules/16_security.html" target="stage" class="nav-item"><span>16</span> SECURITY</a>
+        <a href="./modules/17_dev_tools.html" target="stage" class="nav-item"><span>17</span> DEV_TOOLS</a>
     </nav>
+  </aside>
 
+  <main class="main-content">
+    <iframe name="stage" id="content-frame" src="./modules/17_dev_tools.html"></iframe>
+  </main>
+
+  <script>
+    // Lógica para marcar o item ativo no menu
+    const links = document.querySelectorAll('.nav-item');
+    links.forEach(link => {
+        link.addEventListener('click', function() {
+            links.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+  </script>
 </body>
 </html>
