@@ -1,27 +1,45 @@
+/* LABRIOLAG DNA SYSTEM v2.0 - MOBILE OPTIMIZED */
+
 :root {
     --azul-glow: #00f2ff;
+    --azul-dark: #007aff;
     --bg-app: #050a14;
     --card-bg: rgba(255, 255, 255, 0.05);
+    --text-main: #ffffff;
+    --text-dim: #8e8e93;
 }
 
-body {
+/* 1. RESET & BASE */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body, html {
     background-color: var(--bg-app) !important;
-    color: white !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    margin: 0; padding: 0;
-    overflow-x: hidden;
+    color: var(--text-main) !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
 }
 
-.app-container { padding: 20px; padding-bottom: 100px; }
+/* 2. ESTRUTURA DO APP (CONTAINERS) */
+.app-container {
+    padding: 20px;
+    padding-bottom: 100px; /* Espaço para a barra inferior */
+}
 
-/* Grid idêntico à foto */
+/* Grade de 2 colunas igual ao protótipo */
 .module-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
+    margin-top: 20px;
 }
 
-/* Card de Vidro */
+/* 3. COMPONENTES (CARDS & BOTÕES) */
 .app-card {
     background: var(--card-bg);
     backdrop-filter: blur(15px);
@@ -29,28 +47,102 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     padding: 20px;
-    text-decoration: none !important; /* Remove o azul de link */
+    text-decoration: none !important;
     color: white !important;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
 }
 
-.app-card h3 { font-size: 13px; opacity: 0.6; margin: 0; font-weight: 400; }
-.app-card .value { font-size: 18px; font-weight: bold; margin: 8px 0; display: block; }
+.app-card:active {
+    transform: scale(0.96);
+}
 
-/* Barra Inferior Fixa */
+.app-card h3 {
+    font-size: 13px;
+    opacity: 0.6;
+    margin: 0;
+    font-weight: 400;
+    color: var(--text-main) !important;
+}
+
+.app-card .value {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: var(--text-main) !important;
+}
+
+/* 4. BARRA DE NAVEGAÇÃO (BOTTOM NAV) */
 .bottom-nav {
     position: fixed;
-    bottom: 0; width: 100%; height: 80px;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
     background: rgba(10, 15, 25, 0.95);
     backdrop-filter: blur(20px);
-    display: flex; justify-content: space-around; align-items: center;
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 999;
+    z-index: 9999;
 }
 
 .nav-link {
-    text-align: center; color: #8e8e93; text-decoration: none; font-size: 11px;
+    text-align: center;
+    color: var(--text-dim) !important;
+    text-decoration: none !important;
+    font-size: 11px;
 }
 
-.nav-link.active { color: #007aff; }
-.nav-link i { font-size: 24px; display: block; margin-bottom: 5px; font-style: normal; }
+.nav-link.active {
+    color: var(--azul-dark) !important;
+}
+
+.nav-link i {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 4px;
+    font-style: normal;
+}
+
+/* 5. AJUSTES PARA MÓDULOS INTERNOS (IFRAME) */
+h1, h2, h3, h4, p, span, div {
+    color: var(--text-main) !important; /* Força texto branco no fundo escuro */
+}
+
+.key-box {
+    background: #000 !important;
+    color: #00ff88 !important; /* Estilo Matrix para chaves de segurança */
+    padding: 12px;
+    border-radius: 10px;
+    font-family: monospace;
+    font-size: 11px;
+    display: block;
+    border: 1px solid rgba(0, 255, 136, 0.2);
+    margin: 10px 0;
+    overflow-x: auto;
+}
+
+button, .lab-btn {
+    background: var(--azul-dark);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Animação do Loader */
+@keyframes spin { to { transform: rotate(360deg); } }
+.loader {
+    border: 2px solid var(--azul-glow);
+    border-top-color: transparent;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
