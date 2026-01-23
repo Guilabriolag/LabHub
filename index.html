@@ -3,58 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LABRIOLAG | CORE</title>
+    <title>LABRIOLAG</title>
     <link rel="stylesheet" href="lab_dir/dna-style.css">
-    <style>
-        body { 
-            background: #000; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            overflow: hidden;
-        }
-        .splash-core { text-align: center; }
-        .logo-glow {
-            width: 120px;
-            filter: drop-shadow(0 0 20px var(--azul-glow));
-            animation: pulse-dna 2s infinite ease-in-out;
-        }
-        .loader-bar {
-            width: 150px;
-            height: 2px;
-            background: rgba(255,255,255,0.1);
-            margin: 20px auto;
-            position: relative;
-            overflow: hidden;
-        }
-        .loader-fill {
-            position: absolute;
-            width: 40%;
-            height: 100%;
-            background: var(--azul-glow);
-            box-shadow: 0 0 10px var(--azul-glow);
-            animation: loading 1.5s infinite ease-in-out;
-        }
-        @keyframes loading {
-            0% { left: -40%; }
-            100% { left: 100%; }
-        }
-    </style>
 </head>
-<body>
-    <div class="splash-core">
-        <h1 class="lab-title" style="font-size: 2.5rem;">LABRIOLAG</h1>
-        <div class="loader-bar"><div class="loader-fill"></div></div>
-        <p style="font-size: 10px; letter-spacing: 3px; opacity: 0.5;">INITIALIZING DNA</p>
+<body style="display:flex; justify-content:center; align-items:center; height:100vh;">
+    <div style="text-align:center;">
+        <h1 style="color:var(--azul-glow); font-size: 2rem; letter-spacing: 5px;">LABRIOLAG</h1>
+        <p style="opacity:0.5; font-size:10px;">CARREGANDO SISTEMA...</p>
     </div>
-
-    <script src="lab_dir/core-components.js"></script>
     <script>
-        // Redireciona após 3.5 segundos
-        setTimeout(() => {
-            window.location.href = "dev-master.html";
-        }, 3500);
+        setTimeout(() => { window.location.href = "dev-master.html"; }, 2500);
     </script>
 </body>
 </html>
