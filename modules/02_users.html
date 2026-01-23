@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | USERS</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1000px; margin: auto; }
+    .user-list { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .user-list th { text-align: left; padding: 15px; color: var(--azul-glow); font-size: 11px; border-bottom: 1px solid var(--border); }
+    .user-list td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 13px; }
+    .badge-role { padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: bold; }
+    .role-admin { background: rgba(0, 119, 182, 0.2); color: var(--azul-glow); border: 1px solid var(--azul-lab); }
+    .role-client { background: rgba(255, 255, 255, 0.05); color: #aaa; border: 1px solid #444; }
+    .status-active { color: #00ff88; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">02_USERS</h1>
+    </header>
+
+    <div class="lab-glass" style="padding: 10px;">
+        <table class="user-list">
+            <thead>
+                <tr>
+                    <th>USUÁRIO / ID</th>
+                    <th>PAPEL (ROLE)</th>
+                    <th>STATUS</th>
+                    <th>AÇÕES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Guilherme Labriolag</strong><br><small style="opacity:0.5;">ID: MASTER_001</small></td>
+                    <td><span class="badge-role role-admin">DEV_MASTER</span></td>
+                    <td class="status-active">● ONLINE</td>
+                    <td><button style="background:transparent; border:1px solid #444; color:white; cursor:pointer;">EDITAR</button></td>
+                </tr>
+                <tr>
+                    <td><strong>Cliente Exemplo</strong><br><small style="opacity:0.5;">ID: CLI_492</small></td>
+                    <td><span class="badge-role role-client">CLIENT_PRO</span></td>
+                    <td style="color: #ff9900;">● AUSENTE</td>
+                    <td><button style="background:transparent; border:1px solid #444; color:white; cursor:pointer;">EDITAR</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+</body>
+</html>
