@@ -39,6 +39,54 @@
             <div>
                 <h2 id="page-title" style="margin:0; font-size: 22px;">Olá, Guilherme</h2>
                 <p id="sub-title" style="font-size: 11px; opacity: 0.5; margin: 0;">Bem-vindo ao Master Control</p>
+            <div class="module-grid">
+    <a href="modules/01_auth.html" target="stage" onclick="openModule('Segurança', '01_AUTH_CORE')" class="app-card">
+        <h3>Segurança</h3>
+        <span class="value">Ativo</span>
+        <small style="color:var(--azul-glow); font-size:9px;">#0017 GLOW</small>
+    </a>
+
+    <a href="modules/12_revenue.html" target="stage" onclick="openModule('Financeiro', '12_REVENUE_SIM')" class="app-card">
+        <h3>Financeiro</h3>
+        <span class="value">R$ 32.000</span>
+        <small style="opacity:0.4; font-size:9px;">#10.017</small>
+    </a>
+
+    <a href="modules/02_users.html" target="stage" onclick="openModule('Usuários', '02_USERS_DB')" class="app-card">
+        <h3>Usuários</h3>
+        <span class="value">Gerenciar</span>
+        <small style="opacity:0.4; font-size:9px;">DB_ACCESS</small>
+    </a>
+
+    <a href="modules/06_kv_store.html" target="stage" onclick="openModule('Database', '06_KV_STORE')" class="app-card">
+        <h3>KV Store</h3>
+        <span class="value">Sincronizado</span>
+        <small style="color:#00ff88; font-size:9px;">LIVE_SYNC</small>
+    </a>
+
+    <a href="modules/10_industries.html" target="stage" onclick="openModule('Indústrias', '10_INDUSTRIES')" class="app-card">
+        <h3>Indústrias</h3>
+        <span class="value">Setores</span>
+        <small style="opacity:0.4; font-size:9px;">CONFIG_MAP</small>
+    </a>
+
+    <a href="modules/13_logs.html" target="stage" onclick="openModule('Logs', '13_SYSTEM_LOGS')" class="app-card">
+        <h3>Logs</h3>
+        <span class="value">Monitor</span>
+        <small style="color:var(--azul-glow); font-size:9px;">STREAMING</small>
+    </a>
+
+    <a href="modules/17_dev_tools.html" target="stage" onclick="openModule('DevTools', '17_DEBUG_MODE')" class="app-card">
+        <h3>Configurações</h3>
+        <span class="value">Acesso Root</span>
+        <small style="opacity:0.4; font-size:9px;">LAB_OS</small>
+    </a>
+
+    <div class="app-card" style="grid-column: span 2; text-align: center; border-style: dashed; opacity: 0.7;">
+        <div class="loader" style="margin: 0 auto 10px;"></div>
+        <p style="font-size: 11px; margin: 0;">Sincronizado com LAB_EDGE</p>
+    </div>
+            </div>
             </div>
             <button onclick="goHome()" id="back-btn" class="hidden" 
                     style="background:rgba(255,255,255,0.1); border:1px solid var(--azul-glow); color:var(--azul-glow); border-radius:12px; padding: 8px 15px; font-weight: bold;">
