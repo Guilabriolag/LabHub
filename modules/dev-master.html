@@ -79,6 +79,22 @@
             this.classList.add('active');
         });
     });
+    document.querySelectorAll('.nav-item').forEach(link => {
+    link.addEventListener('click', function(e) {
+        // Pega o caminho do link
+        const url = this.getAttribute('href');
+        console.log("Tentando carregar módulo em: " + url);
+        
+        // Verifica se o link é válido antes de tentar abrir no iframe
+        fetch(url).then(response => {
+            if (response.status === 404) {
+                console.error("ERRO 404: O arquivo " + url + " não foi encontrado no servidor.");
+                alert("Módulo não encontrado: Verifique se o arquivo existe na pasta /LabHub/modules/");
+            }
+        }).catch(err => console.log("Erro de conexão ou CORS ao validar link."));
+    });
+});
   </script>
+  
 </body>
 </html>
