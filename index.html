@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LABRIOLAG | CORE</title>
+  <link rel="stylesheet" href="./lab_dir/dna-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap" rel="stylesheet">
+  <style>
+    body, html { margin: 0; padding: 0; background: #000; overflow: hidden; height: 100%; display: flex; align-items: center; justify-content: center; }
+    canvas { position: fixed; top: 0; left: 0; z-index: 1; }
+    
+    .splash-container { position: relative; z-index: 10; text-align: center; }
+    
+    .logo-pulse {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 4rem; font-style: italic; letter-spacing: -4px;
+      color: #fff;
+      animation: pulseBrand 3s infinite ease-in-out;
+      text-shadow: 0 0 20px rgba(0, 119, 182, 0.5);
+    }
+
+    @keyframes pulseBrand {
+      0%, 100% { transform: scale(1); opacity: 0.3; filter: blur(2px); }
+      50% { transform: scale(1.05); opacity: 1; filter: blur(0px); }
+    }
+
+    .loader-line {
+      width: 150px; height: 2px; background: rgba(255,255,255,0.1);
+      margin: 20px auto; position: relative; overflow: hidden;
+    }
+    .loader-line::after {
+      content: ''; position: absolute; width: 60px; height: 100%;
+      background: var(--azul-lab); animation: loading 2s infinite;
+    }
+    @keyframes loading { from { left: -60px; } to { left: 100%; } }
+  </style>
+</head>
+<body>
+  <canvas id="hubCanvas"></canvas>
+
+  <div class="splash-container">
+    <h1 class="logo-pulse">LABRIOLAG</h1>
+    <div class="loader-line"></div>
+  </div>
+
+  <script src="./lab_dir/core-components.js"></script>
+  <script>
+    /* FUNDO NEURAL (Mesmo da manutenc) */
+    const canvas = document.getElementById('hubCanvas');
+    const ctx = canvas.getContext('2d');
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize); resize();
+    let nodes = [];
+    for (let i = 0; i < 40; i++) nodes.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: (Math.random()-0.5)*0.8, vy: (Math.random()-0.5)*0.8, radius: 2 });
+    function draw() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      nodes.forEach(n => {
+        n.x += n.vx; n.y += n.vy;
+        if(n.x<0 || n.x>canvas.width) n.vx*=-1; if(n.y<0 || n.y>canvas.height) n.vy*=-1;
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.radius, 0, Math.PI*2); ctx.fillStyle = '#0077B6'; ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    /* LOGICA DE DIRECIONAMENTO (Controlada pelo Mock do Core) */
+    setTimeout(() => {
+        // No futuro, o lab-auth ou o core-components vai dizer para onde ir
+        // Se config.maintenance for true -> manutenc.html
+        // Se false -> dashboard
+        window.location.href = "./manutenc.html"; 
+    }, 4000); // 4 segundos de Splash
+  </script>
+</body>
+</html>
