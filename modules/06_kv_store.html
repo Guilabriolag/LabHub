@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | KV EXPLORER</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .container { padding: 30px; max-width: 1100px; margin: auto; }
+    
+    .kv-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .kv-table th { text-align: left; padding: 15px; color: var(--azul-glow); font-size: 12px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+    .kv-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
+
+    .key-name { font-family: monospace; color: #00ff88; font-weight: bold; }
+    .json-editor { 
+        width: 100%; height: 80px; background: rgba(0,0,0,0.3); 
+        border: 1px solid var(--border); color: #ccc; 
+        border-radius: 5px; padding: 10px; font-family: monospace; font-size: 12px;
+        resize: vertical;
+    }
+
+    .btn-save { 
+        padding: 5px 15px; background: var(--azul-lab); color: white; 
+        border: none; border-radius: 4px; cursor: pointer; font-size: 11px;
+    }
+    .status-tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; background: rgba(0,255,136,0.1); color: #00ff88; }
+  </style>
+</head>
+<body class="lab-bg">
+
+  <div class="container">
+    <header style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;">
+        <div>
+            <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+            <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">06_KV_STORE</h1>
+        </div>
+        <div class="status-tag">STORAGE_CONNECTED: CLOUDFLARE_KV</div>
+    </header>
+
+    <div class="lab-glass" style="padding: 20px;">
+        <table class="kv-table">
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Namespace: Key</th>
+                    <th>Value (JSON/String)</th>
+                    <th style="width: 10%;">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="key-name">config:maintenance_hub</td>
+                    <td>
+                        <textarea class="json-editor">{ "status": "active", "nodes": 50, "speed": 1.5 }</textarea>
+                    </td>
+                    <td><button class="btn-save">UPDATE</button></td>
+                </tr>
+                <tr>
+                    <td class="key-name">tv:slides:pizzaria_01</td>
+                    <td>
+                        <textarea class="json-editor">[
+  { "h1": "PIZZA G", "sub": "PROMO", "extra": "R$ 49" },
+  { "h1": "COCA 2L", "sub": "GELADA", "extra": "R$ 12" }
+]</textarea>
+                    </td>
+                    <td><button class="btn-save">UPDATE</button></td>
+                </tr>
+                <tr>
+                    <td class="key-name">core:routing:default</td>
+                    <td>
+                        <textarea class="json-editor">{ "target": "manutenc.html", "splash_time": 4000 }</textarea>
+                    </td>
+                    <td><button class="btn-save">UPDATE</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer style="margin-top: 20px; text-align: right;">
+        <button class="lab-glass" style="padding: 10px 25px; color: #aaa; border-color: #333;">+ ADICIONAR NOVA CHAVE</button>
+    </footer>
+  </div>
+
+  <script>
+    // Por enquanto no GitHub, vamos simular o "Save" avisando que falta o Worker
+    document.querySelectorAll('.btn-save').forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert("Sincronização pendente: O LabCore Worker (Cloudflare) ainda não foi vinculado a este componente.");
+        });
+    });
+  </script>
+</body>
+</html>
