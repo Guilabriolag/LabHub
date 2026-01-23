@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | CLIENTS</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1100px; margin: auto; }
+    .client-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .client-card { padding: 20px; border-left: 4px solid var(--azul-lab); }
+    .tag-product { font-size: 9px; padding: 2px 8px; background: rgba(0, 180, 216, 0.1); border: 1px solid var(--azul-glow); border-radius: 4px; margin-right: 5px; }
+    .client-info { font-size: 12px; margin: 10px 0; opacity: 0.7; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+            <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">03_CLIENTS</h1>
+        </div>
+        <button class="lab-glass" style="padding: 10px 20px; color: white; cursor: pointer;">+ NOVO CLIENTE</button>
+    </header>
+
+    <div class="client-grid">
+        <div class="client-card lab-glass">
+            <h3 style="color: white; margin-bottom: 5px;">Pizzaria Vitorelli</h3>
+            <span style="font-size: 10px; color: #00ff88;">CONTRATO ATIVO</span>
+            <div class="client-info">
+                📍 São Paulo, SP<br>
+                📧 financeiro@vitorelli.com
+            </div>
+            <div style="margin-top: 15px;">
+                <span class="tag-product">LAB_MENU</span>
+                <span class="tag-product">LAB_PAY</span>
+            </div>
+            <button style="width: 100%; margin-top: 20px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #fff; padding: 8px; border-radius: 5px; cursor: pointer;">Gerenciar Acessos</button>
+        </div>
+
+        <div class="client-card lab-glass" style="border-left-color: #555; opacity: 0.8;">
+            <h3 style="color: white; margin-bottom: 5px;">Academia Iron Force</h3>
+            <span style="font-size: 10px; color: #aaa;">AGUARDANDO SETUP</span>
+            <div class="client-info">
+                📍 Curitiba, PR<br>
+                📧 contato@ironforce.com
+            </div>
+            <div style="margin-top: 15px;">
+                <span class="tag-product" style="border-color: #555;">LAB_SOCIAL</span>
+            </div>
+            <button style="width: 100%; margin-top: 20px; background: rgba(255,255,255,0.05); border: 1px solid #333; color: #fff; padding: 8px; border-radius: 5px; cursor: pointer;">Finalizar Configuração</button>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
