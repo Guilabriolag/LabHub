@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | API GATEWAY</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1100px; margin: auto; }
+    .api-card { padding: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 20px; }
+    .method { 
+        padding: 5px 10px; border-radius: 4px; font-family: monospace; font-weight: bold; font-size: 12px;
+        min-width: 60px; text-align: center;
+    }
+    .get { background: rgba(0, 255, 136, 0.1); color: #00ff88; border: 1px solid #00ff88; }
+    .post { background: rgba(0, 119, 182, 0.1); color: var(--azul-glow); border: 1px solid var(--azul-glow); }
+    .endpoint { font-family: monospace; font-size: 13px; opacity: 0.8; }
+    .usage-tag { font-size: 10px; opacity: 0.5; margin-left: auto; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">08_APIS_&_ENDPOINTS</h1>
+    </header>
+
+    <div class="api-list">
+        <div class="api-card lab-glass">
+            <span class="method post">POST</span>
+            <span class="endpoint">/v1/auth/validate</span>
+            <span class="usage-tag">Utilizado por: Core Hub</span>
+        </div>
+
+        <div class="api-card lab-glass">
+            <span class="method get">GET</span>
+            <span class="endpoint">/v1/storage/kv/:key</span>
+            <span class="usage-tag">Utilizado por: LabTV, Social</span>
+        </div>
+
+        <div class="api-card lab-glass">
+            <span class="method get">GET</span>
+            <span class="endpoint">/v1/metrics/revenue/simulate</span>
+            <span class="usage-tag">Utilizado por: Revenue Sim</span>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px; padding: 15px; font-size: 11px; opacity: 0.5; text-align: center;">
+        ⚠️ Chaves de API (Bearer Tokens) são gerenciadas pelo módulo 16_SECURITY e nunca expostas aqui.
+    </div>
+  </div>
+</body>
+</html>
