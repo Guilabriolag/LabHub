@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>LABRIOLAG | MONETIZATION</title>
+  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
+  <style>
+    .container { padding: 30px; max-width: 1100px; margin: auto; }
+    .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .plan-card { padding: 30px; text-align: center; position: relative; overflow: hidden; }
+    .price { font-size: 2.5rem; font-family: 'Montserrat', sans-serif; margin: 15px 0; }
+    .feature-list { list-style: none; padding: 0; font-size: 12px; opacity: 0.7; text-align: left; }
+    .feature-list li { margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
+    .recommended { border: 2px solid var(--azul-glow); }
+    .badge-pop { position: absolute; top: 10px; right: -20px; background: var(--azul-glow); color: black; font-size: 9px; padding: 5px 30px; transform: rotate(45deg); font-weight: bold; }
+  </style>
+</head>
+<body class="lab-bg">
+  <div class="container">
+    <header style="margin-bottom: 30px;">
+        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
+        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">11_MONETIZATION</h1>
+    </header>
+
+    <div class="plan-grid">
+        <div class="plan-card lab-glass">
+            <h3 class="lab-title">LAB_FREE</h3>
+            <div class="price">R$ 0</div>
+            <ul class="feature-list">
+                <li>● 1 Lab Ativo</li>
+                <li>● Métricas Básicas</li>
+                <li>● Suporte via Comunidade</li>
+            </ul>
+            <button class="lab-glass" style="width:100%; margin-top:20px; padding:10px; color:white;">EDITAR REGRAS</button>
+        </div>
+
+        <div class="plan-card lab-glass recommended">
+            <div class="badge-pop">POPULAR</div>
+            <h3 class="lab-title" style="color:var(--azul-glow)">LAB_PRO</h3>
+            <div class="price">R$ 149<small style="font-size:1rem">/mês</small></div>
+            <ul class="feature-list">
+                <li>● Todos os Labs Ativos</li>
+                <li>● Customização de DNA</li>
+                <li>● LabTV Cloud Sync</li>
+                <li>● API Access</li>
+            </ul>
+            <button class="lab-glass" style="width:100%; margin-top:20px; padding:10px; color:white; background: var(--azul-lab);">EDITAR REGRAS</button>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
