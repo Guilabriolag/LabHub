@@ -1,0 +1,33 @@
+/* lab_dir/dna-style.css */
+:root {
+    --azul-lab: #0077B6;
+    --azul-glow: #00B4D8;
+    --glass: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 255, 255, 0.1);
+    --bg-dark: #000000;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* Classe utilitária para efeito de vidro em qualquer lugar */
+.lab-glass {
+    background: var(--glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+}
+
+/* Tipografia Labriolag */
+.lab-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+}
