@@ -1,47 +1,28 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>LABRIOLAG | AUTH_CORE</title>
-  <link rel="stylesheet" href="../../lab_dir/dna-style.css">
-  <style>
-    .container { padding: 30px; max-width: 900px; margin: auto; }
-    .auth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .auth-card { padding: 20px; position: relative; }
-    .role-badge { 
-      position: absolute; top: 15px; right: 15px; 
-      font-size: 9px; padding: 3px 8px; border-radius: 5px; background: var(--azul-lab); 
-    }
-    .token-box { 
-      background: #000; color: #00ff88; font-family: monospace; 
-      font-size: 10px; padding: 10px; border-radius: 5px; overflow-x: auto; margin-top: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../lab_dir/dna-style.css">
 </head>
-<body class="lab-bg">
-  <div class="container">
-    <header style="margin-bottom: 30px;">
-        <a href="../dev-master.html" style="color: var(--azul-glow); text-decoration: none; font-size: 12px;">← VOLTAR AO MASTER</a>
-        <h1 class="lab-title" style="font-size: 2rem; margin-top: 10px;">01_AUTH_CORE</h1>
-    </header>
+<body style="padding: 20px;">
 
-    <div class="auth-grid">
-        <div class="auth-card lab-glass">
-            <span class="role-badge">MASTER / DEV</span>
-            <h2 style="font-size: 1.1rem; color: var(--azul-glow);">Acesso Total</h2>
-            <p style="font-size: 12px; opacity: 0.6; margin: 10px 0;">Permissão para editar KV, Financeiro e Logs.</p>
-            <div class="token-box">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</div>
-            <button class="lab-glass" style="width:100%; margin-top:15px; padding:8px; color:white; font-size:11px;">RENOVAR MASTER_KEY</button>
-        </div>
-
-        <div class="auth-card lab-glass">
-            <span class="role-badge" style="background:#444;">CLIENT / USER</span>
-            <h2 style="font-size: 1.1rem; color: #fff;">Acesso Limitado</h2>
-            <p style="font-size: 12px; opacity: 0.6; margin: 10px 0;">Visualização de Dashboard e Labs contratados.</p>
-            <div class="token-box">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</div>
-            <button class="lab-glass" style="width:100%; margin-top:15px; padding:8px; color:white; font-size:11px;">GERAR TOKEN CLIENTE</button>
-        </div>
+    <div style="margin-bottom: 30px;">
+        <h2 style="color: var(--azul-glow);">01_AUTH_CORE</h2>
+        <p style="font-size: 12px; opacity: 0.6;">Gerenciamento de chaves de acesso master e cliente.</p>
     </div>
-  </div>
+
+    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+        <h3 style="font-size: 14px;">Acesso Total (Master)</h3>
+        <code class="key-box">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code>
+        <button>RENOVAR MASTER_KEY</button>
+    </div>
+
+    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;">
+        <h3 style="font-size: 14px;">Token de Cliente</h3>
+        <code class="key-box">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code>
+        <button>GERAR TOKEN CLIENTE</button>
+    </div>
+
 </body>
 </html>
