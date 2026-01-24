@@ -1,3 +1,12 @@
+body {
+    background: transparent !important; /* Permite ver o canvas atrás */
+    margin: 0;
+    padding: 0;
+}
+
+#globalCanvas {
+    display: block !important;
+}
 body, html {
     margin: 0;
     padding: 0;
