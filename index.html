@@ -3,16 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LABRIOLAG</title>
-    <link rel="stylesheet" href="lab_dir/dna-style.css">
+    <title>LABRIOLAG | DNA</title>
+    <link rel="stylesheet" href="./lab_dir/dna-core.css">
+    <style>
+        body { background: #000; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .logo-splash {
+            font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-style: italic;
+            color: var(--azul-glow); animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.95); } }
+    </style>
 </head>
-<body style="display:flex; justify-content:center; align-items:center; height:100vh;">
-    <div style="text-align:center;">
-        <h1 style="color:var(--azul-glow); font-size: 2rem; letter-spacing: 5px;">LABRIOLAG</h1>
-        <p style="opacity:0.5; font-size:10px;">CARREGANDO SISTEMA...</p>
-    </div>
+<body>
+    <div class="logo-splash">LABRIOLAG</div>
+
+    <script src="./lab_dir/core-bg.js"></script>
     <script>
-        setTimeout(() => { window.location.href = "dev-master.html"; }, 2500);
+        // Lógica de Direcionamento Central
+        setTimeout(() => {
+            // No futuro, aqui ele checará o Cloudflare para ver se vai para Manutenção ou Login
+            window.location.href = "login.html";
+        }, 3000);
     </script>
 </body>
 </html>
