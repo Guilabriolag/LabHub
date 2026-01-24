@@ -2,27 +2,41 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../lab_dir/dna-style.css">
+    <link rel="stylesheet" href="../lab_dir/dna-core.css">
+    <link rel="stylesheet" href="../lab_dir/dna-layout.css">
+    <link rel="stylesheet" href="../lab_dir/dna-components.css">
+    <style>
+        body { background: transparent; padding: 15px; }
+        .auth-list { display: flex; flex-direction: column; gap: 10px; }
+        .user-line { 
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--glass-bg); padding: 15px; border-radius: 15px;
+            border-left: 4px solid var(--azul-glow);
+        }
+        .badge { font-size: 9px; padding: 3px 8px; border-radius: 5px; background: var(--azul-dark); }
+    </style>
 </head>
-<body style="padding: 20px;">
-
-    <div style="margin-bottom: 30px;">
-        <h2 style="color: var(--azul-glow);">01_AUTH_CORE</h2>
-        <p style="font-size: 12px; opacity: 0.6;">Gerenciamento de chaves de acesso master e cliente.</p>
+<body>
+    <h3 style="color: var(--azul-glow); font-style: italic; margin-bottom: 20px;">SECURITY ACCESS</h3>
+    
+    <div class="auth-list">
+        <div class="user-line">
+            <div>
+                <div style="font-size: 14px; font-weight: bold;">Guilherme</div>
+                <div style="font-size: 10px; opacity: 0.5;">ID: 001 • Master Root</div>
+            </div>
+            <span class="badge">ATIVO</span>
+        </div>
+        
+        <div class="user-line" style="opacity: 0.8; border-left-color: #888;">
+            <div>
+                <div style="font-size: 14px; font-weight: bold;">LabTeste</div>
+                <div style="font-size: 10px; opacity: 0.5;">ID: 002 • PRO User</div>
+            </div>
+            <span class="badge" style="background: #444;">RESTREITO</span>
+        </div>
     </div>
 
-    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; margin-bottom: 20px;">
-        <h3 style="font-size: 14px;">Acesso Total (Master)</h3>
-        <code class="key-box">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code>
-        <button>RENOVAR MASTER_KEY</button>
-    </div>
-
-    <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;">
-        <h3 style="font-size: 14px;">Token de Cliente</h3>
-        <code class="key-box">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...</code>
-        <button>GERAR TOKEN CLIENTE</button>
-    </div>
-
+    <button class="lab-btn" style="width: 100%; margin-top: 20px; font-size: 11px;">+ GERAR NOVA CHAVE</button>
 </body>
 </html>
