@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LABRIOLAG | ACCESS</title>
+    <link rel="stylesheet" href="lab_dir/dna-style.css">
+    <style>
+        /* 1. FUNDO ANIMADO (Estilo Manutenc) */
+        body {
+            margin: 0; padding: 0;
+            background: #000;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh;
+        }
+        
+        .bg-glow {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 50%, #0a1628 0%, #000 80%);
+            animation: pulseBg 8s infinite alternate;
+        }
+
+        @keyframes pulseBg {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* 2. ESTRUTURA DO CARD 3D (FLIP) */
+        .login-perspective {
+            perspective: 1000px;
+            width: 90%; max-width: 350px;
+            z-index: 10;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%; height: 450px;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        /* Classe que ativa a virada */
+        .is-flipped { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 30px;
+            display: flex; flex-direction: column; justify-content: center;
+        }
+
+        .card-back { transform: rotateY(180deg); }
+
+        /* Estilos de Input e Botões */
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { font-size: 10px; color: var(--azul-glow); letter-spacing: 2px; }
+        .input-group input {
+            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 15px; color: #fff; margin-top: 5px;
+        }
+
+        .btn-main {
+            background: var(--azul-glow); color: #000; border: none; padding: 15px;
+            border-radius: 12px; font-weight: bold; width: 100%; cursor: pointer;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+        }
+
+        .link-toggle {
+            font-size: 12px; color: #fff; opacity: 0.5; margin-top: 20px; cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="login-perspective">
+        <div class="flip-card-inner" id="cardInner">
+            
+            <div class="card-front">
+                <h2 style="margin-bottom: 5px;">LABRIOLAG</h2>
+                <p style="font-size: 10px; opacity: 0.5; margin-bottom: 30px;">CORE_V2 ACCESS</p>
+                
+                <div class="input-group">
+                    <label>IDENTIFICADOR</label>
+                    <input type="text" id="user" placeholder="Usuário">
+                </div>
+                <div class="input-group">
+                    <label>ACCESS KEY</label>
+                    <input type="password" id="pass" placeholder="••••••••">
+                </div>
+
+                <button class="btn-main" onclick="handleLogin()">ENTRAR</button>
+                <span class="link-toggle" onclick="toggleCard()">Criar cadastro / Suporte</span>
+            </div>
+
+            <div class="card-back">
+                <h2 style="color: var(--azul-glow);">MARKETPLACE</h2>
+                <p style="font-size: 12px; opacity: 0.7; margin-bottom: 30px;">Ainda não tem acesso?</p>
+                
+                <button class="btn-main" style="margin-bottom: 15px; background: transparent; border: 1px solid var(--azul-glow); color: var(--azul-glow);" onclick="window.location.href='https://loja.com'">
+                    VISITAR LOJA
+                </button>
+                
+                <button class="btn-main" onclick="window.location.href='https://wa.me/seunumeroaqui'">
+                    FALAR COM SUPORTE
+                </button>
+
+                <span class="link-toggle" onclick="toggleCard()">Voltar para o Login</span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Função para virar o card
+        function toggleCard() {
+            document.getElementById('cardInner').classList.toggle('is-flipped');
+        }
+
+        // Lógica de Login
+        function handleLogin() {
+            const user = document.getElementById('user').value;
+            const pass = document.getElementById('pass').value;
+
+            // Simulação de Login (Será substituído pelo Cloudflare)
+            if(user === "guilherme" && pass === "123") {
+                window.location.href = "dev-master.html";
+            } else {
+                alert("Acesso Negado");
+            }
+        }
+    </script>
+</body>
+</html>
