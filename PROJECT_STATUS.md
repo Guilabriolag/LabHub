@@ -21,5 +21,8 @@
 3.  **LabCore_beta:** Configuração do repositório de dados fictícios.
 4.  **Security Layer:** Proteção Cloudflare para a pasta /modules/.
 
+5 login.html como prioridade zero.
+
+
 ## 📡 Próximo Passo:
 - Sincronizar os links de todos os módulos na grade do dev-master.html.
