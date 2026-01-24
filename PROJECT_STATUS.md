@@ -1,28 +1,30 @@
 # 🧬 LABRIOLAG | PROJECT STATUS
 
 ### 📍 Localização Atual: GitHub (guilabriolag.github.io/LabHub)
-### 🛠️ Versão: 1.2.0 (Mobile-First)
+### 🛠️ Versão: 1.3.0 (Arquitetura Modular)
 
-## 📁 Estrutura de Raiz Definida:
-- [/] index.html (Splash Screen)
-- [/] dev-master.html (App Shell / Hub)
-- [/lab_dir/] dna-style.css (CSS Global Unificado)
-- [/modules/] (17 Módulos HTML)
+## 📁 Estrutura de Raiz Consolidada:
+- [/] index.html (Splash / Porteiro)
+- [/] login.html (Acesso com Card 3D Flip)
+- [/] manutenc.html (Carrossel 3D Evolution)
+- [/] dev-master.html (Hub Principal)
+- [/lab_dir/] 
+    - dna-core.css (Variáveis e Cores)
+    - dna-layout.css (Grids e Containers)
+    - dna-components.css (Cards e Botões)
+    - core-bg.js (Motor de Fundo Global - Átomos)
 
 ## ✅ O que já temos:
-- [x] Design System Mobile (Estilo "App de Vidro")
-- [x] Iframe dinâmico no dev-master.html
-- [x] Navegação inferior (Bottom Nav) funcional
-- [x] Módulo 01_auth (Visual Corrigido)
+- [x] Unidade Visual: Fundo de átomos persistente em todas as telas.
+- [x] CSS Modular: Estilos separados por responsabilidade (Core, Layout, Components).
+- [x] Fluxo de Entrada: Splash -> Login -> Hub.
+- [x] Responsividade: Ajustado para Mobile-First (iPhone/Android).
 
 ## ⏳ O que falta (Prioridades):
-1.  **Roteador Inteligente:** No index.html para decidir entre Hub ou Manutenção.
-2.  **Padronização dos Módulos:** Aplicar o novo CSS nos 16 módulos restantes.
-3.  **LabCore_beta:** Configuração do repositório de dados fictícios.
-4.  **Security Layer:** Proteção Cloudflare para a pasta /modules/.
-
-5 login.html como prioridade zero.
-
+1.  **Segurança Master (Cloudflare Worker):** Substituir o login "123" por validação real.
+2.  **Proteção de Pastas:** Impedir acesso direto à pasta `/modules/` via URL.
+3.  **Padronização de Módulos:** Aplicar o CSS modular dentro dos 17 arquivos da pasta `/modules/`.
+4.  **Sistema de Níveis:** Diferenciar acesso Master (Guilherme) de acesso PRO (Clientes).
 
 ## 📡 Próximo Passo:
-- Sincronizar os links de todos os módulos na grade do dev-master.html.
+- Implementação da Cloudflare Worker para Autenticação Segura.
