@@ -1,0 +1,32 @@
+.app-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+    display: flex; flex-direction: column;
+}
+
+.lab-btn {
+    background: var(--azul-dark);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.lab-input {
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px;
+    color: white;
+    outline: none;
+}
+.lab-input:focus { border-color: var(--azul-glow); }
