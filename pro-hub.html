@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRO HUB | LABRIOLAG</title>
+
+    <script src="./lab_dir/core-auth.js"></script>
+    <script>checkAccess();</script> 
+
+    <link rel="stylesheet" href="./lab_dir/dna-core.css">
+    <link rel="stylesheet" href="./lab_dir/dna-layout.css">
+    <link rel="stylesheet" href="./lab_dir/dna-components.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        .pro-container {
+            position: relative; z-index: 10;
+            padding: 30px 20px;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .welcome-section { text-align: center; margin-bottom: 40px; }
+        .welcome-section h1 { font-family: 'Montserrat'; font-style: italic; color: var(--azul-glow); font-size: 1.8rem; margin: 0; }
+        .welcome-section p { font-size: 10px; letter-spacing: 2px; opacity: 0.6; }
+
+        /* Grid de Botões PRO */
+        .pro-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; max-width: 400px;
+        }
+
+        .pro-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 25px 15px;
+            text-align: center; cursor: pointer;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+
+        .pro-card:active { transform: scale(0.95); background: rgba(255,255,255,0.1); }
+        .pro-card i { font-size: 24px; display: block; margin-bottom: 10px; }
+        .pro-card span { font-size: 11px; font-weight: bold; letter-spacing: 1px; color: var(--azul-glow); }
+
+        /* Estilo do Toast */
+        #toast {
+            visibility: hidden; min-width: 250px;
+            background-color: var(--azul-glow); color: #000;
+            text-align: center; border-radius: 50px;
+            padding: 12px; position: fixed; z-index: 100;
+            bottom: 100px; font-size: 12px; font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,242,255,0.3);
+            transition: 0.5s ease-in-out; opacity: 0;
+        }
+        #toast.show { visibility: visible; opacity: 1; bottom: 120px; }
+    </style>
+</head>
+<body>
+
+    <div class="pro-container">
+        <div class="welcome-section">
+            <h1>PRO INTERFACE</h1>
+            <p>SISTEMA DE ACESSO PARCEIRO</p>
+        </div>
+
+        <div class="pro-grid">
+            <div class="pro-card" onclick="showToast('Módulo de Vendas em Processamento...')">
+                <span>🛒 LOJA</span>
+            </div>
+            <div class="pro-card" onclick="showToast('Acessando Base de Dados de Clientes...')">
+                <span>👥 CLIENTES</span>
+            </div>
+            <div class="pro-card" onclick="showToast('Relatórios Financeiros Indisponíveis no Beta')">
+                <span>📈 SALDO</span>
+            </div>
+            <div class="pro-card" onclick="showToast('Abrindo Ticket de Suporte...')">
+                <span>💬 AJUDA</span>
+            </div>
+        </div>
+
+        <button onclick="logoutPro()" style="margin-top: 50px; background:none; border:none; color:white; opacity:0.4; font-size:11px; cursor:pointer; letter-spacing:2px;">
+            ENCERRAR SESSÃO 🚪
+        </button>
+    </div>
+
+    <div id="toast">MENSAGEM DO SISTEMA</div>
+
+    <script src="./lab_dir/core-bg.js"></script>
+    <script>
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.innerText = msg;
+            toast.className = "show";
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+        }
+
+        function logoutPro() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
