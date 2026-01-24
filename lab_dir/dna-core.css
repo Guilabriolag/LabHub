@@ -1,0 +1,11 @@
+:root {
+    --azul-glow: #00f2ff;
+    --azul-dark: #007aff;
+    --azul-lab: #0077B6;
+    --bg-app: #000000;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-dim: #8e8e93;
+    --font-main: 'Inter', -apple-system, sans-serif;
+}
