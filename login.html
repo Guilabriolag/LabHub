@@ -2,153 +2,17 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOGIN | LABRIOLAG</title>
     <link rel="stylesheet" href="./lab_dir/dna-style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&family=Inter:wght@300;700&display=swap" rel="stylesheet">
-    <style>
-        /* 1. Fundo Dinâmico Igual Manutenc */
-        canvas { display: block; position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
-        body { margin: 0; background: #000; overflow: hidden; font-family: 'Inter', sans-serif; }
-
-        /* 2. Container 3D para o Card */
-        .auth-scene {
-            position: relative; z-index: 10;
-            width: 100%; height: 100vh;
-            display: flex; align-items: center; justify-content: center;
-            perspective: 1000px;
-        }
-
-        .auth-card-container {
-            width: 320px; height: 420px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* Classe que vira o card */
-        .auth-card-container.is-flipped { transform: rotateY(180deg); }
-
-        .auth-face {
-            position: absolute; width: 100%; height: 100%;
-            backface-visibility: hidden;
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
-            padding: 30px;
-            box-sizing: border-box;
-            display: flex; flex-direction: column; justify-content: center;
-        }
-
-        /* Lado A: Login */
-        .auth-front { z-index: 2; transform: rotateY(0deg); }
-
-        /* Lado B: Cadastro/Contato */
-        .auth-back { transform: rotateY(180deg); text-align: center; }
-
-        /* 3. Inputs e Botões Estilizados */
-        .input-group { margin-bottom: 20px; text-align: left; }
-        .input-group label { display: block; font-size: 10px; color: var(--azul-glow); margin-bottom: 5px; letter-spacing: 1px; }
-        .input-group input { 
-            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 12px; padding: 12px; color: white; outline: none; transition: 0.3s;
-        }
-        .input-group input:focus { border-color: var(--azul-glow); }
-
-        .btn-main { 
-            background: var(--azul-glow); color: #000; border: none; padding: 15px; 
-            border-radius: 12px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px;
-        }
-        
-        .btn-outline {
-            background: transparent; border: 1px solid rgba(255,255,255,0.2); 
-            color: white; padding: 10px; border-radius: 12px; font-size: 12px; margin-top: 15px; cursor: pointer;
-        }
-
-        .error-msg { color: #ff4d4d; font-size: 11px; margin-top: 10px; display: none; }
-    </style>
 </head>
 <body>
-
-    <canvas id="authCanvas"></canvas>
-
     <div class="auth-scene">
-        <div class="auth-card-container" id="authCard">
-            
-            <div class="auth-face auth-front">
-                <div style="text-align:center; margin-bottom: 20px;">
-                    <div style="font-family:'Montserrat'; font-style:italic; color:var(--azul-glow); font-size:1.5rem;">LABRIOLAG</div>
-                    <p style="font-size:9px; opacity:0.5; letter-spacing:2px;">CORE ACCESS</p>
-                </div>
-
-                <div class="input-group">
-                    <label>IDENTIFICADOR</label>
-                    <input type="text" id="userInput" placeholder="Usuário">
-                </div>
-                <div class="input-group">
-                    <label>CHAVE MESTRA</label>
-                    <input type="password" id="passInput" placeholder="••••••••">
-                </div>
-
-                <button class="btn-main" onclick="tryLogin()">CONECTAR</button>
-                <div id="loginError" class="error-msg">Acesso Inválido.</div>
-
-                <button class="btn-outline" onclick="toggleCard()">Criar Cadastro / Contato</button>
-            </div>
-
-            <div class="auth-face auth-back">
-                <h2 style="font-size: 1.2rem; color: var(--azul-glow);">NOVO ACESSO?</h2>
-                <p style="font-size: 12px; opacity: 0.7;">Para adquirir licenças ou suporte, acesse nossa central oficial.</p>
-                
-                <button class="btn-main" onclick="window.location.href='https://loja.exemplo.com'">IR PARA LOJA</button>
-                <button class="btn-main" style="background:transparent; border:1px solid var(--azul-glow); color:var(--azul-glow); margin-top:10px;">FALAR COM SUPORTE</button>
-                
-                <button class="btn-outline" onclick="toggleCard()">Voltar para Login</button>
-            </div>
-
         </div>
-    </div>
 
+    <script src="./lab_dir/core-bg.js"></script>
     <script>
-        // 1. Lógica do Fundo (Canvas igual Manutenc)
-        const canvas = document.getElementById('authCanvas');
-        const ctx = canvas.getContext('2d');
-        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        window.addEventListener('resize', resize); resize();
-        let nodes = [];
-        for (let i = 0; i < 50; i++) {
-            nodes.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, vx: (Math.random()-0.5)*1, vy: (Math.random()-0.5)*1, radius: 2 });
-        }
-        function draw() {
-            ctx.clearRect(0,0,canvas.width,canvas.height);
-            nodes.forEach(n => {
-                n.x += n.vx; n.y += n.vy;
-                if(n.x<0 || n.x>canvas.width) n.vx*=-1; if(n.y<0 || n.y>canvas.height) n.vy*=-1;
-                ctx.beginPath(); ctx.arc(n.x, n.y, n.radius, 0, Math.PI*2); ctx.fillStyle = '#0077B6'; ctx.fill();
-            });
-            requestAnimationFrame(draw);
-        }
-        draw();
-
-        // 2. Lógica do Card (Virar)
-        function toggleCard() {
-            document.getElementById('authCard').classList.toggle('is-flipped');
-        }
-
-        // 3. Lógica de Login (O JS que você perguntou)
-        function tryLogin() {
-            const user = document.getElementById('userInput').value;
-            const pass = document.getElementById('passInput').value;
-            const error = document.getElementById('loginError');
-
-            // Aqui você define seu login master temporário
-            if(user === "guilherme" && pass === "123") {
-                window.location.href = "dev-master.html";
-            } else {
-                error.style.display = "block";
-            }
-        }
+        // Aqui fica apenas a lógica de virar o card e o login
+        function toggleCard() { ... }
+        function tryLogin() { ... }
     </script>
 </body>
 </html>
