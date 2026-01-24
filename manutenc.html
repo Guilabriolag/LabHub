@@ -3,17 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANUTENÇÃO | LABRIOLAG</title>
+    <title>EVOLUTION | LABRIOLAG</title>
     <link rel="stylesheet" href="./lab_dir/dna-core.css">
     <link rel="stylesheet" href="./lab_dir/dna-layout.css">
+    <style>
+        .scene { position: relative; z-index: 10; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; perspective: 1000px; overflow: hidden; }
+        .carousel { width: 220px; height: 300px; position: absolute; transform-style: preserve-3d; animation: rotateCarousel 25s infinite linear; }
+        .carousel-item { 
+            position: absolute; width: 220px; height: 300px; 
+            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            border: 1px solid var(--glass-border); border-radius: 25px; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            color: white; text-align: center; padding: 15px; backface-visibility: hidden; 
+        }
+        /* Posições */
+        .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(280px); }
+        .carousel-item:nth-child(2) { transform: rotateY(72deg) translateZ(280px); }
+        .carousel-item:nth-child(3) { transform: rotateY(144deg) translateZ(280px); }
+        .carousel-item:nth-child(4) { transform: rotateY(216deg) translateZ(280px); }
+        .carousel-item:nth-child(5) { transform: rotateY(288deg) translateZ(280px); }
+
+        @keyframes rotateCarousel { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+        .logo-lab { font-family: 'Montserrat', sans-serif; font-weight: 900; font-style: italic; color: var(--azul-glow); margin-bottom: 8px; }
+    </style>
 </head>
-<body style="display:flex; align-items:center; justify-content:center; text-align:center;">
-    
-    <div style="z-index:10; padding:20px;">
-        <h1 style="color:var(--azul-glow); font-family:'Montserrat'; font-style:italic; font-size:3rem; margin:0;">EVOLUTION</h1>
-        <p style="opacity:0.6; letter-spacing:3px;">SISTEMA EM ATUALIZAÇÃO</p>
-        <div style="width:50px; height:2px; background:var(--azul-glow); margin:20px auto; opacity:0.5;"></div>
-        <p style="font-size:12px; max-width:250px; margin:0 auto; line-height:1.5;">Estamos otimizando o Core para sua melhor experiência. Voltamos em breve.</p>
+<body>
+    <div class="scene">
+        <div class="carousel">
+            <div class="carousel-item"><div class="logo-lab">LABSOCIAL</div><p style="font-size:11px; opacity:0.7;">SMM & Ads</p></div>
+            <div class="carousel-item"><div class="logo-lab">LABPAY</div><p style="font-size:11px; opacity:0.7;">Fintech Core</p></div>
+            <div class="carousel-item"><div class="logo-lab">LABMENU</div><p style="font-size:11px; opacity:0.7;">Food Systems</p></div>
+            <div class="carousel-item"><div class="logo-lab">LABGAME</div><p style="font-size:11px; opacity:0.7;">Gamificação</p></div>
+            <div class="carousel-item"><div class="logo-lab">LABHUB</div><p style="font-size:11px; opacity:0.7;">Master Control</p></div>
+        </div>
     </div>
 
     <script src="./lab_dir/core-bg.js"></script>
