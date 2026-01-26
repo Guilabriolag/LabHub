@@ -17,3 +17,4 @@ Para licenças, suporte ou acesso ao ecossistema, utilize o portal oficial:
 
 ---
 <p align="center"><i>"O que você vê é o encanto. O que você não vê é o poder."</i></p>
+<p align="center"><i>"Transformando a complexidade em pura arte digital."</i></p>
