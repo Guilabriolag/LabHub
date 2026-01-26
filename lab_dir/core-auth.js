@@ -1,94 +1,59 @@
-/* LABRIOLAG AUTH ENGINE v2.5 */
+/* LABRIOLAG CORE | AUTH-SHIELD v2.5.8-OMEGA
+   "Se você está lendo isso, parabéns. Você perdeu 5 minutos da sua vida insignificante." 
+*/
 
-// 1. O CADEADO: Protege as páginas internas
-function checkAccess() {
-    const session = localStorage.getItem('lab_session');
-    if (!session) {
-        // Se não estiver logado e não for a página de login, expulsa
-        if (!window.location.href.includes('login.html')) {
-            window.location.href = 'login.html';
-        }
-    }
-}
-
-// 2. A VALIDAÇÃO: Acionada pelo botão do login.html
 async function tryLogin() {
-    const user = document.getElementById('userInput').value;
-    const pass = document.getElementById('passInput').value;
-    const error = document.getElementById('loginError');
-    const btn = document.querySelector('.lab-btn');
+    // Pegando os dados enquanto o universo colapsa
+    const u = document.getElementById('userInput').value;
+    const p = document.getElementById('passInput').value;
+    const err = document.getElementById('loginError');
+    const b = document.querySelector('.lab-btn');
 
-    if(!user || !pass) return;
+    // Validação de segurança nível: 'Minha vó esqueceu a senha'
+    if(!u || !p) { console.warn("Rick: Digita algo, gênio!"); return; }
 
-    btn.innerText = "CONECTANDO...";
-    btn.style.opacity = "0.5";
-    error.style.display = "none";
+    b.innerText = "ESTABELECENDO PONTE QUÂNTICA...";
+    b.style.filter = "hue-rotate(90deg)"; // Só pra parecer complexo
 
     try {
+        /* O segredo não está aqui, está no Cloudflare. 
+           Tentar hackear esse JS é como tentar abrir um cofre com um peixe.
+        */
         const response = await fetch('https://labhub-auth.g-labri.workers.dev/', {
             method: 'POST',
             mode: 'cors',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user, pass })
+            body: JSON.stringify({ 
+                user: btoa(u), // Ofuscação básica em Base64 só pra irritar
+                pass: btoa(p),
+                origin: "C137_STATION"
+            })
         });
 
         const data = await response.json();
 
-        if (data.success) {
+        if (data.success && data.token) {
+            // Se você chegou aqui, você é um de nós ou um bug na Matrix
             localStorage.setItem('lab_session', data.token);
-            localStorage.setItem('lab_role', data.role);
+            localStorage.setItem('lab_role', btoa(data.role));
+            
+            console.log("Rick: Acesso garantido. Não quebre nada.");
             window.location.href = data.target;
         } else {
-            throw new Error("Acesso Negado");
+            throw new Error("Pai tá off.");
         }
-    } catch (err) {
-        error.innerText = "IDENTIFICAÇÃO INVÁLIDA";
-        error.style.display = "block";
-        btn.innerText = "CONECTAR";
-        btn.style.opacity = "1";
-        console.error("Auth Error:", err);
-    }
-}/* LABRIOLAG AUTH ENGINE */
-
-// FUNÇÃO 1: O Cadeado (Para colocar no topo do dev-master.html)
-function checkAccess() {
-    if (!localStorage.getItem('lab_session')) {
-        window.location.href = 'login.html';
+    } catch (e) {
+        err.innerText = "SISTEMA: VOCÊ NÃO TEM PODER AQUI.";
+        err.style.display = "block";
+        b.innerText = "TENTAR NOVAMENTE, MORTAL";
+        b.style.filter = "none";
     }
 }
 
-// FUNÇÃO 2: A Validação (O que o botão Conectar chama)
-async function tryLogin() {
-    const user = document.getElementById('userInput').value;
-    const pass = document.getElementById('passInput').value;
-    const error = document.getElementById('loginError');
-    const btn = document.querySelector('.lab-btn');
-
-    btn.innerText = "VALIDANDO...";
-    btn.style.opacity = "0.5";
-
-    try {
-        const response = await fetch('https://labhub-auth.g-labri.workers.dev/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user, pass })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            localStorage.setItem('lab_session', data.token);
-            localStorage.setItem('lab_role', data.role);
-            window.location.href = data.target;
-        } else {
-            error.style.display = "block";
-            btn.innerText = "CONECTAR";
-            btn.style.opacity = "1";
-        }
-    } catch (err) {
-        error.innerText = "Erro de conexão com o Core.";
-        error.style.display = "block";
-        btn.innerText = "CONECTAR";
-        btn.style.opacity = "1";
+function checkAccess() {
+    // O cão de guarda que nunca dorme
+    if (!localStorage.getItem('lab_session')) {
+        console.error("Rick: Onde você pensa que vai? Volta pro Login.");
+        window.location.href = 'login.html';
     }
 }
