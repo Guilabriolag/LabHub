@@ -18,23 +18,36 @@
             perspective: 1000px;
         }
         .auth-card-container {
-            width: 320px; height: 420px; position: relative;
+            width: 320px; height: 440px; position: relative;
             transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .auth-card-container.is-flipped { transform: rotateY(180deg); }
+        
         .auth-face {
             position: absolute; width: 100%; height: 100%;
             backface-visibility: hidden; border-radius: 30px; padding: 30px;
             display: flex; flex-direction: column; justify-content: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
+        
         .auth-front { z-index: 2; transform: rotateY(0deg); }
         .auth-back { transform: rotateY(180deg); text-align: center; }
+
+        .brand-header { text-align: center; margin-bottom: 30px; }
+        .brand-logo { font-family: 'Montserrat'; font-style: italic; color: var(--azul-glow); font-size: 1.8rem; line-height: 1; }
+        .brand-sub { font-size: 9px; opacity: 0.5; letter-spacing: 3px; margin-top: 5px; text-transform: uppercase; }
+
+        .input-group { margin-bottom: 20px; }
+        .input-label { font-size: 10px; color: var(--azul-glow); display: block; margin-bottom: 8px; font-weight: bold; letter-spacing: 1px; }
         
-        /* Ajuste de profundidade para o efeito vidro */
-        .auth-face {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+        #loginError { 
+            color: #ff4d4d; font-size: 11px; margin-top: 15px; 
+            text-align: center; font-weight: bold; 
+            background: rgba(255, 77, 77, 0.1); padding: 8px; border-radius: 8px;
+            display: none; 
         }
     </style>
 </head>
@@ -44,36 +57,39 @@
         <div class="auth-card-container" id="authCard">
             
             <div class="auth-face auth-front">
-                <div style="text-align:center; margin-bottom: 25px;">
-                    <div style="font-family:'Montserrat'; font-style:italic; color:var(--azul-glow); font-size:1.6rem;">LABRIOLAG</div>
-                    <p style="font-size:9px; opacity:0.5; letter-spacing:2px; margin:0;">CORE INTERFACE</p>
+                <div class="brand-header">
+                    <div class="brand-logo">LABRIOLAG</div>
+                    <p class="brand-sub">Core Interface</p>
                 </div>
 
-                <div class="input-group" style="margin-bottom:15px;">
-                    <label style="font-size:10px; color:var(--azul-glow); display:block; margin-bottom:5px;">IDENTIFICADOR</label>
-                    <input type="text" id="userInput" class="lab-input" placeholder="Usuário">
+                <div class="input-group">
+                    <label class="input-label">IDENTIFICADOR</label>
+                    <input type="text" id="userInput" class="lab-input" placeholder="Seu usuário" autocomplete="off">
                 </div>
-                <div class="input-group" style="margin-bottom:20px;">
-                    <label style="font-size:10px; color:var(--azul-glow); display:block; margin-bottom:5px;">CHAVE MESTRA</label>
+                
+                <div class="input-group">
+                    <label class="input-label">CHAVE MESTRA</label>
                     <input type="password" id="passInput" class="lab-input" placeholder="••••••••">
                 </div>
 
-                <button class="lab-btn" onclick="tryLogin()">CONECTAR</button>
-                <div id="loginError" style="color:#ff4d4d; font-size:11px; margin-top:10px; display:none; text-align:center;">Acesso Negado.</div>
+                <button class="lab-btn" onclick="tryLogin()" id="loginBtn">CONECTAR</button>
+                <div id="loginError"></div>
 
-                <button class="btn-outline" onclick="toggleCard()" style="background:none; border:none; color:white; font-size:11px; margin-top:20px; opacity:0.6; cursor:pointer;">
-                    Criar Cadastro / Contato
+                <button onclick="toggleCard()" style="background:none; border:none; color:white; font-size:11px; margin-top:25px; opacity:0.6; cursor:pointer; text-decoration: underline;">
+                    Novo Acesso / Suporte
                 </button>
             </div>
 
             <div class="auth-face auth-back">
-                <h2 style="font-size: 1.2rem; color: var(--azul-glow);">NOVO ACESSO?</h2>
-                <p style="font-size: 12px; opacity: 0.7; margin-bottom:20px;">Para licenças ou suporte, acesse nossa central oficial.</p>
+                <h2 style="font-size: 1.4rem; color: var(--azul-glow); margin-bottom: 10px;">EXPANDIR?</h2>
+                <p style="font-size: 13px; opacity: 0.8; margin-bottom: 30px; line-height: 1.5;">
+                    Acesso restrito a licenciados e desenvolvedores autorizados pela Estação C137.
+                </p>
                 
-                <button class="lab-btn" onclick="window.location.href='#'" style="margin-bottom:10px;">LOJA OFICIAL</button>
-                <button class="lab-btn" style="background:transparent; border:1px solid var(--azul-glow); color:var(--azul-glow);">SUPORTE TÉCNICO</button>
+                <button class="lab-btn" onclick="window.open('https://labriolag.shop/instituto')" style="margin-bottom:12px;">LOJA OFICIAL</button>
+                <button class="lab-btn" style="background:transparent; border:1px solid var(--azul-glow); color:var(--azul-glow);">CONTATO DIRETO</button>
                 
-                <button onclick="toggleCard()" style="background:none; border:none; color:white; font-size:11px; margin-top:25px; opacity:0.6; cursor:pointer;">
+                <button onclick="toggleCard()" style="background:none; border:none; color:white; font-size:11px; margin-top:35px; opacity:0.6; cursor:pointer;">
                     Voltar para Login
                 </button>
             </div>
@@ -82,23 +98,18 @@
     </div>
 
     <script src="./lab_dir/core-bg.js"></script>
-    <script>
-        function toggleCard() { document.getElementById('authCard').classList.toggle('is-flipped'); }
-
-        async function tryLogin() {
-            const user = document.getElementById('userInput').value;
-            const pass = document.getElementById('passInput').value;
-            const error = document.getElementById('loginError');
-
-            // Temporário: Enquanto não configuramos a Worker do Cloudflare
-            if(user === "guilherme" && pass === "123") {
-                window.location.href = "dev-master.html";
-            } else {
-                error.style.display = "block";
-            }
-        }
-        <script src="./lab_dir/core-bg.js"></script>
     <script src="./lab_dir/core-auth.js"></script>
+
+    <script>
+        // Lógica Visual Local
+        function toggleCard() { 
+            document.getElementById('authCard').classList.toggle('is-flipped'); 
+        }
+
+        // Bloqueia ENTER para disparar o login
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') tryLogin();
+        });
     </script>
 </body>
 </html>
