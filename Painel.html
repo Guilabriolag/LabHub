@@ -3,197 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAB-NEXUS // TRUSTLESS NOTARY SERVICE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <title>LAB-NEXUS by Labriolag</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Cinzel:wght@700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --slate: #0a0b0d;
-            --steel: #1a1c20;
-            --gold: #c5a059;
-            --gold-dim: rgba(197, 160, 89, 0.2);
-            --cyan: #00f2ff;
-            --text-main: #e2e8f0;
-            --text-muted: #64748b;
+            --azul-eletrico: #007BFF;
+            --amarelo: #FFD700;
+            --preto: #050505;
+            --branco: #FFFFFF;
+            --cinza-dark: #121212;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            background-color: var(--slate);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            background-image: 
-                radial-gradient(circle at top right, #161d1f 0%, transparent 40%),
-                radial-gradient(circle at bottom left, #121417 0%, transparent 40%);
+            background: var(--preto);
+            color: var(--branco);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-image: radial-gradient(circle at 20% 20%, #001a33 0%, #050505 50%);
             min-height: 100vh;
         }
 
-        /* HEADER INSTITUCIONAL */
+        /* HEADER: IDENTIDADE LABRIOLAG */
         header {
-            border-bottom: 1px solid var(--steel);
             padding: 40px 20px;
-            text-align: center;
-            background: rgba(10, 11, 13, 0.8);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .brand {
+        .brand-box h1 {
             font-family: 'Cinzel', serif;
-            font-size: 1.2rem;
-            letter-spacing: 6px;
-            color: var(--gold);
-            text-transform: uppercase;
-            margin-bottom: 15px;
+            color: var(--azul-eletrico);
+            font-size: 1.8rem;
+            margin: 0;
+            letter-spacing: 2px;
         }
 
-        .ledger-status {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            text-transform: uppercase;
-        }
-
-        .status-item span { color: var(--gold); }
-
-        /* GRID DE ESCRITURAS */
-        main { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-
-        .section-label {
-            font-family: 'Cinzel', serif;
+        .brand-box span {
             font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+            color: var(--amarelo);
+            text-transform: uppercase;
+            letter-spacing: 4px;
         }
 
-        .section-label::after {
-            content: ""; flex: 1; height: 1px; background: var(--steel);
-        }
+        /* GRID INSTITUCIONAL */
+        main { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 
-        #records-container { display: grid; gap: 15px; }
-
-        .notary-card {
-            background: var(--steel);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 25px;
-            border-radius: 4px;
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 30px;
+        }
+
+        .btn-genesis {
+            background: var(--azul-eletrico);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 700;
             cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         }
 
-        .notary-card:hover {
-            border-color: var(--gold);
-            transform: scale(1.01);
-            background: #1e2126;
+        .btn-genesis:hover { transform: scale(1.05); background: #0056b3; }
+
+        /* CARDS DE REGISTRO */
+        .registry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .card-info h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            color: var(--text-main);
-            margin-bottom: 5px;
+        .card-nexus {
+            background: var(--cinza-dark);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 12px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
         }
 
-        .card-info p {
-            font-family: 'JetBrains Mono', monospace;
+        .card-nexus:hover {
+            border-color: var(--azul-eletrico);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .card-status {
             font-size: 0.6rem;
-            color: var(--text-muted);
+            color: var(--amarelo);
+            margin-bottom: 10px;
+            display: block;
         }
 
-        .seal-indicator {
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--gold-dim);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 0.8rem;
-        }
+        .card-title { font-family: 'Cinzel', serif; font-size: 1.1rem; margin-bottom: 15px; }
 
-        /* MODAL DE LAVRATURA */
-        .modal {
+        /* MODAL DE SELAGEM (A MAGIA DO CENÁRIO) */
+        #modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            padding: 40px 20px;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--slate);
-            border: 1px solid var(--gold-dim);
-            padding: 40px;
-            position: relative;
-        }
-
-        .modal-content h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        input, textarea {
+            background: var(--cinza-dark);
             width: 100%;
-            background: #000;
-            border: 1px solid var(--steel);
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--azul-eletrico);
+        }
+
+        .modal-content h2 { font-family: 'Cinzel', serif; color: var(--branco); text-align: center; }
+
+        .input-lab {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
             padding: 15px;
             color: white;
-            font-family: 'Inter', sans-serif;
-            margin-bottom: 20px;
-            outline: none;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        input:focus, textarea:focus { border-color: var(--gold); }
+        /* OPÇÕES DE SELAGEM */
+        .seal-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-        .btn-action {
-            width: 100%;
-            padding: 20px;
-            background: var(--gold);
-            color: black;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border: none;
+        .opt-btn {
+            font-size: 0.65rem;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            background: transparent;
+            color: white;
             cursor: pointer;
+            text-align: center;
             transition: 0.3s;
         }
 
-        .btn-action:hover { background: var(--gold-bright); filter: brightness(1.2); }
+        .opt-btn:hover { border-color: var(--amarelo); color: var(--amarelo); }
+        .opt-btn.active { background: var(--azul-eletrico); border-color: var(--azul-eletrico); color: white; }
 
-        .fab {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background: var(--gold);
-            width: 60px;
-            height: 60px;
-            border-radius: 0; /* Estilo quadrado institucional */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .btn-confirm {
+            width: 100%;
+            padding: 18px;
+            background: var(--amarelo);
+            color: black;
+            border: none;
+            border-radius: 8px;
+            font-weight: 800;
+            margin-top: 20px;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-transform: uppercase;
         }
 
     </style>
@@ -201,90 +182,110 @@
 <body>
 
 <header>
-    <div class="brand">Lab-Nexus Trustless Notary</div>
-    <div class="ledger-status">
-        <div class="status-item">ID: <span id="did-info">...</span></div>
-        <div class="status-item">Sats: <span id="balance-info">0</span></div>
-        <div class="status-item">Status: <span id="connection-status">Online</span></div>
+    <div class="brand-box">
+        <h1>LAB-NEXUS</h1>
+        <span>Laboratório de Ideias Influentes</span>
     </div>
 </header>
 
 <main>
-    <div class="section-label">Registros de Realidade Lavrados</div>
-    <div id="records-container">
+    <div class="section-header">
+        <h2 style="font-weight: 300;">Escrituras Ativas</h2>
+        <button class="btn-genesis" onclick="openModal()">+ Lavrar Realidade</button>
+    </div>
+
+    <div id="registry-grid" class="registry-grid">
         </div>
 </main>
 
-<div class="fab" onclick="openModal()">
-    <img src="https://cdn-icons-png.flaticon.com/512/2581/2581964.png" width="24" style="filter: invert(1);">
-</div>
-
-<div id="notary-modal" class="modal">
+<div id="modal-overlay">
     <div class="modal-content">
-        <h2>Lavrar Nova Escritura</h2>
-        <input type="text" id="doc-title" placeholder="Título do Documento">
-        <textarea id="doc-body" rows="8" placeholder="O conteúdo deste registro será selado via Hash SHA-256 e validado por prova de trabalho..."></textarea>
-        <button class="btn-action" onclick="processRecord()">Selar Documento (1000 Sats)</button>
-        <p style="text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); cursor: pointer;" onclick="closeModal()">CANCELAR OPERAÇÃO</p>
+        <h2>Nova Escritura</h2>
+        <input type="text" id="reg-title" class="input-lab" placeholder="Título da Ideia">
+        <textarea id="reg-body" class="input-lab" style="height: 150px;" placeholder="Conteúdo soberano..."></textarea>
+        
+        <label style="font-size: 0.7rem; color: #777;">TIPO DE SELAGEM:</label>
+        <div class="seal-options">
+            <button class="opt-btn active" id="opt-local" onclick="setOpt('local')">LOCAL<br>(Grátis)</button>
+            <button class="opt-btn" id="opt-sats" onclick="setOpt('sats')">LIGHTNING<br>(1k Sats)</button>
+            <button class="opt-btn" id="opt-dl" onclick="setOpt('dl')">DOWNLOAD<br>(Offline)</button>
+        </div>
+
+        <button class="btn-confirm" onclick="processarLavratura()">CONFIRMAR E SELAR</button>
+        <button onclick="closeModal()" style="background:none; border:none; color:#555; width:100%; margin-top:15px; cursor:pointer">Voltar</button>
     </div>
 </div>
 
 <script src="js/Motor_de_Checkout_Lightning.js"></script>
 <script>
-    // Inicialização do Cenário
-    function openModal() { document.getElementById('notary-modal').style.display = 'block'; }
-    function closeModal() { document.getElementById('notary-modal').style.display = 'none'; }
+    let currentOpt = 'local';
 
-    async function processRecord() {
-        const title = document.getElementById('doc-title').value;
-        const body = document.getElementById('doc-body').value;
+    function setOpt(val) {
+        currentOpt = val;
+        document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`opt-${val}`).classList.add('active');
+    }
 
-        if(!title || !body) return alert("Campos obrigatórios.");
+    function openModal() { document.getElementById('modal-overlay').style.display = 'flex'; }
+    function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
 
-        // Chama o Motor de Checkout Lightning (Inovação de Fluxo)
-        const payment = await window.LightningEngine.executeSovereignSeal(title, body);
+    async function processarLavratura() {
+        const title = document.getElementById('reg-title').value;
+        const body = document.getElementById('reg-body').value;
 
-        if(payment.success) {
-            saveRecord(title, body, payment.proof);
-            closeModal();
-            renderRecords();
+        if(!title || !body) return alert("Preencha os campos.");
+
+        // Lógica de Selagem conforme opção
+        if (currentOpt === 'sats') {
+            const payment = await LightningEngine.executeSovereignSeal(title, body);
+            if(!payment.success) return;
         }
+
+        // Geração da Hash (O Selo)
+        const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(body));
+        const hash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+        const entry = { title, body, hash, date: new Date().toLocaleDateString(), type: currentOpt };
+
+        if (currentOpt === 'dl') {
+            downloadFile(entry);
+        } else {
+            saveLocal(entry);
+        }
+
+        renderGrid();
+        closeModal();
     }
 
-    function saveRecord(title, body, proof) {
-        const records = JSON.parse(localStorage.getItem('nexus_ledger') || '[]');
-        const newRecord = {
-            id: crypto.randomUUID(),
-            title: title,
-            hash: btoa(body).slice(0, 16), // Simulação de hash rápido
-            timestamp: new Date().toLocaleString(),
-            proof: proof
-        };
-        records.unshift(newRecord);
-        localStorage.setItem('nexus_ledger', JSON.stringify(records));
+    function downloadFile(data) {
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `nexus-${data.title}.json`;
+        a.click();
     }
 
-    function renderRecords() {
-        const container = document.getElementById('records-container');
-        const records = JSON.parse(localStorage.getItem('nexus_ledger') || '[]');
-        
-        container.innerHTML = records.map(r => `
-            <div class="notary-card">
-                <div class="card-info">
-                    <h3>${r.title}</h3>
-                    <p>HASH: ${r.hash} | ${r.timestamp}</p>
-                    <p style="color:var(--gold); font-size: 0.5rem; margin-top:5px;">✓ VALIDADO VIA LIGHTNING</p>
-                </div>
-                <div class="seal-indicator">𐎖</div>
+    function saveLocal(data) {
+        const list = JSON.parse(localStorage.getItem('nexus_db') || '[]');
+        list.unshift(data);
+        localStorage.setItem('nexus_db', JSON.stringify(list));
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById('registry-grid');
+        const list = JSON.parse(localStorage.getItem('nexus_db') || '[]');
+        grid.innerHTML = list.map(item => `
+            <div class="card-nexus">
+                <span class="card-status">${item.type === 'sats' ? '⚡ SELADO VIA LIGHTNING' : '📁 REGISTRO LOCAL'}</span>
+                <div class="card-title">${item.title}</div>
+                <div style="font-size: 0.6rem; color: #555; font-family: 'JetBrains Mono'">${item.hash.slice(0,32)}...</div>
+                <div style="margin-top: 15px; font-size: 0.7rem; color: var(--azul-eletrico)">Data: ${item.date}</div>
             </div>
         `).join('');
     }
 
-    window.onload = () => {
-        document.getElementById('did-info').innerText = localStorage.getItem('nexus_did')?.slice(0,12) + '...';
-        renderRecords();
-    }
+    window.onload = renderGrid;
 </script>
-
 </body>
 </html>
