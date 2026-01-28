@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GRIMÓRIO C137 :: Leitura Soberana</title>
+<style>
+:root {
+  --bg: #050505;
+  --panel: #0b0b0b;
+  --cyan: #00F2FF;
+  --gold: #FFD700;
+  --text: #eaeaea;
+  --muted: #777;
+  --border: rgba(0,242,255,0.2);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: radial-gradient(circle at top, #080808, #050505);
+  color: var(--text);
+  font-family: "JetBrains Mono", monospace;
+  min-height: 100vh;
+}
+
+header {
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(0,0,0,0.5);
+}
+
+#grimorio-title {
+  font-size: 1.2rem;
+  color: var(--cyan);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+#grimorio-meta {
+  font-size: 0.65rem;
+  line-height: 1.5;
+  color: var(--muted);
+  word-break: break-all;
+}
+
+main {
+  padding: 24px 16px 120px;
+}
+
+#grimorio-body {
+  line-height: 1.8;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  color: #ccc;
+  border-left: 1px solid #222;
+  padding-left: 15px;
+}
+
+#seal {
+  margin-top: 40px;
+  padding: 16px;
+  border: 1px solid var(--gold);
+  border-radius: 4px;
+  text-align: center;
+  color: var(--gold);
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  background: rgba(255, 215, 0, 0.05);
+  display: none; /* Aparece após decodificação */
+}
+
+.glitch {
+  animation: glitch 0.3s linear 2;
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  60% { transform: translate(-2px, -2px); }
+  80% { transform: translate(2px, 2px); }
+  100% { transform: translate(0); }
+}
+
+footer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: #060606;
+  border-top: 1px solid var(--border);
+  padding: 15px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.f-item { font-size: 0.6rem; color: var(--muted); text-align: center; }
+.f-item.active { color: var(--cyan); }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div id="grimorio-title">Acedendo ao Nexus...</div>
+  <div id="grimorio-meta">Aguardando autorização da Dimensão C137...</div>
+</header>
+
+<main>
+  <div id="grimorio-body">Iniciando protocolo de decodificação...</div>
+  <div id="seal">📜 REGISTRO IMUTÁVEL · SELADO</div>
+</main>
+
+<footer>
+  <div class="f-item active">📖 LEITURA</div>
+  <div class="f-item">⚡ PROVA</div>
+  <div class="f-item">🔐 VAULT</div>
+  <div class="f-item" onclick="window.history.back()">⬅ VOLTAR</div>
+</footer>
+
+<script>
+  function haptic() { if (navigator.vibrate) navigator.vibrate(30); }
+
+  window.onload = async () => {
+    // 1. Pega o ID que o Painel enviou via localStorage
+    const registryID = localStorage.getItem("grimorio_open");
+    const registros = JSON.parse(localStorage.getItem('nexus_registros')) || [];
+    const reg = registros.find(r => r.uuid === registryID);
+
+    const bodyElement = document.getElementById("grimorio-body");
+    const titleElement = document.getElementById("grimorio-title");
+    const metaElement = document.getElementById("grimorio-meta");
+    const sealElement = document.getElementById("seal");
+
+    if (reg) {
+      // Simulação de "Decodificação" (UX)
+      setTimeout(() => {
+        haptic();
+        titleElement.innerText = reg.title;
+        metaElement.innerHTML = `
+          HASH: ${reg.hash}<br>
+          DATA: ${new Date(reg.timestamp).toLocaleString('pt-PT')}<br>
+          STATUS: VERIFICADO NA REDE
+        `;
+        bodyElement.innerText = reg.body;
+        
+        // Ativa o Selo com Glitch
+        sealElement.style.display = "block";
+        sealElement.classList.add("glitch");
+        setTimeout(() => sealElement.classList.remove("glitch"), 400);
+      }, 1000);
+
+    } else {
+      bodyElement.innerText = "ERRO: Registo não encontrado ou acesso negado pelo Vault.";
+      titleElement.innerText = "ACESSO BLOQUEADO";
+    }
+  };
+</script>
+</body>
+</html>
