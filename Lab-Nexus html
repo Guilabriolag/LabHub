@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAB-NEXUS — Cartório Digital Soberano</title>
+
+<!-- FONTE -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#050505;
+  --panel:#0b0b0b;
+  --cyan:#00f2ff;
+  --gold:#ffd700;
+  --text:#e5e5e5;
+  --muted:#777;
+  --danger:#ff3b3b;
+}
+
+*{
+  box-sizing:border-box;
+  font-family:"JetBrains Mono", monospace;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* HEADER */
+header{
+  padding:14px;
+  background:linear-gradient(180deg,#050505,#000);
+  border-bottom:1px solid rgba(0,242,255,.15);
+}
+
+#did{
+  font-size:11px;
+  color:var(--cyan);
+}
+
+#status{
+  font-size:10px;
+  color:var(--muted);
+}
+
+/* CONTEÚDO */
+main{
+  flex:1;
+  overflow-y:auto;
+  padding:16px;
+}
+
+.console{
+  display:none;
+}
+
+.console.active{
+  display:block;
+}
+
+/* CARDS */
+.card{
+  background:linear-gradient(135deg,#0b0b0b,#050505);
+  border:1px solid rgba(0,242,255,.15);
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 0 12px rgba(0,242,255,.08);
+}
+
+.card h3{
+  margin:0 0 6px;
+  font-size:15px;
+}
+
+.card small{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* FORMULÁRIOS */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+input,textarea,select{
+  background:#000;
+  border:1px solid rgba(0,242,255,.25);
+  color:var(--text);
+  padding:12px;
+  border-radius:8px;
+  font-size:14px;
+}
+
+button{
+  background:var(--cyan);
+  color:#000;
+  border:none;
+  padding:14px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button.gold{
+  background:var(--gold);
+}
+
+button.danger{
+  background:var(--danger);
+  color:#fff;
+}
+
+/* NAV BAR */
+.nav{
+  height:72px;
+  background:var(--panel);
+  border-top:1px solid rgba(0,242,255,.2);
+  display:flex;
+}
+
+.nav button{
+  flex:1;
+  background:none;
+  border:none;
+  color:var(--muted);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-size:10px;
+}
+
+.nav button.active{
+  color:var(--cyan);
+}
+
+.nav span{
+  font-size:20px;
+}
+
+/* DESKTOP */
+@media(min-width:768px){
+  body{
+    max-width:480px;
+    margin:auto;
+    border-left:1px solid #111;
+    border-right:1px solid #111;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div id="did">did:nexus:btc:ARCHITECT-C137</div>
+  <div id="status">Status: LOCAL • BUNKER MODE</div>
+</header>
+
+<main>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="console active">
+  <div class="card">
+    <h3>🧠 Sistema Operacional Ativo</h3>
+    <small>Total de Registros: <span id="totalRegistros">0</span></small>
+  </div>
+</section>
+
+<!-- REGISTROS -->
+<section id="cartorio" class="console">
+  <div id="gridRegistros"></div>
+</section>
+
+<!-- FORMULÁRIOS -->
+<section id="formularios" class="console">
+
+  <div class="card">
+    <h3>📜 Registro Notarial</h3>
+
+    <form id="formRegistro">
+      <select id="tipoRegistro">
+        <option value="civil.natural">Registro Civil – Pessoa Natural</option>
+        <option value="civil.legal">Pessoa Jurídica</option>
+        <option value="property">Registro de Imóvel</option>
+        <option value="notary">Tabelionato de Notas</option>
+        <option value="protest">Protesto</option>
+        <option value="digital.fact">Ata Digital</option>
+        <option value="manifest">Manifesto</option>
+      </select>
+
+      <input id="titulo" placeholder="Título do Ato">
+      <textarea id="conteudo" rows="4" placeholder="Descrição / Texto do Ato"></textarea>
+
+      <button type="submit">SELAR REGISTRO</button>
+    </form>
+  </div>
+
+</section>
+
+<!-- LIGHTNING -->
+<section id="lightning" class="console">
+  <div class="card">
+    <h3>⚡ Lastro em Satoshis</h3>
+    <input placeholder="Valor em sats">
+    <button class="gold">GERAR INVOICE</button>
+  </div>
+</section>
+
+<!-- VAULT -->
+<section id="vault" class="console">
+  <div class="card">
+    <h3>🔐 Vault Soberano</h3>
+    <button>Backup Criptografado</button>
+    <button class="danger">Ghost Mode</button>
+  </div>
+</section>
+
+</main>
+
+<!-- NAV -->
+<div class="nav">
+  <button class="active" onclick="openConsole('dashboard')"><span>🏠</span>Home</button>
+  <button onclick="openConsole('cartorio')"><span>🏛️</span>Cartório</button>
+  <button onclick="openConsole('formularios')"><span>📝</span>Form</button>
+  <button onclick="openConsole('lightning')"><span>⚡</span>Sats</button>
+  <button onclick="openConsole('vault')"><span>🔐</span>Vault</button>
+</div>
+
+<script src="https://guilabriolag.github.io/Lab-Nexus/js/registry.js"></script>
+
+<script>
+function openConsole(id){
+  document.querySelectorAll('.console').forEach(c=>c.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+/* FORM */
+document.getElementById("formRegistro").addEventListener("submit",async e=>{
+  e.preventDefault();
+
+  const data={
+    type:tipoRegistro.value,
+    title:titulo.value,
+    content:conteudo.value
+  };
+
+  if(window.registerReality){
+    await registerReality(data);
+  }
+
+  navigator.vibrate?.(60);
+  e.target.reset();
+});
+</script>
+
+</body>
+</html>
