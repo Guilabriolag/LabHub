@@ -3,121 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LAB-NEXUS :: Cartório C137</title>
-<link rel="stylesheet" href="https://guilabriolag.github.io/Lab-Nexus/css/nexus-core.css">
+<title>LAB-NEXUS :: Cartório Soberano C137</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
 <style>
-  /* Injeção de Estilo Crítico para funcionamento imediato */
-  :root { --cyan: #00F2FF; --gold: #FFD700; --bg: #050505; }
-  body { background: var(--bg); color: #e6e6e6; font-family: 'JetBrains Mono', monospace; margin: 0; }
-  header { padding: 15px; border-bottom: 1px solid rgba(0,242,255,0.2); background: #080808; }
-  .reality-card { background: #0b0b0b; border: 1px solid rgba(0,242,255,0.1); border-radius: 8px; padding: 15px; margin: 15px; transition: 0.3s; }
-  .reality-card:hover { border-color: var(--cyan); box-shadow: 0 0 15px rgba(0,242,255,0.1); }
-  .input-nexus { width: 100%; background: #111; border: 1px solid #333; color: var(--cyan); padding: 10px; border-radius: 5px; margin: 5px 0; }
-  .btn-genesis { background: var(--cyan); color: #000; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%; }
-  nav { position: fixed; bottom: 0; width: 100%; background: #060606; display: flex; justify-content: space-around; padding: 10px; border-top: 1px solid rgba(0,242,255,0.2); }
-  .nav-item { text-align: center; font-size: 0.7rem; color: #777; cursor: pointer; }
-  .nav-item.active { color: var(--cyan); }
-  #modal-genesis { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); padding:20px; z-index:100; }
+    :root {
+        --gold: #C5A059;
+        --gold-bright: #FFD700;
+        --bg: #050505;
+        --panel: #0d0d0d;
+        --cyan: #00F2FF;
+        --glass: rgba(20, 20, 20, 0.95);
+    }
+
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    body {
+        background: var(--bg);
+        color: #e0e0e0;
+        font-family: 'JetBrains Mono', monospace;
+        margin: 0;
+        overflow-x: hidden;
+        background-image: 
+            radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 70%);
+    }
+
+    /* CENÁRIO: O FRONTISPÍCIO (Header) */
+    header {
+        padding: 30px 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+        background: linear-gradient(to bottom, #0a0a0a, transparent);
+    }
+
+    .monument-title {
+        font-family: 'Cinzel', serif;
+        color: var(--gold);
+        font-size: 1.4rem;
+        letter-spacing: 5px;
+        text-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        margin-bottom: 10px;
+    }
+
+    .did-badge {
+        display: inline-block;
+        font-size: 0.6rem;
+        padding: 4px 12px;
+        border: 1px solid var(--gold);
+        color: var(--gold);
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* CENÁRIO: O GRANDE HALL (Grid de Registros) */
+    main { padding: 20px; padding-bottom: 120px; }
+
+    #realities-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .reality-entry {
+        background: var(--panel);
+        border: 1px solid #1a1a1a;
+        padding: 20px;
+        border-radius: 2px;
+        position: relative;
+        transition: 0.4s;
+        border-left: 4px solid var(--gold);
+    }
+
+    .reality-entry:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        border-left: 4px solid var(--cyan);
+    }
+
+    .entry-title {
+        font-family: 'Cinzel', serif;
+        font-size: 1rem;
+        color: var(--gold);
+        margin-bottom: 8px;
+    }
+
+    .entry-hash {
+        font-size: 0.55rem;
+        color: #444;
+        word-break: break-all;
+    }
+
+    /* BOTÃO GÊNESIS (Ato de Criação) */
+    .genesis-trigger {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 70px;
+        height: 70px;
+        background: var(--gold);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+        cursor: pointer;
+        z-index: 100;
+        transition: 0.3s;
+    }
+
+    .genesis-trigger:active { transform: scale(0.9); }
+
+    /* MODAL DE ESCRITURA (O Cenário da Magia) */
+    #modal-genesis {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        padding: 30px;
+        z-index: 200;
+        animation: fadeIn 0.5s;
+    }
+
+    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+
+    .scribble-area {
+        max-width: 600px;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+
+    .scribble-area h2 {
+        font-family: 'Cinzel', serif;
+        color: var(--gold);
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .input-monument {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #333;
+        color: white;
+        padding: 15px 0;
+        font-size: 1rem;
+        margin-bottom: 30px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .input-monument:focus { border-bottom-color: var(--cyan); }
+
+    .textarea-monument {
+        width: 100%;
+        height: 200px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid #222;
+        border-radius: 8px;
+        padding: 20px;
+        color: #ccc;
+        font-family: inherit;
+        outline: none;
+        resize: none;
+    }
+
+    .btn-seal {
+        width: 100%;
+        padding: 20px;
+        background: var(--gold);
+        color: black;
+        font-family: 'Cinzel', serif;
+        font-weight: bold;
+        border: none;
+        margin-top: 30px;
+        cursor: pointer;
+        letter-spacing: 3px;
+    }
+
 </style>
 </head>
 <body>
 
 <header>
-  <div id="did" style="font-size:0.7rem; color:var(--cyan)">did:nexus:btc:carregando...</div>
-  <div id="connection-status" style="font-size:0.6rem; color:#777">BUNKER ONLINE</div>
+    <div class="monument-title">Cartório Labriolag</div>
+    <div class="did-badge" id="did-display">Aguardando Chaves...</div>
 </header>
 
-<main id="app">
-  <div id="realities-grid"></div>
+<main>
+    <div id="realities-grid">
+        </div>
 </main>
 
-<div id="modal-genesis">
-  <h2 style="color:var(--cyan)">📝 GÊNESIS DE REALIDADE</h2>
-  <input type="text" id="reg-title" class="input-nexus" placeholder="Título do Registro">
-  <textarea id="reg-content" class="input-nexus" rows="8" placeholder="Conteúdo da Realidade..."></textarea>
-  <button class="btn-genesis" onclick="processarGenesis()">SELAR REALIDADE</button>
-  <button onclick="toggleGenesis()" style="background:none; border:none; color:#777; margin-top:10px; width:100%">CANCELAR</button>
+<div class="genesis-trigger" onclick="toggleModal()">
+    <span style="font-size: 2rem; color: #000;">+</span>
 </div>
 
-<nav>
-  <div class="nav-item active" onclick="toggleGenesis()"><span>📝</span><br>Gênesis</div>
-  <div class="nav-item"><span>⚡</span><br>Sats</div>
-  <div class="nav-item" onclick="exportarLivro()"><span>📖</span><br>Exportar</div>
-  <div class="nav-item"><span>🔐</span><br>Vault</div>
-</nav>
+<div id="modal-genesis">
+    <div class="scribble-area">
+        <h2>LAVRAR NOVA ESCRITURA</h2>
+        <input type="text" id="reg-title" class="input-monument" placeholder="TÍTULO DO REGISTRO">
+        <textarea id="reg-content" class="textarea-monument" placeholder="Escreva a realidade que deseja imortalizar..."></textarea>
+        <button class="btn-seal" onclick="selarRealidade()">SELAR PARA A ETERNIDADE</button>
+        <button onclick="toggleModal()" style="background:none; border:none; color:#555; width:100%; margin-top:20px; cursor:pointer">CANCELAR</button>
+    </div>
+</div>
 
-<script src="https://guilabriolag.github.io/Lab-Nexus/js/core-immutability.js"></script>
 <script>
-  // ESTADO GLOBAL (Herdado do McClone)
-  let STATE = {
-    registros: JSON.parse(localStorage.getItem('nexus_registros')) || []
-  };
+    function haptic(type) {
+        if (!navigator.vibrate) return;
+        if (type === 'heavy') navigator.vibrate([100, 50, 100]);
+        else navigator.vibrate(30);
+    }
 
-  function saveAll() {
-    localStorage.setItem('nexus_registros', JSON.stringify(STATE.registros));
-  }
+    function toggleModal() {
+        const m = document.getElementById('modal-genesis');
+        m.style.display = m.style.display === 'block' ? 'none' : 'block';
+        haptic();
+    }
 
-  function toggleGenesis() {
-    const m = document.getElementById('modal-genesis');
-    m.style.display = m.style.display === 'block' ? 'none' : 'block';
-  }
+    async function selarRealidade() {
+        const title = document.getElementById('reg-title').value;
+        const body = document.getElementById('reg-content').value;
 
-  // A FUNÇÃO MESTRE: Transformando texto em Realidade Selada
-  async function processarGenesis() {
-    const title = document.getElementById('reg-title').value;
-    const content = document.getElementById('reg-content').value;
+        if(!title || !body) return;
 
-    if(!title || !content) return alert("Campos incompletos.");
+        haptic('heavy');
+        
+        // Lógica de Hash (Simplificada para o exemplo)
+        const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(body))))
+                     .map(b => b.toString(16).padStart(2, '0')).join('');
 
-    // Gerando Hash Real (SHA-256)
-    const encoder = new TextEncoder();
-    const data = encoder.encode(content);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        const entry = {
+            uuid: crypto.randomUUID(),
+            title: title.toUpperCase(),
+            body: body,
+            hash: hash,
+            timestamp: Date.now()
+        };
 
-    const novoRegistro = {
-      uuid: crypto.randomUUID(),
-      title: title,
-      body: content,
-      hash: hashHex,
-      timestamp: Date.now(),
-      status: "LOCKED"
+        const list = JSON.parse(localStorage.getItem('nexus_registros') || '[]');
+        list.unshift(entry);
+        localStorage.setItem('nexus_registros', JSON.stringify(list));
+
+        render();
+        toggleModal();
+        alert("REALIDADE SELADA NO CARTÓRIO C137.");
+    }
+
+    function render() {
+        const grid = document.getElementById('realities-grid');
+        const list = JSON.parse(localStorage.getItem('nexus_registros') || '[]');
+        
+        grid.innerHTML = list.map(reg => `
+            <div class="reality-entry" onclick="abrirGrimorio('${reg.uuid}')">
+                <div class="entry-title">${reg.title}</div>
+                <div class="entry-hash">HASH: ${reg.hash.slice(0, 32)}...</div>
+                <div style="font-size:0.5rem; color:var(--gold); margin-top:10px;">📜 SELO DE IMUTABILIDADE ATIVO</div>
+            </div>
+        `).join('');
+    }
+
+    function abrirGrimorio(id) {
+        localStorage.setItem('grimorio_open', id);
+        window.location.href = 'Grimorio.html';
+    }
+
+    window.onload = () => {
+        const did = localStorage.getItem('nexus_did') || 'IDENTIDADE_NAO_CONFIGURADA';
+        document.getElementById('did-display').innerText = did;
+        render();
     };
-
-    STATE.registros.unshift(novoRegistro);
-    saveAll();
-    render();
-    toggleGenesis();
-    if(navigator.vibrate) navigator.vibrate(50);
-  }
-
-  function render() {
-    const grid = document.getElementById('realities-grid');
-    grid.innerHTML = STATE.registros.map(reg => `
-      <div class="reality-card" onclick="verGrimorio('${reg.uuid}')">
-        <div class="reality-title">${reg.title}</div>
-        <div class="reality-hash" style="font-size:0.6rem; color:var(--cyan)">${reg.hash.slice(0,24)}...</div>
-        <div style="font-size:0.6rem; color:var(--gold); margin-top:5px">📜 IMUTÁVEL</div>
-      </div>
-    `).join('');
-  }
-
-  function verGrimorio(id) {
-    localStorage.setItem('grimorio_open', id);
-    window.location.href = 'Grimorio.html';
-  }
-
-  function exportarLivro() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(STATE.registros));
-    const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href", dataStr);
-    downloadAnchorNode.setAttribute("download", "nexus_backup.json");
-    downloadAnchorNode.click();
-    downloadAnchorNode.remove();
-  }
-
-  window.onload = render;
 </script>
 </body>
 </html>
