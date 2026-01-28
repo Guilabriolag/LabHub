@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LAB-NEXUS | Sovereign Identity</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #C5A059;
+            --gold-bright: #FFD700;
+            --bg: #050505;
+            --surface: #121212;
+            --glass: blur(15px) saturate(180%);
+        }
+
+        body {
+            background: var(--bg); color: #fff; font-family: 'Inter', sans-serif;
+            margin: 0; overflow: hidden; height: 100vh;
+        }
+
+        /* --- PERFIL DO USUÁRIO --- */
+        #user-profile-view {
+            position: fixed; inset: 0; background: var(--bg); z-index: 4000;
+            display: none; flex-direction: column; padding: 25px;
+        }
+
+        .id-badge {
+            background: linear-gradient(135deg, #1a1a1a, #000);
+            border: 1px solid var(--gold);
+            padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 30px;
+        }
+
+        .id-tag { font-family: 'Cinzel'; color: var(--gold); font-size: 1.5rem; letter-spacing: 2px; }
+
+        .menu-list { list-style: none; padding: 0; }
+        .menu-item {
+            display: flex; align-items: center; padding: 18px;
+            border-bottom: 1px solid #1a1a1a; cursor: pointer;
+        }
+        .menu-item i { margin-right: 15px; color: var(--gold); }
+        .menu-item .label { flex: 1; font-size: 0.85rem; }
+        .menu-item .sub { font-size: 0.6rem; color: #555; display: block; }
+
+        /* --- BOTÃO FLUTUANTE PERFIL --- */
+        .profile-trigger {
+            position: absolute; top: 20px; left: 20px;
+            width: 45px; height: 45px; border-radius: 50%;
+            border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center;
+            background: var(--surface); cursor: pointer; z-index: 100;
+        }
+
+        /* Reutilizando estilos anteriores de formulário e vellum... */
+        .btn-pay { background: var(--gold); color: #000; border: none; padding: 15px; border-radius: 12px; font-weight: bold; width: 100%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="profile-trigger" onclick="toggleProfile()">
+    <i data-lucide="user"></i>
+</div>
+
+<div id="user-profile-view">
+    <div style="display:flex; justify-content: space-between; margin-bottom:20px;">
+        <i data-lucide="chevron-left" onclick="toggleProfile()"></i>
+        <span style="font-family:'Cinzel'; color:var(--gold)">Bunker Profile</span>
+        <i></i>
+    </div>
+
+    <div class="id-badge">
+        <div style="font-size: 0.6rem; color: #555;">Sovereign Identity</div>
+        <div class="id-tag">$LABRIOLAG</div>
+        <div style="font-size: 0.5rem; color: var(--gold); margin-top: 5px;">Reserve em moeda forte: BTC</div>
+    </div>
+
+    <div class="menu-list">
+        <div class="menu-item">
+            <i data-lucide="shield-check"></i>
+            <div class="label">Segurança<span class="sub">PIN, Biometria e Chaves PGP</span></div>
+        </div>
+        <div class="menu-item">
+            <i data-lucide="wallet"></i>
+            <div class="label">Limites da Conta<span class="sub">Upgrade para nível Institucional</span></div>
+        </div>
+        <div class="menu-item">
+            <i data-lucide="award"></i>
+            <div class="label">Badges da Conta<span class="sub">Como os selos funcionam</span></div>
+        </div>
+        <div class="menu-item" style="margin-top:40px; color:var(--danger)">
+            <i data-lucide="log-out"></i>
+            <div class="label">Encerrar Sessão</div>
+        </div>
+    </div>
+</div>
+
+<header style="text-align:right; padding: 20px;">
+    <div style="font-family:'JetBrains Mono'; font-size: 0.8rem;">$LABRIOLAG</div>
+    <div id="lnbits-balance" style="color:var(--gold); font-size: 0.7rem;">0 SATS</div>
+</header>
+
+<main id="catalog-view" style="padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+    </main>
+
+<script>
+    // --- CONFIGURAÇÃO LNBITS ---
+    const LNBITS_CONFIG = {
+        api_url: "https://lnbits.com/api/v1", // Ou sua URL própria
+        inkey: "SUA_INVOICE_READ_KEY_AQUI"
+    };
+
+    // --- MOTOR DE PAGAMENTO REAL ---
+    async function getLightningInvoice(amountSats, memo) {
+        try {
+            const response = await fetch(`${LNBITS_CONFIG.api_url}/payments`, {
+                method: "POST",
+                headers: { 
+                    "X-Api-Key": LNBITS_CONFIG.inkey,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    out: false,
+                    amount: amountSats,
+                    memo: memo
+                })
+            });
+            const data = await response.json();
+            return data.payment_request; // Aqui você exibiria o QR Code ou chamaria o WebLN
+        } catch (e) {
+            console.error("Erro LNBits:", e);
+        }
+    }
+
+    function toggleProfile() {
+        const view = document.getElementById('user-profile-view');
+        view.style.display = view.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // Inicializar ícones
+    lucide.createIcons();
+</script>
+</body>
+</html>
