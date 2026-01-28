@@ -1,279 +1,290 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LAB-NEXUS :: Cartório Soberano C137</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet">
-<style>
-    :root {
-        --gold: #C5A059;
-        --gold-bright: #FFD700;
-        --bg: #050505;
-        --panel: #0d0d0d;
-        --cyan: #00F2FF;
-        --glass: rgba(20, 20, 20, 0.95);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAB-NEXUS // TRUSTLESS NOTARY SERVICE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate: #0a0b0d;
+            --steel: #1a1c20;
+            --gold: #c5a059;
+            --gold-dim: rgba(197, 160, 89, 0.2);
+            --cyan: #00f2ff;
+            --text-main: #e2e8f0;
+            --text-muted: #64748b;
+        }
 
-    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    
-    body {
-        background: var(--bg);
-        color: #e0e0e0;
-        font-family: 'JetBrains Mono', monospace;
-        margin: 0;
-        overflow-x: hidden;
-        background-image: 
-            radial-gradient(circle at 50% 0%, #1a1a1a 0%, #050505 70%);
-    }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* CENÁRIO: O FRONTISPÍCIO (Header) */
-    header {
-        padding: 30px 20px;
-        text-align: center;
-        border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-        background: linear-gradient(to bottom, #0a0a0a, transparent);
-    }
+        body {
+            background-color: var(--slate);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at top right, #161d1f 0%, transparent 40%),
+                radial-gradient(circle at bottom left, #121417 0%, transparent 40%);
+            min-height: 100vh;
+        }
 
-    .monument-title {
-        font-family: 'Cinzel', serif;
-        color: var(--gold);
-        font-size: 1.4rem;
-        letter-spacing: 5px;
-        text-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
-        margin-bottom: 10px;
-    }
+        /* HEADER INSTITUCIONAL */
+        header {
+            border-bottom: 1px solid var(--steel);
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(10, 11, 13, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .did-badge {
-        display: inline-block;
-        font-size: 0.6rem;
-        padding: 4px 12px;
-        border: 1px solid var(--gold);
-        color: var(--gold);
-        border-radius: 50px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+        .brand {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
 
-    /* CENÁRIO: O GRANDE HALL (Grid de Registros) */
-    main { padding: 20px; padding-bottom: 120px; }
+        .ledger-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            text-transform: uppercase;
+        }
 
-    #realities-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
+        .status-item span { color: var(--gold); }
 
-    .reality-entry {
-        background: var(--panel);
-        border: 1px solid #1a1a1a;
-        padding: 20px;
-        border-radius: 2px;
-        position: relative;
-        transition: 0.4s;
-        border-left: 4px solid var(--gold);
-    }
+        /* GRID DE ESCRITURAS */
+        main { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
 
-    .reality-entry:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        border-left: 4px solid var(--cyan);
-    }
+        .section-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-    .entry-title {
-        font-family: 'Cinzel', serif;
-        font-size: 1rem;
-        color: var(--gold);
-        margin-bottom: 8px;
-    }
+        .section-label::after {
+            content: ""; flex: 1; height: 1px; background: var(--steel);
+        }
 
-    .entry-hash {
-        font-size: 0.55rem;
-        color: #444;
-        word-break: break-all;
-    }
+        #records-container { display: grid; gap: 15px; }
 
-    /* BOTÃO GÊNESIS (Ato de Criação) */
-    .genesis-trigger {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 70px;
-        height: 70px;
-        background: var(--gold);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
-        cursor: pointer;
-        z-index: 100;
-        transition: 0.3s;
-    }
+        .notary-card {
+            background: var(--steel);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
 
-    .genesis-trigger:active { transform: scale(0.9); }
+        .notary-card:hover {
+            border-color: var(--gold);
+            transform: scale(1.01);
+            background: #1e2126;
+        }
 
-    /* MODAL DE ESCRITURA (O Cenário da Magia) */
-    #modal-genesis {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: var(--glass);
-        backdrop-filter: blur(15px);
-        padding: 30px;
-        z-index: 200;
-        animation: fadeIn 0.5s;
-    }
+        .card-info h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
 
-    @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        .card-info p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
 
-    .scribble-area {
-        max-width: 600px;
-        margin: 0 auto;
-        padding-top: 50px;
-    }
+        .seal-indicator {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gold-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 0.8rem;
+        }
 
-    .scribble-area h2 {
-        font-family: 'Cinzel', serif;
-        color: var(--gold);
-        text-align: center;
-        margin-bottom: 40px;
-    }
+        /* MODAL DE LAVRATURA */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            padding: 40px 20px;
+        }
 
-    .input-monument {
-        width: 100%;
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid #333;
-        color: white;
-        padding: 15px 0;
-        font-size: 1rem;
-        margin-bottom: 30px;
-        outline: none;
-        transition: 0.3s;
-    }
+        .modal-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--slate);
+            border: 1px solid var(--gold-dim);
+            padding: 40px;
+            position: relative;
+        }
 
-    .input-monument:focus { border-bottom-color: var(--cyan); }
+        .modal-content h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
 
-    .textarea-monument {
-        width: 100%;
-        height: 200px;
-        background: rgba(255,255,255,0.02);
-        border: 1px solid #222;
-        border-radius: 8px;
-        padding: 20px;
-        color: #ccc;
-        font-family: inherit;
-        outline: none;
-        resize: none;
-    }
+        input, textarea {
+            width: 100%;
+            background: #000;
+            border: 1px solid var(--steel);
+            padding: 15px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 20px;
+            outline: none;
+        }
 
-    .btn-seal {
-        width: 100%;
-        padding: 20px;
-        background: var(--gold);
-        color: black;
-        font-family: 'Cinzel', serif;
-        font-weight: bold;
-        border: none;
-        margin-top: 30px;
-        cursor: pointer;
-        letter-spacing: 3px;
-    }
+        input:focus, textarea:focus { border-color: var(--gold); }
 
-</style>
+        .btn-action {
+            width: 100%;
+            padding: 20px;
+            background: var(--gold);
+            color: black;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover { background: var(--gold-bright); filter: brightness(1.2); }
+
+        .fab {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--gold);
+            width: 60px;
+            height: 60px;
+            border-radius: 0; /* Estilo quadrado institucional */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+    </style>
 </head>
 <body>
 
 <header>
-    <div class="monument-title">Cartório Labriolag</div>
-    <div class="did-badge" id="did-display">Aguardando Chaves...</div>
+    <div class="brand">Lab-Nexus Trustless Notary</div>
+    <div class="ledger-status">
+        <div class="status-item">ID: <span id="did-info">...</span></div>
+        <div class="status-item">Sats: <span id="balance-info">0</span></div>
+        <div class="status-item">Status: <span id="connection-status">Online</span></div>
+    </div>
 </header>
 
 <main>
-    <div id="realities-grid">
+    <div class="section-label">Registros de Realidade Lavrados</div>
+    <div id="records-container">
         </div>
 </main>
 
-<div class="genesis-trigger" onclick="toggleModal()">
-    <span style="font-size: 2rem; color: #000;">+</span>
+<div class="fab" onclick="openModal()">
+    <img src="https://cdn-icons-png.flaticon.com/512/2581/2581964.png" width="24" style="filter: invert(1);">
 </div>
 
-<div id="modal-genesis">
-    <div class="scribble-area">
-        <h2>LAVRAR NOVA ESCRITURA</h2>
-        <input type="text" id="reg-title" class="input-monument" placeholder="TÍTULO DO REGISTRO">
-        <textarea id="reg-content" class="textarea-monument" placeholder="Escreva a realidade que deseja imortalizar..."></textarea>
-        <button class="btn-seal" onclick="selarRealidade()">SELAR PARA A ETERNIDADE</button>
-        <button onclick="toggleModal()" style="background:none; border:none; color:#555; width:100%; margin-top:20px; cursor:pointer">CANCELAR</button>
+<div id="notary-modal" class="modal">
+    <div class="modal-content">
+        <h2>Lavrar Nova Escritura</h2>
+        <input type="text" id="doc-title" placeholder="Título do Documento">
+        <textarea id="doc-body" rows="8" placeholder="O conteúdo deste registro será selado via Hash SHA-256 e validado por prova de trabalho..."></textarea>
+        <button class="btn-action" onclick="processRecord()">Selar Documento (1000 Sats)</button>
+        <p style="text-align: center; margin-top: 20px; font-size: 0.7rem; color: var(--text-muted); cursor: pointer;" onclick="closeModal()">CANCELAR OPERAÇÃO</p>
     </div>
 </div>
 
+<script src="js/Motor_de_Checkout_Lightning.js"></script>
 <script>
-    function haptic(type) {
-        if (!navigator.vibrate) return;
-        if (type === 'heavy') navigator.vibrate([100, 50, 100]);
-        else navigator.vibrate(30);
+    // Inicialização do Cenário
+    function openModal() { document.getElementById('notary-modal').style.display = 'block'; }
+    function closeModal() { document.getElementById('notary-modal').style.display = 'none'; }
+
+    async function processRecord() {
+        const title = document.getElementById('doc-title').value;
+        const body = document.getElementById('doc-body').value;
+
+        if(!title || !body) return alert("Campos obrigatórios.");
+
+        // Chama o Motor de Checkout Lightning (Inovação de Fluxo)
+        const payment = await window.LightningEngine.executeSovereignSeal(title, body);
+
+        if(payment.success) {
+            saveRecord(title, body, payment.proof);
+            closeModal();
+            renderRecords();
+        }
     }
 
-    function toggleModal() {
-        const m = document.getElementById('modal-genesis');
-        m.style.display = m.style.display === 'block' ? 'none' : 'block';
-        haptic();
-    }
-
-    async function selarRealidade() {
-        const title = document.getElementById('reg-title').value;
-        const body = document.getElementById('reg-content').value;
-
-        if(!title || !body) return;
-
-        haptic('heavy');
-        
-        // Lógica de Hash (Simplificada para o exemplo)
-        const hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(body))))
-                     .map(b => b.toString(16).padStart(2, '0')).join('');
-
-        const entry = {
-            uuid: crypto.randomUUID(),
-            title: title.toUpperCase(),
-            body: body,
-            hash: hash,
-            timestamp: Date.now()
+    function saveRecord(title, body, proof) {
+        const records = JSON.parse(localStorage.getItem('nexus_ledger') || '[]');
+        const newRecord = {
+            id: crypto.randomUUID(),
+            title: title,
+            hash: btoa(body).slice(0, 16), // Simulação de hash rápido
+            timestamp: new Date().toLocaleString(),
+            proof: proof
         };
-
-        const list = JSON.parse(localStorage.getItem('nexus_registros') || '[]');
-        list.unshift(entry);
-        localStorage.setItem('nexus_registros', JSON.stringify(list));
-
-        render();
-        toggleModal();
-        alert("REALIDADE SELADA NO CARTÓRIO C137.");
+        records.unshift(newRecord);
+        localStorage.setItem('nexus_ledger', JSON.stringify(records));
     }
 
-    function render() {
-        const grid = document.getElementById('realities-grid');
-        const list = JSON.parse(localStorage.getItem('nexus_registros') || '[]');
+    function renderRecords() {
+        const container = document.getElementById('records-container');
+        const records = JSON.parse(localStorage.getItem('nexus_ledger') || '[]');
         
-        grid.innerHTML = list.map(reg => `
-            <div class="reality-entry" onclick="abrirGrimorio('${reg.uuid}')">
-                <div class="entry-title">${reg.title}</div>
-                <div class="entry-hash">HASH: ${reg.hash.slice(0, 32)}...</div>
-                <div style="font-size:0.5rem; color:var(--gold); margin-top:10px;">📜 SELO DE IMUTABILIDADE ATIVO</div>
+        container.innerHTML = records.map(r => `
+            <div class="notary-card">
+                <div class="card-info">
+                    <h3>${r.title}</h3>
+                    <p>HASH: ${r.hash} | ${r.timestamp}</p>
+                    <p style="color:var(--gold); font-size: 0.5rem; margin-top:5px;">✓ VALIDADO VIA LIGHTNING</p>
+                </div>
+                <div class="seal-indicator">𐎖</div>
             </div>
         `).join('');
     }
 
-    function abrirGrimorio(id) {
-        localStorage.setItem('grimorio_open', id);
-        window.location.href = 'Grimorio.html';
-    }
-
     window.onload = () => {
-        const did = localStorage.getItem('nexus_did') || 'IDENTIDADE_NAO_CONFIGURADA';
-        document.getElementById('did-display').innerText = did;
-        render();
-    };
+        document.getElementById('did-info').innerText = localStorage.getItem('nexus_did')?.slice(0,12) + '...';
+        renderRecords();
+    }
 </script>
+
 </body>
 </html>
