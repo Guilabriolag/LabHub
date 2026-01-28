@@ -106,6 +106,154 @@
     </div>
 
     <div id="view-catalog" class="view">
+    <div id="catalog-main">
+        <h2 style="font-family:'Cinzel'; color:var(--gold);">CATEGORIAS</h2>
+        <div id="category-list"></div>
+        <button class="btn-gold" style="background:#222; color:#fff; margin-top:20px;" onclick="switchView('view-home')">VOLTAR</button>
+    </div>
+    
+    <div id="form-dynamic" style="display:none;">
+        <h2 id="dynamic-title" style="font-family:'Cinzel'; color:var(--gold); margin-bottom:5px;"></h2>
+        <p id="dynamic-desc" style="font-size:0.7rem; color:#555; margin-bottom:20px;"></p>
+        <div id="dynamic-fields"></div>
+        <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn-gold" style="background:#222; color:#fff;" onclick="backToCatalog()">VOLTAR</button>
+            <button class="btn-gold" onclick="generatePreview()">PREVIEW 📜</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. DATASET DE CONTRATOS PRÉ-DEFINIDOS
+    const CONTRACT_TEMPLATES = {
+        locacao: {
+            title: "Contrato de Locação",
+            desc: "Imóveis residenciais ou comerciais",
+            icon: "home",
+            fields: ["Nome Locatário", "CPF/RG", "Endereço Imóvel", "Valor Mensal", "Prazo", "Garantia"]
+        },
+        prestacao: {
+            title: "Prestação de Serviços",
+            desc: "Acordos profissionais e freelancers",
+            icon: "briefcase",
+            fields: ["Contratante", "Contratado", "Objeto do Serviço", "Valor Total", "Prazo de Entrega"]
+        },
+        compra_venda: {
+            title: "Compra e Venda",
+            desc: "Transferência de bens móveis ou imóveis",
+            icon: "shopping-cart",
+            fields: ["Vendedor", "Comprador", "Descrição do Bem", "Valor de Negócio", "Forma de Pagamento"]
+        },
+        nascimento: {
+            title: "Registro de Nascimento",
+            desc: "Certificação de vida e filiação",
+            icon: "baby",
+            fields: ["Nome da Criança", "Genitores", "Data e Hora", "Local do Parto"]
+        },
+        ata: {
+            title: "Ata Notarial",
+            desc: "Prova de fatos digitais ou físicos",
+            icon: "shield",
+            fields: ["Fato Observado", "Fonte/URL", "Testemunhas", "Geolocalização"]
+        }
+    };
+
+    // 2. MOTOR DE RENDERIZAÇÃO DO CATÁLOGO
+    function renderContractCategories() {
+        const list = document.getElementById('category-list');
+        list.innerHTML = Object.keys(CONTRACT_TEMPLATES).map(key => `
+            <div class="list-item" onclick="openTemplate('${key}')">
+                <div>
+                    <b>${CONTRACT_TEMPLATES[key].title}</b><br>
+                    <small>${CONTRACT_TEMPLATES[key].desc}</small>
+                </div>
+                <i data-lucide="${CONTRACT_TEMPLATES[key].icon}" size="18" style="color:var(--gold)"></i>
+            </div>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    function openTemplate(key) {
+        const template = CONTRACT_TEMPLATES[key];
+        document.getElementById('catalog-main').style.display = 'none';
+        const formArea = document.getElementById('form-dynamic');
+        formArea.style.display = 'block';
+        
+        document.getElementById('dynamic-title').innerText = template.title;
+        document.getElementById('dynamic-desc').innerText = template.desc;
+        
+        const fieldsArea = document.getElementById('dynamic-fields');
+        fieldsArea.innerHTML = template.fields.map(f => `
+            <div class="input-box">
+                <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">${f.toUpperCase()}</label>
+                <input type="text" class="input-nexus dynamic-input" data-label="${f}" placeholder="Preencher...">
+            </div>
+        `).join('');
+    }
+
+    function backToCatalog() {
+        document.getElementById('catalog-main').style.display = 'block';
+        document.getElementById('form-dynamic').style.display = 'none';
+    }
+
+    // 3. LOGICA DE PREVIEW (PAPEL)
+    function generatePreview() {
+        const inputs = document.querySelectorAll('.dynamic-input');
+        let content = `<h1 style="text-align:center;">${document.getElementById('dynamic-title').innerText}</h1>`;
+        
+        inputs.forEach(input => {
+            content += `<p><strong>${input.getAttribute('data-label')}:</strong> ${input.value || '__________'}</p>`;
+        });
+
+        // Aqui você chamaria o modal de papel que criamos anteriormente
+        alert("Gerando Vellum Digital... \n\nConteúdo:\n" + content.replace(/<[^>]*>?/gm, ''));
+        
+        // Simulação de salvar no Bunker
+        saveToBunker(content);
+    }
+
+    function saveToBunker(content) {
+        const bunker = JSON.parse(localStorage.getItem('c137_bunker') || '[]');
+        const newEntry = {
+            id: Date.now(),
+            title: document.getElementById('dynamic-title').innerText,
+            date: new Date().toLocaleDateString(),
+            hash: Math.random().toString(36).substring(2, 15) // Hash simulada
+        };
+        bunker.push(newEntry);
+        localStorage.setItem('c137_bunker', JSON.stringify(bunker));
+        renderBunker();
+    }
+
+    function renderBunker() {
+        const list = document.getElementById('bunker-list');
+        const data = JSON.parse(localStorage.getItem('c137_bunker') || '[]');
+        
+        if(data.length === 0) return;
+
+        list.innerHTML = data.map(item => `
+            <div class="list-item">
+                <div>
+                    <b>${item.title}</b><br>
+                    <small>Selo: ${item.hash.substring(0,8)}... | ${item.date}</small>
+                </div>
+                <i data-lucide="file-check" style="color:var(--gold)"></i>
+            </div>
+        `).join('');
+        lucide.createIcons();
+    }
+
+    // 4. INICIALIZAÇÃO
+    window.onload = () => {
+        updateUI(); // Função de perfil que já tínhamos
+        renderContractCategories();
+        renderBunker();
+    };
+
+    // (Mantenha as funções switchView e saveProfile do código anterior)
+</script>
+    
+    <div id="view-catalog" class="view">
         <h2 style="font-family:'Cinzel'; color:var(--gold);">CATÁLOGO</h2>
         <div class="list-item" onclick="alert('Abrindo Form: Locação...')">
             <div><b>Contrato de Locação</b><br><small>Residencial/Comercial</small></div>
