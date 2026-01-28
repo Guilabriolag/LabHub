@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LAB-NEXUS | Sovereign OS</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C5A059; --bg: #050505; --surface: #121212; --cyan: #00F2FF;
+            --glass: blur(15px) saturate(180%);
+        }
+
+        body {
+            background: var(--bg); color: #fff; font-family: 'Inter', sans-serif;
+            margin: 0; height: 100vh; overflow: hidden;
+        }
+
+        /* --- PERFIL USUÁRIO (MASKED ID) --- */
+        .user-header {
+            padding: 20px; display: flex; align-items: center; gap: 15px;
+            background: linear-gradient(to right, #111, transparent);
+        }
+        .avatar-id {
+            width: 45px; height: 45px; border-radius: 12px;
+            background: var(--gold); display: flex; align-items: center;
+            justify-content: center; color: #000; font-weight: bold;
+        }
+        .user-info b { color: var(--gold); display: block; font-size: 0.9rem; }
+        .user-info small { color: #555; font-family: 'JetBrains Mono'; font-size: 0.6rem; }
+
+        /* --- MENU DE NAVEGAÇÃO --- */
+        .main-nav {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 20px;
+        }
+        .nav-card {
+            background: var(--surface); padding: 20px; border-radius: 15px;
+            border: 1px solid #222; transition: 0.3s; position: relative;
+        }
+        .nav-card i { color: var(--gold); margin-bottom: 10px; display: block; }
+        .nav-card span { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+
+        /* --- SEÇÃO DE PERFIL (FULL VIEW) --- */
+        #profile-view {
+            position: fixed; inset: 0; background: var(--bg); z-index: 5000;
+            display: none; flex-direction: column; padding: 25px; overflow-y: auto;
+        }
+        .profile-item {
+            display: flex; align-items: center; gap: 15px; padding: 20px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .profile-item div b { display: block; font-size: 0.8rem; }
+        .profile-item div small { color: #666; font-size: 0.7rem; }
+
+        /* --- BOTÃO FLUTUANTE DE PAGAMENTO --- */
+        .pay-btn {
+            background: var(--gold); color: #000; border: none; padding: 18px;
+            border-radius: 15px; font-weight: bold; width: 100%; margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="user-header" onclick="toggleProfile()">
+        <div class="avatar-id" id="user-initials">L</div>
+        <div class="user-info">
+            <b id="display-id">$LABRIOLAG</b>
+            <small id="masked-key">npub1...37x9</small>
+        </div>
+        <div style="margin-left: auto; color: var(--gold);"><i data-lucide="chevron-right"></i></div>
+    </div>
+
+    <main id="dashboard">
+        <div style="padding: 20px;"><small style="color:var(--gold)">SERVIÇOS NOTARIAIS</small></div>
+        <div class="main-nav">
+            <div class="nav-card" onclick="openService('contratos')">
+                <i data-lucide="file-text"></i><span>Contratos</span>
+            </div>
+            <div class="nav-card" onclick="openService('civil')">
+                <i data-lucide="users"></i><span>Civil</span>
+            </div>
+            <div class="nav-card" onclick="openService('imoveis')">
+                <i data-lucide="home"></i><span>Imóveis</span>
+            </div>
+            <div class="nav-card" onclick="openService('vault')">
+                <i data-lucide="shield-check"></i><span>Bunker</span>
+            </div>
+        </div>
+    </main>
+
+    <div id="profile-view">
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="font-family:'Cinzel'; color:var(--gold);">CONFIGURAÇÕES</h2>
+            <button onclick="toggleProfile()" style="background:none; border:none; color:#fff;"><i data-lucide="x"></i></button>
+        </div>
+
+        <div class="profile-item">
+            <i data-lucide="user"></i>
+            <div><b>Informações Pessoais</b><small>Nome, email, ID Soberano</small></div>
+        </div>
+        <div class="profile-item">
+            <i data-lucide="lock"></i>
+            <div><b>Segurança</b><small>PIN, Biometria, Chaves PGP</small></div>
+        </div>
+        <div class="profile-item">
+            <i data-lucide="bar-chart-3"></i>
+            <div><b>Limites e Extratos</b><small>Fluxo de Sats e Badges</small></div>
+        </div>
+        <div class="profile-item" style="border-bottom:none; margin-top: 40px; color: #ff4444;">
+            <i data-lucide="log-out"></i>
+            <div><b>Encerrar Sessão</b></div>
+        </div>
+    </div>
+
+    <nav style="position:fixed; bottom:0; width:100%; display:flex; justify-content:space-around; padding:20px; background:#000;">
+        <i data-lucide="layout-grid" style="color:var(--gold)"></i>
+        <i data-lucide="history" style="color:#444"></i>
+        <i data-lucide="wallet" style="color:#444" onclick="connectLNBits()"></i>
+    </nav>
+
+<script>
+    // Inicializar Ícones
+    lucide.createIcons();
+
+    function toggleProfile() {
+        const view = document.getElementById('profile-view');
+        view.style.display = (view.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    // --- CONEXÃO LIGHTNING (LNBITS - FREE) ---
+    // Você usará o LNBits (pode ser o demo.lnbits.com para testes ou um próprio)
+    async function connectLNBits() {
+        const adminKey = "SUA_API_KEY_AQUI"; // Pegue no lnbits.com
+        const amount = 1000; // 1k sats para selagem
+
+        alert("⚡ Conectando ao Protocolo Lightning...");
+        
+        // Exemplo de chamada real para gerar cobrança
+        /*
+        const response = await fetch('https://legend.lnbits.com/api/v1/payments', {
+            method: 'POST',
+            headers: { 'X-Api-Key': adminKey, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ out: false, amount: amount, memo: "Lab-Nexus Seal" })
+        });
+        const data = await response.json();
+        console.log("Invoice Gerada:", data.payment_request);
+        */
+    }
+</script>
+</body>
+</html>
