@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LAB-NEXUS | Sovereign OS</title>
+    <title>LAB-NEXUS | C137 Sovereign OS</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #C5A059; --bg: #050505; --surface: #121212; --glass: rgba(20,20,20,0.9);
+            --gold: #C5A059; --bg: #050505; --surface: #121212; --glass: rgba(15,15,15,0.95);
         }
 
         body {
@@ -16,58 +16,65 @@
             margin: 0; padding-bottom: 90px; overflow-x: hidden;
         }
 
-        /* --- SISTEMA DE TELAS (VIEWS) --- */
+        /* --- NAVEGAÇÃO ENTRE TELAS --- */
         .view { display: none; animation: fadeIn 0.3s ease-out; padding: 20px; }
         .view.active { display: block; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- HEADER PERFIL --- */
+        /* --- PERFIL HEADER --- */
         .mini-profile {
             padding: 20px; display: flex; align-items: center; gap: 15px;
             background: linear-gradient(to bottom, #151515, transparent);
+            margin-bottom: 10px;
         }
         .avatar-sm {
-            width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--gold);
-            display: flex; align-items: center; justify-content: center; color: var(--gold); font-family: 'Cinzel';
+            width: 45px; height: 45px; border-radius: 12px; border: 1px solid var(--gold);
+            display: flex; align-items: center; justify-content: center; 
+            color: var(--gold); font-family: 'Cinzel'; font-weight: bold;
         }
 
-        /* --- GRID DE SERVIÇOS (HOME) --- */
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        /* --- GRID DE SERVIÇOS --- */
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .service-card {
             background: var(--surface); padding: 25px 15px; border-radius: 20px;
-            border: 1px solid #222; text-align: center; transition: 0.3s;
+            border: 1px solid #222; text-align: center; cursor: pointer;
         }
-        .service-card:active { transform: scale(0.95); background: #1a1a1a; }
         .service-card i { color: var(--gold); margin-bottom: 10px; }
         .service-card b { display: block; font-size: 0.8rem; margin-bottom: 4px; }
-        .service-card small { color: #555; font-size: 0.6rem; }
+        .service-card small { color: #555; font-size: 0.6rem; text-transform: uppercase; }
 
-        /* --- FORMULÁRIOS & LISTAS --- */
+        /* --- ELEMENTOS DE LISTA E FORM --- */
         .list-item {
-            background: #0a0a0a; border: 1px solid #1a1a1a; padding: 15px;
-            border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+            background: #0a0a0a; border: 1px solid #1a1a1a; padding: 18px;
+            border-radius: 15px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
         }
-
+        .input-box { margin-bottom: 15px; }
+        .input-box label { display: block; font-size: 0.6rem; color: var(--gold); margin-bottom: 6px; letter-spacing: 1px; }
         .input-nexus {
             width: 100%; background: #000; border: 1px solid #333; padding: 12px;
-            color: #fff; border-radius: 8px; margin-bottom: 15px; font-family: inherit;
+            color: #fff; border-radius: 10px; font-family: 'JetBrains Mono'; font-size: 0.85rem;
+            box-sizing: border-box;
         }
 
-        /* --- NAV BAR --- */
-        nav {
-            position: fixed; bottom: 0; width: 100%; height: 75px;
-            background: var(--glass); backdrop-filter: blur(10px);
-            display: flex; justify-content: space-around; align-items: center;
-            border-top: 1px solid #222; z-index: 1000;
-        }
-        .nav-btn { color: #444; text-align: center; font-size: 0.6rem; cursor: pointer; transition: 0.3s; }
-        .nav-btn.active { color: var(--gold); }
-
+        /* --- BOTÕES --- */
         .btn-gold {
-            background: var(--gold); color: #000; border: none; padding: 15px;
+            background: var(--gold); color: #000; border: none; padding: 16px;
             border-radius: 12px; font-weight: bold; width: 100%; font-family: 'Cinzel'; cursor: pointer;
         }
+        .btn-outline {
+            background: transparent; color: #fff; border: 1px solid #333; padding: 16px;
+            border-radius: 12px; width: 100%; cursor: pointer;
+        }
+
+        /* --- NAV BAR INFERIOR --- */
+        nav {
+            position: fixed; bottom: 0; width: 100%; height: 75px;
+            background: var(--glass); backdrop-filter: blur(15px);
+            display: flex; justify-content: space-around; align-items: center;
+            border-top: 1px solid #222; z-index: 9999;
+        }
+        .nav-btn { color: #444; text-align: center; font-size: 0.65rem; cursor: pointer; }
+        .nav-btn.active { color: var(--gold); }
     </style>
 </head>
 <body>
@@ -76,117 +83,127 @@
         <div class="mini-profile">
             <div class="avatar-sm" id="nav-initial">L</div>
             <div>
-                <b id="nav-alias" style="color:var(--gold)">$LABRIOLAG</b><br>
-                <small style="font-size: 0.6rem; color:#555">ARQUITETO C137</small>
+                <b id="nav-alias" style="color:var(--gold); letter-spacing:1px;">$LABRIOLAG</b><br>
+                <small style="color:#555" id="nav-phrase">ARQUITETO SOBERANO</small>
             </div>
         </div>
 
         <div class="services-grid">
             <div class="service-card" onclick="switchView('view-catalog')">
-                <i data-lucide="file-signature"></i>
-                <b>Lavrar Ato</b>
-                <small>Novas Escrituras</small>
+                <i data-lucide="file-plus-2"></i>
+                <b>LAVRAR ATO</b>
+                <small>Novos Contratos</small>
             </div>
             <div class="service-card" onclick="switchView('view-bunker')">
                 <i data-lucide="archive"></i>
-                <b>Bunker</b>
+                <b>BUNKER</b>
                 <small>Meus Registros</small>
             </div>
             <div class="service-card" onclick="switchView('view-profile')">
-                <i data-lucide="user-cog"></i>
-                <b>Perfil</b>
-                <small>Configurações</small>
+                <i data-lucide="user-circle"></i>
+                <b>PERFIL</b>
+                <small>Chaves e ID</small>
             </div>
-            <div class="service-card" onclick="alert('Em breve: Verificador de Hash')">
+            <div class="service-card" onclick="alert('Verificador de Hash em desenvolvimento...')">
                 <i data-lucide="fingerprint"></i>
-                <b>Verificar</b>
+                <b>VERIFICAR</b>
                 <small>Validar Selo</small>
             </div>
         </div>
     </div>
 
     <div id="view-catalog" class="view">
-    <div id="catalog-main">
-        <h2 style="font-family:'Cinzel'; color:var(--gold);">CATEGORIAS</h2>
-        <div id="category-list"></div>
-        <button class="btn-gold" style="background:#222; color:#fff; margin-top:20px;" onclick="switchView('view-home')">VOLTAR</button>
-    </div>
-    
-    <div id="form-dynamic" style="display:none;">
-        <h2 id="dynamic-title" style="font-family:'Cinzel'; color:var(--gold); margin-bottom:5px;"></h2>
-        <p id="dynamic-desc" style="font-size:0.7rem; color:#555; margin-bottom:20px;"></p>
-        <div id="dynamic-fields"></div>
-        <div style="display:flex; gap:10px; margin-top:20px;">
-            <button class="btn-gold" style="background:#222; color:#fff;" onclick="backToCatalog()">VOLTAR</button>
-            <button class="btn-gold" onclick="generatePreview()">PREVIEW 📜</button>
+        <div id="catalog-main">
+            <h2 style="font-family:'Cinzel'; color:var(--gold); margin-bottom:20px;">CATÁLOGO</h2>
+            <div id="category-list"></div>
+            <button class="btn-outline" style="margin-top:20px;" onclick="switchView('view-home')">VOLTAR</button>
+        </div>
+
+        <div id="form-dynamic" style="display:none;">
+            <h2 id="dynamic-title" style="font-family:'Cinzel'; color:var(--gold); margin-bottom:5px;"></h2>
+            <p id="dynamic-desc" style="font-size:0.75rem; color:#555; margin-bottom:25px;"></p>
+            <div id="dynamic-fields"></div>
+            <div style="display:flex; gap:12px; margin-top:25px;">
+                <button class="btn-outline" onclick="backToCatalog()">VOLTAR</button>
+                <button class="btn-gold" onclick="processSeal()">SELAR ATO 📜</button>
+            </div>
         </div>
     </div>
-</div>
+
+    <div id="view-bunker" class="view">
+        <h2 style="font-family:'Cinzel'; color:var(--gold);">BUNKER</h2>
+        <p style="color:#555; font-size:0.75rem; margin-bottom:20px;">Registros matemáticos locais.</p>
+        <div id="bunker-list"></div>
+        <button class="btn-outline" style="margin-top:20px;" onclick="switchView('view-home')">PÁGINA INICIAL</button>
+    </div>
+
+    <div id="view-profile" class="view">
+        <h2 style="font-family:'Cinzel'; color:var(--gold);">PERFIL SOBERANO</h2>
+        <div class="input-box">
+            <label>ID SOBERANO (ALIAS)</label>
+            <input type="text" id="edit-alias" class="input-nexus">
+        </div>
+        <div class="input-box">
+            <label>FRASE DE EFEITO</label>
+            <input type="text" id="edit-phrase" class="input-nexus">
+        </div>
+        <div class="input-box">
+            <label>CHAVE LIGHTNING / PIX / LIQUID</label>
+            <input type="text" id="edit-key" class="input-nexus">
+        </div>
+        <button class="btn-gold" onclick="saveProfile()">GRAVAR NO DISPOSITIVO</button>
+    </div>
+
+    <nav>
+        <div class="nav-btn active" onclick="switchView('view-home')" id="btn-home"><i data-lucide="home"></i><br>Início</div>
+        <div class="nav-btn" onclick="switchView('view-catalog')" id="btn-catalog"><i data-lucide="plus-square"></i><br>Lavrar</div>
+        <div class="nav-btn" onclick="switchView('view-bunker')" id="btn-bunker"><i data-lucide="database"></i><br>Bunker</div>
+        <div class="nav-btn" onclick="switchView('view-profile')" id="btn-profile"><i data-lucide="settings"></i><br>Ajustes</div>
+    </nav>
 
 <script>
-    // 1. DATASET DE CONTRATOS PRÉ-DEFINIDOS
+    // 1. CONFIGURAÇÃO DE TEMPLATES
     const CONTRACT_TEMPLATES = {
-        locacao: {
-            title: "Contrato de Locação",
-            desc: "Imóveis residenciais ou comerciais",
-            icon: "home",
-            fields: ["Nome Locatário", "CPF/RG", "Endereço Imóvel", "Valor Mensal", "Prazo", "Garantia"]
-        },
-        prestacao: {
-            title: "Prestação de Serviços",
-            desc: "Acordos profissionais e freelancers",
-            icon: "briefcase",
-            fields: ["Contratante", "Contratado", "Objeto do Serviço", "Valor Total", "Prazo de Entrega"]
-        },
-        compra_venda: {
-            title: "Compra e Venda",
-            desc: "Transferência de bens móveis ou imóveis",
-            icon: "shopping-cart",
-            fields: ["Vendedor", "Comprador", "Descrição do Bem", "Valor de Negócio", "Forma de Pagamento"]
-        },
-        nascimento: {
-            title: "Registro de Nascimento",
-            desc: "Certificação de vida e filiação",
-            icon: "baby",
-            fields: ["Nome da Criança", "Genitores", "Data e Hora", "Local do Parto"]
-        },
-        ata: {
-            title: "Ata Notarial",
-            desc: "Prova de fatos digitais ou físicos",
-            icon: "shield",
-            fields: ["Fato Observado", "Fonte/URL", "Testemunhas", "Geolocalização"]
-        }
+        locacao: { title: "Locação de Imóvel", desc: "Residencial ou Comercial", icon: "home", fields: ["Locador", "Locatário", "Endereço", "Valor (Sats/Reais)", "Prazo"] },
+        prestacao: { title: "Prestação de Serviço", desc: "Freelancers e Profissionais", icon: "briefcase", fields: ["Contratante", "Prestador", "Serviço", "Valor Total", "Data Entrega"] },
+        compra: { title: "Compra e Venda", desc: "Transferência de Bens", icon: "shopping-bag", fields: ["Vendedor", "Comprador", "Objeto", "Valor", "Condições"] },
+        nascimento: { title: "Registro Civil", desc: "Certificação C137 de Vida", icon: "baby", fields: ["Nome Criança", "Genitores", "Data/Hora", "Local"] }
     };
 
-    // 2. MOTOR DE RENDERIZAÇÃO DO CATÁLOGO
-    function renderContractCategories() {
+    // 2. MOTOR DE NAVEGAÇÃO
+    function switchView(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        const btnId = 'btn-' + viewId.split('-')[1];
+        if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
+    }
+
+    // 3. MOTOR DE FORMULÁRIOS
+    function renderCatalog() {
         const list = document.getElementById('category-list');
         list.innerHTML = Object.keys(CONTRACT_TEMPLATES).map(key => `
-            <div class="list-item" onclick="openTemplate('${key}')">
-                <div>
-                    <b>${CONTRACT_TEMPLATES[key].title}</b><br>
-                    <small>${CONTRACT_TEMPLATES[key].desc}</small>
-                </div>
+            <div class="list-item" onclick="openForm('${key}')">
+                <div><b>${CONTRACT_TEMPLATES[key].title}</b><br><small>${CONTRACT_TEMPLATES[key].desc}</small></div>
                 <i data-lucide="${CONTRACT_TEMPLATES[key].icon}" size="18" style="color:var(--gold)"></i>
             </div>
         `).join('');
         lucide.createIcons();
     }
 
-    function openTemplate(key) {
+    function openForm(key) {
         const template = CONTRACT_TEMPLATES[key];
         document.getElementById('catalog-main').style.display = 'none';
-        const formArea = document.getElementById('form-dynamic');
-        formArea.style.display = 'block';
-        
+        document.getElementById('form-dynamic').style.display = 'block';
         document.getElementById('dynamic-title').innerText = template.title;
         document.getElementById('dynamic-desc').innerText = template.desc;
         
         const fieldsArea = document.getElementById('dynamic-fields');
         fieldsArea.innerHTML = template.fields.map(f => `
             <div class="input-box">
-                <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">${f.toUpperCase()}</label>
-                <input type="text" class="input-nexus dynamic-input" data-label="${f}" placeholder="Preencher...">
+                <label>${f.toUpperCase()}</label>
+                <input type="text" class="input-nexus dyn-input" data-label="${f}" placeholder="Digitar...">
             </div>
         `).join('');
     }
@@ -196,160 +213,74 @@
         document.getElementById('form-dynamic').style.display = 'none';
     }
 
-    // 3. LOGICA DE PREVIEW (PAPEL)
-    function generatePreview() {
-        const inputs = document.querySelectorAll('.dynamic-input');
-        let content = `<h1 style="text-align:center;">${document.getElementById('dynamic-title').innerText}</h1>`;
-        
-        inputs.forEach(input => {
-            content += `<p><strong>${input.getAttribute('data-label')}:</strong> ${input.value || '__________'}</p>`;
-        });
+    // 4. SELAGEM E BUNKER
+    function processSeal() {
+        const inputs = document.querySelectorAll('.dyn-input');
+        const docTitle = document.getElementById('dynamic-title').innerText;
+        let summary = `ATO: ${docTitle}\n`;
+        inputs.forEach(i => summary += `${i.getAttribute('data-label')}: ${i.value}\n`);
 
-        // Aqui você chamaria o modal de papel que criamos anteriormente
-        alert("Gerando Vellum Digital... \n\nConteúdo:\n" + content.replace(/<[^>]*>?/gm, ''));
+        const hash = "C137-" + Math.random().toString(36).substring(2, 10).toUpperCase();
         
-        // Simulação de salvar no Bunker
-        saveToBunker(content);
-    }
-
-    function saveToBunker(content) {
+        // Guardar no Bunker Local
         const bunker = JSON.parse(localStorage.getItem('c137_bunker') || '[]');
-        const newEntry = {
-            id: Date.now(),
-            title: document.getElementById('dynamic-title').innerText,
-            date: new Date().toLocaleDateString(),
-            hash: Math.random().toString(36).substring(2, 15) // Hash simulada
-        };
-        bunker.push(newEntry);
+        bunker.unshift({ id: Date.now(), title: docTitle, hash: hash, date: new Date().toLocaleDateString() });
         localStorage.setItem('c137_bunker', JSON.stringify(bunker));
+        
+        alert(`SELAGEM CONCLUÍDA!\n\nID: ${hash}\n\nO documento foi movido para o Bunker.`);
         renderBunker();
+        switchView('view-bunker');
+        backToCatalog();
     }
 
     function renderBunker() {
         const list = document.getElementById('bunker-list');
         const data = JSON.parse(localStorage.getItem('c137_bunker') || '[]');
         
-        if(data.length === 0) return;
-
-        list.innerHTML = data.map(item => `
-            <div class="list-item">
-                <div>
-                    <b>${item.title}</b><br>
-                    <small>Selo: ${item.hash.substring(0,8)}... | ${item.date}</small>
+        if(data.length === 0) {
+            list.innerHTML = '<div style="text-align:center; padding:40px; color:#333;"><i data-lucide="database-zap" size="40"></i><br>Bunker Vazio</div>';
+        } else {
+            list.innerHTML = data.map(item => `
+                <div class="list-item">
+                    <div><b>${item.title}</b><br><small>Selo: ${item.hash} | ${item.date}</small></div>
+                    <i data-lucide="check-circle" style="color:var(--gold)"></i>
                 </div>
-                <i data-lucide="file-check" style="color:var(--gold)"></i>
-            </div>
-        `).join('');
+            `).join('');
+        }
         lucide.createIcons();
     }
 
-    // 4. INICIALIZAÇÃO
-    window.onload = () => {
-        updateUI(); // Função de perfil que já tínhamos
-        renderContractCategories();
-        renderBunker();
-    };
-
-    // (Mantenha as funções switchView e saveProfile do código anterior)
-</script>
-    
-    <div id="view-catalog" class="view">
-        <h2 style="font-family:'Cinzel'; color:var(--gold);">CATÁLOGO</h2>
-        <div class="list-item" onclick="alert('Abrindo Form: Locação...')">
-            <div><b>Contrato de Locação</b><br><small>Residencial/Comercial</small></div>
-            <i data-lucide="chevron-right" size="18"></i>
-        </div>
-        <div class="list-item" onclick="alert('Abrindo Form: Nascimento...')">
-            <div><b>Registro de Nascimento</b><br><small>Certidão Soberana</small></div>
-            <i data-lucide="chevron-right" size="18"></i>
-        </div>
-        <button class="btn-gold" style="background:#222; color:#fff; margin-top:20px;" onclick="switchView('view-home')">VOLTAR</button>
-    </div>
-
-    <div id="view-bunker" class="view">
-        <h2 style="font-family:'Cinzel'; color:var(--gold);">BUNKER</h2>
-        <p style="color:#555; font-size:0.8rem;">Documentos selados localmente.</p>
-        <div id="bunker-list">
-            <div style="text-align:center; padding:40px; color:#333;">
-                <i data-lucide="ghost" size="40"></i><br>Nenhum registro selado.
-            </div>
-        </div>
-        <button class="btn-gold" style="margin-top:20px" onclick="switchView('view-home')">VOLTAR</button>
-    </div>
-
-    <div id="view-profile" class="view">
-        <h2 style="font-family:'Cinzel'; color:var(--gold);">CONFIGURAÇÕES</h2>
-        <div class="input-box">
-            <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">ID SOBERANO</label>
-            <input type="text" id="edit-alias" class="input-nexus" placeholder="$ALIAS">
-        </div>
-        <div class="input-box">
-            <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">FRASE DE EFEITO</label>
-            <input type="text" id="edit-phrase" class="input-nexus" placeholder="Sua bio...">
-        </div>
-        <div class="input-box">
-            <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">CHAVE LIGHTNING/PIX</label>
-            <input type="text" id="edit-key" class="input-nexus" placeholder="Chave para receber">
-        </div>
-        <button class="btn-gold" onclick="saveProfile()">SALVAR ALTERAÇÕES</button>
-    </div>
-
-    <nav>
-        <div class="nav-btn active" onclick="switchView('view-home')" id="btn-home">
-            <i data-lucide="home"></i><br>Início
-        </div>
-        <div class="nav-btn" onclick="switchView('view-catalog')" id="btn-catalog">
-            <i data-lucide="file-plus"></i><br>Lavrar
-        </div>
-        <div class="nav-btn" onclick="switchView('view-bunker')" id="btn-bunker">
-            <i data-lucide="database"></i><br>Bunker
-        </div>
-        <div class="nav-btn" onclick="switchView('view-profile')" id="btn-profile">
-            <i data-lucide="user"></i><br>Perfil
-        </div>
-    </nav>
-
-<script>
-    lucide.createIcons();
-
-    // GERENCIADOR DE TELAS
-    function switchView(viewId) {
-        // Esconde todas as views
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        // Mostra a view desejada
-        document.getElementById(viewId).classList.add('active');
-        
-        // Atualiza botões da Nav
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        const btnId = 'btn-' + viewId.split('-')[1];
-        if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
-    }
-
-    // SISTEMA DE PERFIL
+    // 5. PERFIL
     function saveProfile() {
         const profile = {
             alias: document.getElementById('edit-alias').value || "$LABRIOLAG",
-            phrase: document.getElementById('edit-phrase').value,
+            phrase: document.getElementById('edit-phrase').value || "ARQUITETO SOBERANO",
             key: document.getElementById('edit-key').value
         };
         localStorage.setItem('c137_profile', JSON.stringify(profile));
-        updateUI();
-        alert("Bunker Atualizado!");
+        updateProfileUI();
+        alert("Identidade Atualizada!");
         switchView('view-home');
     }
 
-    function updateUI() {
-        const saved = JSON.parse(localStorage.getItem('c137_profile') || '{"alias":"$LABRIOLAG"}');
+    function updateProfileUI() {
+        const saved = JSON.parse(localStorage.getItem('c137_profile') || '{"alias":"$LABRIOLAG","phrase":"ARQUITETO SOBERANO"}');
         document.getElementById('nav-alias').innerText = saved.alias;
-        document.getElementById('nav-initial').innerText = saved.alias.charAt(1).toUpperCase();
+        document.getElementById('nav-phrase').innerText = saved.phrase;
+        document.getElementById('nav-initial').innerText = saved.alias.replace('$', '').charAt(0).toUpperCase();
         
-        // Preencher inputs
         document.getElementById('edit-alias').value = saved.alias;
-        document.getElementById('edit-phrase').value = saved.phrase || "";
+        document.getElementById('edit-phrase').value = saved.phrase;
         document.getElementById('edit-key').value = saved.key || "";
     }
 
-    window.onload = updateUI;
+    // INICIAR
+    window.onload = () => {
+        lucide.createIcons();
+        updateProfileUI();
+        renderCatalog();
+        renderBunker();
+    };
 </script>
 </body>
-                </html>
+</html>
