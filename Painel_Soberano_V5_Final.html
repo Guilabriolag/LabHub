@@ -3,174 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LAB-NEXUS | Sovereign Identity</title>
+    <title>LAB-NEXUS | Sovereign OS</title>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #C5A059; --bg: #050505; --surface: #121212; --accent: #00F2FF;
-            --danger: #ff4444; --glass: blur(15px) saturate(180%);
+            --gold: #C5A059; --bg: #050505; --surface: #121212; --glass: rgba(20,20,20,0.9);
         }
 
         body {
             background: var(--bg); color: #fff; font-family: 'Inter', sans-serif;
-            margin: 0; padding-bottom: 80px; overflow-x: hidden;
+            margin: 0; padding-bottom: 90px; overflow-x: hidden;
         }
 
-        /* --- PERFIL HEADER --- */
-        .profile-card {
-            padding: 40px 20px; text-align: center;
-            background: linear-gradient(180deg, #181818 0%, #050505 100%);
-            border-bottom: 1px solid #222;
+        /* --- SISTEMA DE TELAS (VIEWS) --- */
+        .view { display: none; animation: fadeIn 0.3s ease-out; padding: 20px; }
+        .view.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- HEADER PERFIL --- */
+        .mini-profile {
+            padding: 20px; display: flex; align-items: center; gap: 15px;
+            background: linear-gradient(to bottom, #151515, transparent);
+        }
+        .avatar-sm {
+            width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--gold);
+            display: flex; align-items: center; justify-content: center; color: var(--gold); font-family: 'Cinzel';
         }
 
-        .avatar-container {
-            position: relative; width: 90px; height: 90px; margin: 0 auto 15px;
+        /* --- GRID DE SERVIÇOS (HOME) --- */
+        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .service-card {
+            background: var(--surface); padding: 25px 15px; border-radius: 20px;
+            border: 1px solid #222; text-align: center; transition: 0.3s;
+        }
+        .service-card:active { transform: scale(0.95); background: #1a1a1a; }
+        .service-card i { color: var(--gold); margin-bottom: 10px; }
+        .service-card b { display: block; font-size: 0.8rem; margin-bottom: 4px; }
+        .service-card small { color: #555; font-size: 0.6rem; }
+
+        /* --- FORMULÁRIOS & LISTAS --- */
+        .list-item {
+            background: #0a0a0a; border: 1px solid #1a1a1a; padding: 15px;
+            border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        .avatar-main {
-            width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--gold);
-            display: flex; align-items: center; justify-content: center;
-            background: #000; color: var(--gold); font-size: 2rem; font-family: 'Cinzel';
-            box-shadow: 0 0 20px var(--gold-glow);
-        }
-
-        .edit-badge {
-            position: absolute; bottom: 0; right: 0; background: var(--gold);
-            color: #000; border-radius: 50%; padding: 5px; cursor: pointer;
-        }
-
-        /* --- INPUTS ESTILIZADOS --- */
-        .settings-group { padding: 20px; display: none; animation: fadeIn 0.3s; }
-        .input-box { margin-bottom: 20px; }
-        .input-box label { display: block; font-size: 0.6rem; color: var(--gold); margin-bottom: 8px; letter-spacing: 1px; }
-        .input-box input {
+        .input-nexus {
             width: 100%; background: #000; border: 1px solid #333; padding: 12px;
-            color: #fff; border-radius: 8px; font-family: 'JetBrains Mono'; font-size: 0.8rem;
+            color: #fff; border-radius: 8px; margin-bottom: 15px; font-family: inherit;
         }
 
-        /* --- BOTÕES --- */
+        /* --- NAV BAR --- */
+        nav {
+            position: fixed; bottom: 0; width: 100%; height: 75px;
+            background: var(--glass); backdrop-filter: blur(10px);
+            display: flex; justify-content: space-around; align-items: center;
+            border-top: 1px solid #222; z-index: 1000;
+        }
+        .nav-btn { color: #444; text-align: center; font-size: 0.6rem; cursor: pointer; transition: 0.3s; }
+        .nav-btn.active { color: var(--gold); }
+
         .btn-gold {
             background: var(--gold); color: #000; border: none; padding: 15px;
-            border-radius: 12px; font-weight: bold; width: 100%; font-family: 'Cinzel';
-            cursor: pointer; margin-top: 10px;
-        }
-
-        .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .service-item {
-            background: var(--surface); padding: 20px; border-radius: 18px;
-            border: 1px solid #222; text-align: center;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* --- MENU INFERIOR --- */
-        nav {
-            position: fixed; bottom: 0; width: 100%; height: 70px;
-            background: rgba(0,0,0,0.95); display: flex; justify-content: space-around;
-            align-items: center; border-top: 1px solid #222;
+            border-radius: 12px; font-weight: bold; width: 100%; font-family: 'Cinzel'; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div id="home-view">
-        <section class="profile-card">
-            <div class="avatar-container">
-                <div class="avatar-main" id="profile-initial">L</div>
-                <div class="edit-badge" onclick="toggleSettings()"><i data-lucide="edit-3" size="14"></i></div>
+    <div id="view-home" class="view active">
+        <div class="mini-profile">
+            <div class="avatar-sm" id="nav-initial">L</div>
+            <div>
+                <b id="nav-alias" style="color:var(--gold)">$LABRIOLAG</b><br>
+                <small style="font-size: 0.6rem; color:#555">ARQUITETO C137</small>
             </div>
-            <div class="user-handle" id="display-alias">$LABRIOLAG</div>
-            <div style="font-size: 0.7rem; color: #555;" id="display-phrase">Reserve em moeda forte</div>
-        </section>
+        </div>
 
         <div class="services-grid">
-            <div class="service-item"><i data-lucide="file-text"></i><br><small>Contratos</small></div>
-            <div class="service-item"><i data-lucide="shield-check"></i><br><small>Bunker</small></div>
-            <div class="service-item"><i data-lucide="zap"></i><br><small>Sats</small></div>
-            <div class="service-item"><i data-lucide="qr-code"></i><br><small>Selo</small></div>
+            <div class="service-card" onclick="switchView('view-catalog')">
+                <i data-lucide="file-signature"></i>
+                <b>Lavrar Ato</b>
+                <small>Novas Escrituras</small>
+            </div>
+            <div class="service-card" onclick="switchView('view-bunker')">
+                <i data-lucide="archive"></i>
+                <b>Bunker</b>
+                <small>Meus Registros</small>
+            </div>
+            <div class="service-card" onclick="switchView('view-profile')">
+                <i data-lucide="user-cog"></i>
+                <b>Perfil</b>
+                <small>Configurações</small>
+            </div>
+            <div class="service-card" onclick="alert('Em breve: Verificador de Hash')">
+                <i data-lucide="fingerprint"></i>
+                <b>Verificar</b>
+                <small>Validar Selo</small>
+            </div>
         </div>
     </div>
 
-    <div id="settings-view" class="settings-group">
-        <h2 style="font-family:'Cinzel'; color:var(--gold);">EDITAR PERFIL</h2>
-        
-        <div class="input-box">
-            <label>ID SOBERANO (ALIAS)</label>
-            <input type="text" id="edit-alias" placeholder="$SEU_NOME">
+    <div id="view-catalog" class="view">
+        <h2 style="font-family:'Cinzel'; color:var(--gold);">CATÁLOGO</h2>
+        <div class="list-item" onclick="alert('Abrindo Form: Locação...')">
+            <div><b>Contrato de Locação</b><br><small>Residencial/Comercial</small></div>
+            <i data-lucide="chevron-right" size="18"></i>
         </div>
-
-        <div class="input-box">
-            <label>FRASE DE EFEITO</label>
-            <input type="text" id="edit-phrase" placeholder="Ex: Reserve em moeda forte">
+        <div class="list-item" onclick="alert('Abrindo Form: Nascimento...')">
+            <div><b>Registro de Nascimento</b><br><small>Certidão Soberana</small></div>
+            <i data-lucide="chevron-right" size="18"></i>
         </div>
+        <button class="btn-gold" style="background:#222; color:#fff; margin-top:20px;" onclick="switchView('view-home')">VOLTAR</button>
+    </div>
 
-        <div class="input-box">
-            <label>CHAVE PÚBLICA (LIGHTNING/LIQUID)</label>
-            <input type="text" id="edit-key" placeholder="npub... ou LN Address">
+    <div id="view-bunker" class="view">
+        <h2 style="font-family:'Cinzel'; color:var(--gold);">BUNKER</h2>
+        <p style="color:#555; font-size:0.8rem;">Documentos selados localmente.</p>
+        <div id="bunker-list">
+            <div style="text-align:center; padding:40px; color:#333;">
+                <i data-lucide="ghost" size="40"></i><br>Nenhum registro selado.
+            </div>
         </div>
+        <button class="btn-gold" style="margin-top:20px" onclick="switchView('view-home')">VOLTAR</button>
+    </div>
 
+    <div id="view-profile" class="view">
+        <h2 style="font-family:'Cinzel'; color:var(--gold);">CONFIGURAÇÕES</h2>
+        <div class="input-box">
+            <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">ID SOBERANO</label>
+            <input type="text" id="edit-alias" class="input-nexus" placeholder="$ALIAS">
+        </div>
+        <div class="input-box">
+            <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">FRASE DE EFEITO</label>
+            <input type="text" id="edit-phrase" class="input-nexus" placeholder="Sua bio...">
+        </div>
+        <div class="input-box">
+            <label style="color:var(--gold); font-size:0.6rem; letter-spacing:1px;">CHAVE LIGHTNING/PIX</label>
+            <input type="text" id="edit-key" class="input-nexus" placeholder="Chave para receber">
+        </div>
         <button class="btn-gold" onclick="saveProfile()">SALVAR ALTERAÇÕES</button>
-        <button class="btn-gold" style="background:#222; color:#fff;" onclick="toggleSettings()">CANCELAR</button>
     </div>
 
     <nav>
-        <div onclick="showHome()" style="color:var(--gold)"><i data-lucide="home"></i></div>
-        <div onclick="toggleSettings()"><i data-lucide="user"></i></div>
-        <div><i data-lucide="help-circle"></i></div>
+        <div class="nav-btn active" onclick="switchView('view-home')" id="btn-home">
+            <i data-lucide="home"></i><br>Início
+        </div>
+        <div class="nav-btn" onclick="switchView('view-catalog')" id="btn-catalog">
+            <i data-lucide="file-plus"></i><br>Lavrar
+        </div>
+        <div class="nav-btn" onclick="switchView('view-bunker')" id="btn-bunker">
+            <i data-lucide="database"></i><br>Bunker
+        </div>
+        <div class="nav-btn" onclick="switchView('view-profile')" id="btn-profile">
+            <i data-lucide="user"></i><br>Perfil
+        </div>
     </nav>
 
 <script>
     lucide.createIcons();
 
-    // Carregar dados salvos ao iniciar
-    window.onload = () => {
-        const saved = JSON.parse(localStorage.getItem('c137_profile') || '{}');
-        if(saved.alias) {
-            document.getElementById('display-alias').innerText = saved.alias;
-            document.getElementById('display-phrase').innerText = saved.phrase || "";
-            document.getElementById('profile-initial').innerText = saved.alias.charAt(1).toUpperCase();
-            
-            // Preencher campos do form
-            document.getElementById('edit-alias').value = saved.alias;
-            document.getElementById('edit-phrase').value = saved.phrase;
-            document.getElementById('edit-key').value = saved.key;
-        }
-    };
-
-    function toggleSettings() {
-        const home = document.getElementById('home-view');
-        const settings = document.getElementById('settings-view');
-        if(settings.style.display === 'block') {
-            showHome();
-        } else {
-            home.style.display = 'none';
-            settings.style.display = 'block';
-        }
+    // GERENCIADOR DE TELAS
+    function switchView(viewId) {
+        // Esconde todas as views
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        // Mostra a view desejada
+        document.getElementById(viewId).classList.add('active');
+        
+        // Atualiza botões da Nav
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        const btnId = 'btn-' + viewId.split('-')[1];
+        if(document.getElementById(btnId)) document.getElementById(btnId).classList.add('active');
     }
 
-    function showHome() {
-        document.getElementById('home-view').style.display = 'block';
-        document.getElementById('settings-view').style.display = 'none';
-    }
-
+    // SISTEMA DE PERFIL
     function saveProfile() {
         const profile = {
             alias: document.getElementById('edit-alias').value || "$LABRIOLAG",
             phrase: document.getElementById('edit-phrase').value,
             key: document.getElementById('edit-key').value
         };
-        
         localStorage.setItem('c137_profile', JSON.stringify(profile));
-        
-        // Atualizar UI
-        document.getElementById('display-alias').innerText = profile.alias;
-        document.getElementById('display-phrase').innerText = profile.phrase;
-        document.getElementById('profile-initial').innerText = profile.alias.charAt(1).toUpperCase();
-        
-        alert("PERFIL ATUALIZADO NO BUNKER!");
-        showHome();
+        updateUI();
+        alert("Bunker Atualizado!");
+        switchView('view-home');
     }
+
+    function updateUI() {
+        const saved = JSON.parse(localStorage.getItem('c137_profile') || '{"alias":"$LABRIOLAG"}');
+        document.getElementById('nav-alias').innerText = saved.alias;
+        document.getElementById('nav-initial').innerText = saved.alias.charAt(1).toUpperCase();
+        
+        // Preencher inputs
+        document.getElementById('edit-alias').value = saved.alias;
+        document.getElementById('edit-phrase').value = saved.phrase || "";
+        document.getElementById('edit-key').value = saved.key || "";
+    }
+
+    window.onload = updateUI;
 </script>
 </body>
-</html>
+                </html>
