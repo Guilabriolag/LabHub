@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LAB-NEXUS | C137 SOBERANO</title>
+    <style>
+        :root {
+            --gold: #D4AF37; /* O brilho do sol Labriolag */
+            --bg: #0a0a0a;
+            --text: #e0e0e0;
+            --marmore: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            border: 2px solid var(--gold);
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--gold);
+            width: 100%;
+            background: linear-gradient(to bottom, #1a1a1a, var(--bg));
+        }
+
+        .status-bar {
+            font-size: 0.8rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .main-container {
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            background: var(--marmore);
+            margin-top: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        h1 { color: var(--gold); font-weight: 300; letter-spacing: 5px; }
+
+        .bunker-slot {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid var(--gold);
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .bunker-slot:hover { background: rgba(212, 175, 55, 0.2); }
+
+        button {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin: 5px;
+        }
+
+        button:hover { background: var(--gold); color: black; }
+
+        #console-output {
+            font-family: monospace;
+            background: black;
+            padding: 10px;
+            margin-top: 20px;
+            height: 100px;
+            overflow-y: scroll;
+            border: 1px dashed var(--gold);
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="status-bar">Frequência C137 | Estável | Arquiteto Ativo</div>
+    <h1>LAB-NEXUS</h1>
+    <p>"O código é o extensor da vontade humana."</p>
+</header>
+
+<div class="main-container">
+    <section id="actions">
+        <button onclick="createAct()">Soberania: Selar Novo Ato</button>
+        <button onclick="exportBunker()">Levar Meu Cofre (.nexus)</button>
+        <button onclick="openOntology()">Dicionário do Arquiteto</button>
+    </section>
+
+    <h3>Bunker de Memória (Atos Selados)</h3>
+    <div id="bunker-list">
+        </div>
+
+    <div id="console-output">>> Aguardando comando do Arquiteto...</div>
+</div>
+
+<script>
+    // SISTEMA NEXUSCORE INTEGRADO
+    const NexusCore = {
+        log(msg) {
+            const out = document.getElementById('console-output');
+            out.innerHTML += `<div>> ${msg}</div>`;
+            out.scrollTop = out.scrollHeight;
+        },
+        
+        async createHash(text) {
+            const msgBuffer = new TextEncoder().encode(text);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 12).toUpperCase();
+        }
+    };
+
+    async function createAct() {
+        const content = prompt("Descreva sua Vontade (O Ato a ser selado):");
+        if (!content) return;
+
+        const hash = await NexusCore.createHash(content + Date.now());
+        const act = { id: `C137-${hash}`, content, date: new Date().toLocaleString() };
+        
+        let bunker = JSON.parse(localStorage.getItem('c137_bunker') || '[]');
+        bunker.push(act);
+        localStorage.setItem('c137_bunker', JSON.stringify(bunker));
+        
+        NexusCore.log(`Ato ${act.id} selado com sucesso na geometria C137.`);
+        renderBunker();
+    }
+
+    function renderBunker() {
+        const list = document.getElementById('bunker-list');
+        const bunker = JSON.parse(localStorage.getItem('c137_bunker') || '[]');
+        list.innerHTML = bunker.map(act => `
+            <div class="bunker-slot">
+                <strong>ID: ${act.id}</strong><br>
+                <small>${act.date}</small><br>
+                <p>${act.content.substring(0, 50)}...</p>
+            </div>
+        `).join('');
+    }
+
+    function exportBunker() {
+        const data = localStorage.getItem('c137_bunker');
+        const blob = new Blob([data], {type: 'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'meu_laboratorio.nexus';
+        a.click();
+        NexusCore.log("Cofre exportado. Sua alma digital está segura.");
+    }
+
+    function openOntology() {
+        alert("DICIONÁRIO LABRIOLAG:\n\nSats: Energia da Ação\nBunker: Gaveta Particular\nHash: O Apelido da Estrela\nNexus: O Elo entre Humanos");
+    }
+
+    window.onload = renderBunker;
+</script>
+
+</body>
+</html>
