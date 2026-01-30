@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+xxxOCTYPE html>
+html lang="pt-BR">
+head>
+    eta charset="UTF-8">
+    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LAB-NEXUS | Sovereign OS</title>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    <style>
+    <s
+        pt 
+ href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    style>
         :root {
             --gold: #C5A059; --bg: #050505; --surface: #121212; --cyan: #00F2FF;
-            --glass: blur(15px) saturate(180%);
+            --glass: blkfur(15px) saturate(180%);
         }
 
         body {
@@ -58,8 +59,9 @@
             background: var(--gold); color: #000; border: none; padding: 18px;
             border-radius: 15px; font-weight: bold; width: 100%; margin-top: 20px;
         }
-    </style>
-</head>
+    <
+    /style>
+</hed>
 <body>
 
     <div class="user-header" onclick="toggleProfile()">
